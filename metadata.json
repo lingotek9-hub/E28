@@ -1,0 +1,6 @@
+{
+  "name": "ELEX 28 - Electronics Engineering Portal",
+  "description": "The official academic portal and interactive 3D visual platform for ELEX 28 Electronics Engineering, featuring specializations in Communications, Computer & Networks, and Industrial Engineering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

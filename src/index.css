@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0C0C0E;
+    --cu: #E08A52;
+    --cu2: #F7A468;
+    --ink: #F6F2EB;
+    --mute: #9A9EA6;
+    --cy: #5AA9D6;
+    --spec-comm: #32D6FF;
+    --spec-net: #3C86E8;
+    --spec-ind: #FF8A00;
+  }
+
+  body {
+    font-family: 'Sora', 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--ink);
+  }
+}
+
+.font-arabic {
+  font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0c0e;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(224, 138, 82, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(224, 138, 82, 0.6);
+}
+
+/* Subtle glowing circuit background grid */
+.circuit-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.circuit-grid-copper {
+  background-size: 28px 28px;
+  background-image: 
+    linear-gradient(to right, rgba(224, 138, 82, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(224, 138, 82, 0.05) 1px, transparent 1px);
+}
