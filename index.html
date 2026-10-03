@@ -14,15 +14,15 @@ body{font-family:'Sora',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Aria
 #gl.on{opacity:1}
 .vig{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,transparent 38%,rgba(6,6,8,.8) 100%)}
 .stage{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 6vw;text-align:center}
-#logoWrap{width:min(92vw,clamp(230px,58vw,680px));will-change:transform}
+#logoWrap{width:clamp(250px,58vw,680px);will-change:transform}
 #logo{display:block;width:100%;overflow:visible;filter:drop-shadow(0 7px 8px rgba(0,0,0,.55))}
 #logo circle{filter:drop-shadow(0 0 5px #F7A468)}
 .rv{opacity:0;transform:translateY(16px);transition:opacity 1.3s cubic-bezier(.2,.7,.2,1),transform 1.3s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
 h1{margin:clamp(18px,4vh,40px) 0 0;font-weight:700;font-size:clamp(28px,5vw,62px);letter-spacing:.16em;padding-left:.16em;line-height:1.1;color:var(--ink)}
 .sub{margin:clamp(8px,1.5vh,14px) 0 0;font-weight:300;font-size:clamp(10px,1.25vw,15px);letter-spacing:.44em;padding-left:.44em;color:var(--mute)}
-.ctaW{margin-top:clamp(26px,6vh,56px);max-width:100%}
-.cta{position:relative;overflow:hidden;font:400 12px/1 inherit;font-family:inherit;letter-spacing:.34em;padding:17px 36px 17px calc(36px + .34em);color:var(--ink);background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(224,138,82,.7);border-radius:2px;cursor:pointer;transition:transform .35s ease,border-color .35s ease,background .35s ease,box-shadow .35s ease;max-width:calc(100vw - 32px);white-space:nowrap;box-sizing:border-box}
+.ctaW{margin-top:clamp(26px,6vh,56px)}
+.cta{position:relative;overflow:hidden;font:400 12px/1 inherit;font-family:inherit;letter-spacing:.34em;padding:17px 36px 17px calc(36px + .34em);color:var(--ink);background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(224,138,82,.7);border-radius:2px;cursor:pointer;transition:transform .35s ease,border-color .35s ease,background .35s ease,box-shadow .35s ease}
 .cta::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 32%,rgba(247,164,104,.3) 50%,transparent 68%);transform:translateX(-125%)}
 .cta:hover,.cta.fire{transform:translateY(-2px);border-color:var(--cu2);background:rgba(255,255,255,.075);box-shadow:0 0 30px rgba(224,138,82,.24),inset 0 0 18px rgba(224,138,82,.08)}
 .cta:hover::before{transform:translateX(125%);transition:transform .9s ease}
@@ -48,6 +48,9 @@ h1{margin:clamp(18px,4vh,40px) 0 0;font-weight:700;font-size:clamp(28px,5vw,62px
 <div id="pulse"></div><div id="veil"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+if(location.hash && location.hash !== '#/' && location.hash !== ''){
+  history.replaceState(null, '', location.pathname + location.search);
+}
 const $=s=>document.querySelector(s),at=(ms,f)=>setTimeout(f,ms),cl=(v,a,b)=>Math.min(b,Math.max(a,v));
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const L={w:1000,h:529,d:["M389 91L389 173 408 154 409 100 490 21 601 21 682 102 681 198 480 390 481 439 691 440 777 528 908 528 996 441 998 315 951 262 998 212 998 93 907 1 778 0 694 81 609 1 482 1Z", "M1 81L0 445 80 527 297 528 388 435 391 437 393 528 712 527 694 508 414 508 411 505 412 365 614 171 614 120 585 90 508 89 478 117 476 151 296 323 295 389 269 418 115 420 110 415 110 321 113 318 204 317 308 210 113 209 110 206 110 112 113 109 301 109 408 2 84 1Z", "M785 21L898 21 978 101 978 204 922 262 978 323 978 429 899 508 786 508 705 424 705 323 762 262 704 203 704 102Z", "M93 21L356 21 358 24 292 89 89 91 91 229 259 231 193 298 89 300 91 439 278 438 316 396 315 334 496 160 497 128 515 110 573 109 593 128 592 164 392 355 390 403 288 508 91 508 21 437 21 92Z", "M733 263L684 316 684 415 681 419 504 419 501 415 502 398 688 220Z", "M802 299L773 329 774 409 804 439 882 439 910 408 909 328 876 297Z", "M801 90L772 121 773 199 804 229 881 228 909 198 908 117 879 89Z", "M811 319L870 318 888 336 889 400 873 418 813 419 795 401 794 338Z", "M810 110L869 109 888 126 889 189 872 208 813 209 795 192 794 127Z"]};
@@ -66,14 +69,12 @@ const S=P.map((p,i)=>i).sort((a,b)=>P[b].len-P[a].len).slice(0,6).map(i=>({i,c:m
 const pulse=()=>{pl.setAttribute('d',L.d[Math.floor(Math.random()*L.d.length)]);pl.animate([{strokeDashoffset:0,opacity:0},{opacity:.95,offset:.15},{opacity:.95,offset:.8},{strokeDashoffset:-1,opacity:0}],{duration:2400,easing:'ease-in-out'})};
 const sheen=()=>{shine.setAttribute('opacity',1);shine.animate([{transform:'translateX(0)'},{transform:`translateX(${L.w*1.5}px)`}],{duration:2200,easing:'ease-in-out'})};
 let G=0,boost=0,busy=false,mx=0,my=0,done=false;
-const T0=performance.now(),ST=Math.min(100,1000/P.length),ease=q=>q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;
-const ambient=()=>{if(RM)return;at(1800,pulse);setInterval(pulse,7000);setInterval(sheen,9000)};
-function final(){fill.setAttribute('opacity',1);P.forEach(p=>{p.style.strokeDashoffset=0;p.style.opacity=.4});G=.45;done=true;['#t1','#t2','#ctaW'].forEach(s=>{const el=$(s);if(el)el.classList.add('in')});ambient()}
-if(RM||location.hash==='#/explore'){final()}else{
- at(3300,()=>{fill.animate([{opacity:0},{opacity:1}],{duration:1700,fill:'forwards',easing:'ease-out'});P.forEach(p=>{p.style.transition='opacity 1.6s';p.style.opacity=.4});G=.45;at(1500,sheen)});
- at(4900,()=>{const el=$('#t1');if(el)el.classList.add('in')});
- at(5300,()=>{const el=$('#t2');if(el)el.classList.add('in')});
- at(5800,()=>{const el=$('#ctaW');if(el)el.classList.add('in');ambient()});
+const T0=performance.now(),ST=Math.min(60,800/P.length),ease=q=>q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;
+const ambient=()=>{if(RM)return;at(1200,pulse);setInterval(pulse,6000);setInterval(sheen,8000)};
+function final(){fill.setAttribute('opacity',1);P.forEach(p=>{p.style.strokeDashoffset=0;p.style.opacity=.4});G=.45;done=true;['#t1','#t2','#ctaW'].forEach(s=>$(s).classList.add('in'));ambient()}
+if(RM){final()}else{
+ at(1400,()=>{fill.animate([{opacity:0},{opacity:1}],{duration:1100,fill:'forwards',easing:'ease-out'});P.forEach(p=>{p.style.transition='opacity 1.2s';p.style.opacity=.4});G=.45;at(500,sheen)});
+ at(1800,()=>$('#t1').classList.add('in'));at(2100,()=>$('#t2').classList.add('in'));at(2400,()=>{$('#ctaW').classList.add('in');ambient()});
 }
 at(150,()=>$('#gl').classList.add('on'));
 /* 3D environment */
@@ -122,9 +123,9 @@ function loop(ms){const t=ms*.001,now=performance.now()-T0;
  sx+=((RM?0:mx+Math.sin(t*.17)*.22)-sx)*.04;sy+=((RM?0:my+Math.cos(t*.13)*.16)-sy)*.04;
  wrap.style.transform=`translate3d(${sx*7}px,${sy*5}px,0)`;
  halo.setAttribute('opacity',gl*(.8+.2*Math.sin(t*1.1)));
- if(!done){let fin=true;P.forEach((p,i)=>{const q=cl((now-1200-i*ST)/1500,0,1);if(q<1)fin=false;p.style.strokeDashoffset=1-ease(q)});
-  S.forEach(s=>{const p=P[s.i],q=cl((now-1200-s.i*ST)/1500,0,1);s.c.setAttribute('opacity',q>0&&q<1?1:0);if(q>0&&q<1){const pt=p.getPointAtLength(ease(q)*p.len);s.c.setAttribute('cx',pt.x);s.c.setAttribute('cy',pt.y)}});
-  if(fin&&now>3500)done=true}
+ if(!done){let fin=true;P.forEach((p,i)=>{const q=cl((now-250-i*ST)/1300,0,1);if(q<1)fin=false;p.style.strokeDashoffset=1-ease(q)});
+  S.forEach(s=>{const p=P[s.i],q=cl((now-250-s.i*ST)/1300,0,1);s.c.setAttribute('opacity',q>0&&q<1?1:0);if(q>0&&q<1){const pt=p.getPointAtLength(ease(q)*p.len);s.c.setAttribute('cx',pt.x);s.c.setAttribute('cy',pt.y)}});
+  if(fin&&now>2400)done=true}
  if(T){const{R,sc,cam,gB,gM,gF,grid,cm,W,RG,pts,paths,dp,dg}=T;
   gB.position.set(-sx*.35,sy*.22,0);gM.position.set(-sx*.7,sy*.45,0);gF.position.set(-sx*1.3,sy*.8,0);
   grid.position.z=-6+(t*(.5+bst*3.5))%1;grid.material.opacity=.4+bst*.45;cm.opacity=.2+bst*.6;
@@ -188,26 +189,11 @@ addEventListener('hashchange',route);if(location.hash==='#/explore')route();
 #lt{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,rgba(50,214,255,.08),transparent 65%);pointer-events:none;opacity:0;transition:opacity .5s;z-index:5}
 .sp #lt{opacity:1}
 @media(hover:none){#lt{display:none}}
-@media(max-width:820px){
-.wrap{flex-direction:column;height:auto;width:100%;gap:18px}
-.wc{flex:none;height:min(72svh,520px);min-height:380px;touch-action:pan-y}
-.ft{font-size:9px}
-#sp,#pg,#home,#svcv{-webkit-overflow-scrolling:touch}
-}
-@media(max-width:480px){
-.cta{padding:15px 22px 15px calc(22px + .26em);font-size:11px;letter-spacing:.26em}
-h1{font-size:clamp(24px,7vw,42px);letter-spacing:.12em;padding-left:.12em}
-.sub{letter-spacing:.26em;padding-left:.26em;font-size:10px}
-.wc{min-height:350px}
-.sph h2{font-size:clamp(15px,4.5vw,20px);letter-spacing:.32em;padding-left:.32em}
-.mn{min-width:44px;min-height:44px}
-.stats>div{padding:12px 6px}
-.stats b{font-size:26px}
-}
+@media(max-width:820px){.wrap{flex-direction:column;height:auto;width:100%}.wc{flex:none;height:min(76svh,600px);min-height:430px}.ft{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.wc,.sph,.ft,#pg>*{transition-duration:.01s!important}}
 </style>
 <svg id="rad" aria-hidden="true"></svg><div id="lt"></div>
-<section id="sp"><header class="sph"><div class="mk"><a href="#/" style="color:inherit;text-decoration:none;cursor:pointer">ELEX 28</a></div><h2>SPECIALIZATION</h2><p class="ar" lang="ar" dir="rtl">اختر مسارك… وابدأ فصلًا جديدًا.</p><a href="#/" style="display:inline-block;margin-top:8px;font-size:11px;letter-spacing:.25em;color:var(--cu2);text-decoration:none">&larr; العودة للرئيسية / HOME</a></header><div class="wrap" id="wrap"></div><div class="ft">ONE IDENTITY. THREE ENGINEERING WORLDS. ONE JOURNEY.</div></section>
+<section id="sp"><header class="sph"><div class="mk">ELEX 28</div><h2>SPECIALIZATION</h2><p class="ar" lang="ar" dir="rtl">اختر مسارك… وابدأ فصلًا جديدًا.</p></header><div class="wrap" id="wrap"></div><div class="ft">ONE IDENTITY. THREE ENGINEERING WORLDS. ONE JOURNEY.</div></section>
 <style>
 #nv{position:fixed;top:0;left:0;right:0;z-index:40;display:none;align-items:center;gap:clamp(12px,2vw,28px);padding:calc(env(safe-area-inset-top,0px) + 12px) clamp(16px,3vw,36px) 12px;background:rgba(12,12,14,.74);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07)}
 .hn #nv{display:flex}.sv .stage{display:none}
@@ -271,7 +257,133 @@ a.ch[href]:hover{border-color:var(--ac);transform:translateY(-2px)}a.ch:focus-vi
 .sc{padding:22px 20px 20px}}
 </style>
 <nav id="nv" aria-label="Specialization navigation"><a class="nb" href="#/">ELEX 28</a><a class="bk" href="#/specializations">&larr; <span class="lg">Back to Specializations</span><span class="sm">Specializations</span></a><button class="mn" type="button" aria-expanded="false" aria-label="Menu"><i></i><i></i><i></i></button><div class="nl"><a data-k="">Overview</a><a data-k="materials">Materials</a><a data-k="exams">Past Exams</a><a data-k="channels">Channels</a><a data-k="info">Info</a></div></nav>
-<main id="home" aria-label="Specialization home"></main><main id="svcv"></main>
+<main id="home" aria-label="Specialization home"></main><style>
+#gde{position:fixed;inset:0;display:none;overflow-y:auto;overflow-x:hidden;font-family:'IBM Plex Sans Arabic','Sora',system-ui,sans-serif;--bl:#0E4DA4;scroll-behavior:auto}
+.gd #gde{display:block}.gd .stage{display:none}
+#gde .r{transition-delay:var(--d,0s)}
+.gh{position:relative;min-height:100svh;display:flex;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 96px) clamp(18px,5vw,64px) 56px;background:radial-gradient(ellipse at 20% 40%,rgba(7,27,52,.9),transparent 65%)}
+#gv{position:absolute;inset:0;pointer-events:none}.gs{position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,rgba(7,27,52,.9),rgba(12,12,14,.5) 45%,rgba(12,12,14,.08)),linear-gradient(transparent 78%,#0C0C0E)}
+.gfb{display:none;position:absolute;left:6%;top:18%;width:50%;color:var(--ac);opacity:.7}.nogl .gfb{display:block}.gdl{stroke-dasharray:6 8;animation:gdd 3s linear infinite}@keyframes gdd{to{stroke-dashoffset:-56}}
+.gl{position:absolute;left:0;top:0;pointer-events:auto;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font:inherit}.gl i{display:block;width:12px;height:12px;margin:-6px;border:1px solid var(--ac);border-radius:50%;transition:background .3s}
+.gl span{position:absolute;top:10px;left:10px;white-space:nowrap;font-size:10px;letter-spacing:.24em;opacity:.8}.gl small{display:block;font-size:12px;letter-spacing:0;margin-top:2px}.gl em{display:none;font-style:normal;font-size:11px;letter-spacing:0;color:var(--mute);margin-top:4px;white-space:normal;width:150px}
+.gl:hover i,.gl:focus-visible i{background:var(--ac)}.gl:hover em,.gl:focus-visible em,.gl:active em{display:block}.gl:focus-visible{outline:1px solid var(--cy);outline-offset:6px}
+.gc{position:relative;z-index:2;max-width:600px}.gk{font:700 11px Sora,sans-serif;letter-spacing:.3em;color:var(--ac)}
+.gc h1{margin:18px 0 4px;font-size:clamp(38px,6vw,76px);line-height:1.1;font-weight:600}.ge{font:300 clamp(11px,1.3vw,15px) Sora,sans-serif;letter-spacing:.4em;color:var(--mute);direction:ltr;text-align:right}
+.gp{font-size:clamp(17px,1.9vw,23px)!important;color:var(--ink)!important;margin:24px 0 8px!important;font-weight:500}.gc p{color:var(--mute);line-height:1.9;font-size:clamp(14px,1.2vw,16px);margin:0}
+.gsec{width:min(1200px,100%);margin:0 auto;padding:clamp(48px,9vh,96px) clamp(18px,4vw,40px) 0;scroll-margin-top:104px}
+.gq{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}.gq>div{padding:18px 16px;border-inline-start:1px solid rgba(255,255,255,.08)}.gq>div:first-child{border:0}.gq small{display:block;font:10px Sora,sans-serif;letter-spacing:.28em;color:var(--ac);margin-bottom:6px}.gq b{font:400 13px/1.7 Sora,sans-serif;direction:ltr;display:block;text-align:start}
+.gn{position:sticky;top:calc(env(safe-area-inset-top,0px) + 53px);z-index:20;display:flex;gap:4px;overflow-x:auto;padding:0 clamp(12px,3vw,36px);background:rgba(12,12,14,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none}
+.gn button{flex:none;min-height:44px;padding:0 14px;background:none;border:0;border-bottom:2px solid transparent;color:var(--mute);font:11px Sora,sans-serif;letter-spacing:.2em;cursor:pointer}.gn button[aria-current]{color:var(--ink);border-color:var(--ac)}.gn button:focus-visible,.tabs button:focus-visible,.wf button:focus-visible,.seg button:focus-visible,.gb>*:focus-visible,.so a:focus-visible,.gcd2 a:focus-visible,.sal a:focus-visible,summary:focus-visible{outline:1px solid var(--cy);outline-offset:3px}
+.gsh{display:flex;gap:clamp(14px,2.4vw,28px);align-items:flex-end;margin-bottom:26px}.gsh>b{font:200 clamp(44px,7vw,84px)/1 Sora,sans-serif;color:transparent;-webkit-text-stroke:1px var(--ac);opacity:.55}.gsh h2{margin:0;font-size:clamp(22px,2.8vw,34px);font-weight:600}.gsh p{margin:6px 0 0;color:var(--mute);font-size:14px;line-height:1.7}
+.gt{max-width:760px;font-size:clamp(15px,1.4vw,18px);line-height:2;color:#d3d6dc;margin:0 0 30px}
+.fl{display:flex;overflow-x:auto;padding-bottom:8px}.fn{flex:none;min-width:130px;padding:16px 14px;border:1px solid rgba(255,255,255,.12);text-align:center;position:relative;margin-inline-end:26px}.fn b{display:block;font-size:16px}.fn small{font:10px Sora,sans-serif;letter-spacing:.2em;color:var(--ac)}.fn:not(:last-child)::after{content:"";position:absolute;inset-inline-end:-26px;top:50%;width:26px;height:1px;background:linear-gradient(90deg,var(--ac) 40%,transparent 40%);background-size:8px 1px;animation:gfl 1s linear infinite}@keyframes gfl{to{background-position:8px 0}}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:12px;margin-top:12px}
+.gcd,.gcd2,.sal{border:1px solid rgba(255,255,255,.1);padding:18px;background:repeating-linear-gradient(0deg,transparent 0 23px,rgba(255,255,255,.02) 23px 24px)}.gcd summary{cursor:pointer;list-style:none;min-height:44px}.gcd summary::-webkit-details-marker{display:none}.gcd summary b{display:block;font-size:17px}.gcd summary small,.gcd2>small,.sal>small{font:10px Sora,sans-serif;letter-spacing:.24em;color:var(--ac);display:block}.gcd>div{margin-top:12px}
+.gcd2>b{display:block;font-size:17px;margin:6px 0}.gcd2 p,.sal p{margin:8px 0 0;color:var(--mute);font-size:14px;line-height:1.8}.gcd2 em,.sal em{display:block;font:11px Sora,sans-serif;color:var(--mute);letter-spacing:.1em;direction:ltr;text-align:start}.gcd2 a,.sal a{color:var(--ac);font-size:13px;text-decoration:none;border-bottom:1px solid var(--ac)}
+.cp{display:inline-block;padding:6px 12px;border:1px solid rgba(255,255,255,.15);font-size:13px;margin:0 0 8px 8px;direction:ltr}.cp.mt{color:var(--mute);border-style:dashed}
+.bal{margin:10px 0 20px;max-width:640px}.bt{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}.bk{position:relative;height:6px;background:rgba(255,255,255,.1)}.bk i{position:absolute;top:-4px;bottom:-4px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:.7;animation:gbp 3s ease-in-out infinite}@keyframes gbp{50%{opacity:.35}}.bal small{font:11px Sora,sans-serif;color:var(--mute)}
+.tabs,.wf{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px}.tabs button,.wf button{flex:none;min-height:48px;padding:8px 16px;background:none;border:1px solid rgba(255,255,255,.14);color:var(--ink);cursor:pointer;font:inherit;text-align:start}.tabs small,.wf small{display:block;font:9px Sora,sans-serif;letter-spacing:.24em;color:var(--ac)}.tabs button[aria-selected=true],.wf button[aria-selected=true]{border-color:var(--ac);background:rgba(50,214,255,.06)}
+.wd{font-size:16px;line-height:1.9;margin:0 0 8px;min-height:3.2em}.nt{color:var(--mute);font-size:13px;line-height:1.9;margin:10px 0;max-width:760px;border-inline-start:2px solid var(--ac);padding-inline-start:12px}
+.dl{display:flex;overflow-x:auto;gap:0}.dl>div{flex:none;min-width:150px;padding:14px 16px;border-inline-start:1px solid var(--ac);position:relative}.dl small{font:12px Sora,sans-serif;color:var(--ac)}.dl b{display:block;margin:4px 0}.dl em{font:11px Sora,sans-serif;color:var(--mute);font-style:normal;direction:ltr;display:block}
+.rq{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px}.rq em{font-style:normal;color:var(--mute);font-size:11px}
+.tw{overflow-x:auto;border:1px solid rgba(255,255,255,.1)}table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px;line-height:1.7}th,td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:start;vertical-align:top}thead th{font:10px Sora,sans-serif;letter-spacing:.2em;color:var(--ac)}tbody th{color:var(--ink);font-weight:600;position:sticky;inset-inline-start:0;background:#0C0C0E}td{color:#c3c6cc}
+.sal b{display:block;font:600 24px Sora,sans-serif;margin:8px 0 2px;direction:ltr;text-align:start}.sal b i{font:300 12px 'IBM Plex Sans Arabic',sans-serif;color:var(--mute)}.sal>span{font:12px Sora,sans-serif;color:var(--mute);display:block;direction:ltr;text-align:start}.sal div{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.sal div small{font:10px Sora,sans-serif;color:var(--mute)}
+.lv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.lv>div{border:1px solid rgba(255,255,255,.1);padding:14px}.lv small{font:10px Sora,sans-serif;color:var(--ac);display:block}.lv b{display:block;margin:4px 0}.lv em{font-style:normal;color:var(--mute);font-size:12px}
+.qq{border:0;border-top:1px solid rgba(255,255,255,.08);padding:16px 0;margin:0}.qq legend{padding:0;font-size:16px;line-height:1.8;display:flex;gap:10px}.qq legend span{font:12px Sora,sans-serif;color:var(--ac);padding-top:4px}.seg{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.seg button{min-height:44px;min-width:92px;padding:0 18px;background:none;border:1px solid rgba(255,255,255,.16);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .3s,background .3s}.seg button[aria-pressed=true]{border-color:var(--ac);background:rgba(50,214,255,.1)}
+.rs{margin-top:18px;padding:20px;border:1px solid rgba(255,255,255,.12)}.pg{height:3px;background:rgba(255,255,255,.1);margin-bottom:14px}.pg i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}.rs p{margin:0;line-height:1.9}.rs small{color:var(--mute);line-height:1.9}
+.ck{list-style:none;padding:0;margin:0 0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px}.ck label{display:flex;gap:10px;align-items:center;min-height:44px;cursor:pointer}.ck input{width:18px;height:18px;accent-color:#32D6FF}
+.pth{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px;flex-wrap:wrap}.pth b{color:var(--ac);font:11px Sora,sans-serif;letter-spacing:.14em;min-width:110px}.pth span{color:#c3c6cc}
+.so{list-style:none;padding:0;margin:0}.so li{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}.so a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);font-size:13px}.so em{font-style:normal;color:var(--mute);font-size:12px}
+.gfin{text-align:center;padding-bottom:30px}.gfin h2{font-size:clamp(24px,3.4vw,40px);margin:0 0 10px}.gfin p{color:var(--mute);margin:0 0 24px}.gb{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.gb>*{min-height:48px;display:inline-flex;align-items:center;padding:0 22px;border:1px solid var(--ac);background:none;color:var(--ink);font:inherit;text-decoration:none;cursor:pointer;transition:background .3s,transform .3s}.gb>*:hover{background:rgba(50,214,255,.1);transform:translateY(-2px)}
+.gl.o em{display:block}
+.term{margin-top:18px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;color:var(--ac);opacity:.85;text-align:start}.term i{display:inline-block;width:7px;height:13px;background:var(--ac);margin-inline-start:4px;vertical-align:-2px;animation:gbl 1s steps(2) infinite}@keyframes gbl{50%{opacity:0}}
+.stk{display:flex;flex-direction:column;gap:6px;max-width:520px;margin-bottom:12px}.stk button{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 16px;background:none;border:1px solid rgba(255,255,255,.14);color:var(--ink);font:inherit;cursor:pointer;text-align:start}.stk small{font:10px Sora,sans-serif;letter-spacing:.2em;color:var(--ac)}.stk button[aria-selected=true]{border-color:var(--ac);background:rgba(50,214,255,.07)}.stk button:focus-visible,.en:focus-visible{outline:1px solid var(--cy);outline-offset:3px}
+.gcd2 p em{display:inline-block;font:9px Sora,sans-serif;letter-spacing:.2em;color:var(--ac);margin-inline-end:6px}
+.ms{display:block;height:3px;width:calc(var(--n)*33%);max-width:100%;background:var(--ac);margin-bottom:6px;opacity:.7}
+.eco{position:relative;height:clamp(330px,52vw,460px);max-width:640px;margin:0 auto 12px}.eco::before{content:"";position:absolute;inset:12%;border:1px dashed rgba(255,255,255,.14);border-radius:50%}
+.ec0{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:112px;height:112px;border:1px solid var(--ac);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font:11px Sora,sans-serif;letter-spacing:.2em;text-align:center;direction:ltr}.ec0 small{font-size:9px;color:var(--ac)}
+.en{position:absolute;transform:translate(-50%,-50%);min-height:48px;min-width:86px;padding:6px 10px;background:#0C0C0E;border:1px solid rgba(255,255,255,.18);color:var(--ink);font:inherit;font-size:13px;cursor:pointer;text-align:center}.en small{display:block;font:9px Sora,sans-serif;letter-spacing:.2em;color:var(--ac)}.en[aria-pressed=true]{border-color:var(--ac);background:rgba(50,214,255,.08)}
+.lvs{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lvs li{border-top:1px solid var(--ac);padding-top:8px}.lvs small{font:9px Sora,sans-serif;letter-spacing:.2em;color:var(--mute);display:block}.lvs b{font:600 17px Sora,sans-serif;display:block;margin:4px 0 2px}.lvs span{font:10px Sora,sans-serif;color:var(--mute)}
+.fv{margin-top:56px;text-align:center;color:var(--ac)}.fv svg{width:min(420px,90%);display:block;margin:0 auto 12px}.fvc{animation:fvp 4s ease-in-out infinite}@keyframes fvp{50%{opacity:.35}}.fv b{display:block;font:700 22px Sora,sans-serif;letter-spacing:.4em;color:var(--ink);padding-left:.4em}.fv small{display:block;font:300 12px Sora,sans-serif;letter-spacing:.4em;color:var(--mute);margin-top:6px}.gfin .fv p{font:600 16px/1.7 Sora,sans-serif;letter-spacing:.2em;color:var(--ink);margin:14px 0 6px}.fv span{color:var(--mute);font-size:14px}
+@media(prefers-reduced-motion:reduce){.term i,.fvc,.gdl,.fn::after,.bk i{animation:none}}
+#gde,#home,#svcv,#sp{-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
+#gl,#hv,#gv{touch-action:pan-y}
+.fl,.dl,.gn,.tabs,.wf,.tw{-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.fl::-webkit-scrollbar,.dl::-webkit-scrollbar,.gn::-webkit-scrollbar,.tabs::-webkit-scrollbar,.wf::-webkit-scrollbar,.tw::-webkit-scrollbar{display:none}
+@media(max-width:820px){
+ .gsec{padding:clamp(28px,5vh,48px) clamp(16px,4vw,28px) 0;scroll-margin-top:96px}
+ .gh{flex-direction:column-reverse;align-items:stretch;padding-top:calc(env(safe-area-inset-top,0px) + 54px);padding-inline:0;min-height:0}
+ #gv{position:relative;inset:auto;height:clamp(230px,36vh,320px);overflow:hidden;touch-action:pan-y}
+ .gs{display:none}
+ .gc{padding:0 clamp(16px,4vw,28px);margin-top:-6px}
+ .gc h1{font-size:clamp(30px,7vw,46px);margin:12px 0 4px}
+ .ge{font-size:11px;letter-spacing:.2em}
+ .gp{font-size:16px!important;margin:14px 0 6px!important}
+ .gsh{gap:10px;align-items:baseline;margin-bottom:18px}
+ .gsh>b{font-size:36px;min-width:32px;line-height:1}
+ .gsh h2{font-size:clamp(19px,4.5vw,26px)}
+ .gt{font-size:14px;line-height:1.8;margin:0 0 22px}
+ .g3{grid-template-columns:1fr;gap:10px}
+ .g2{grid-template-columns:1fr;gap:10px;margin-top:10px}
+ .gcd,.gcd2,.sal{padding:16px;border-radius:2px}
+ .gcd div,.gcd2 div{display:flex;flex-wrap:wrap;gap:6px}
+ .cp{margin:0;padding:5px 10px;font-size:12px}
+ .tabs button,.wf button{min-height:44px;padding:6px 14px;font-size:13px}
+ .wd{font-size:14px;line-height:1.8;min-height:2.6em}
+ .nt{font-size:12px;line-height:1.8;margin:8px 0}
+ .pth{flex-direction:column;gap:4px;padding:8px 0}
+ .pth b{width:100%;font-size:12px;margin-bottom:2px}
+ .pth span{font-size:12px;line-height:1.6;word-break:break-word}
+ .rq{flex-wrap:wrap;gap:4px 10px;padding:8px 0}
+ .rq span{font-size:12px}
+ .rq em{font-size:10px}
+ .so a{font-size:12px;word-break:break-word}
+ .so em{font-size:11px}
+ .tw{overflow-x:auto;margin-inline:-4px;width:calc(100% + 8px);border-radius:2px}
+ table{min-width:520px;font-size:12px}
+ th,td{padding:10px 12px}
+ tbody th{position:sticky;inset-inline-start:0;background:#0C0C0E;z-index:2;box-shadow:1px 0 0 rgba(255,255,255,.08)}
+ .stk button{padding:10px 14px;min-height:44px}
+ .stk small{font-size:9px;letter-spacing:.12em}
+ .stk b{font-size:14px}
+ .eco{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:60px;margin-bottom:12px}
+ .eco::before{display:none}
+ .ec0{position:absolute;top:0;left:50%;transform:translateX(-50%);width:auto;height:42px;padding:0 18px;border-radius:21px;flex-direction:row;gap:6px;white-space:nowrap;font-size:11px}
+ .en{position:static;transform:none;min-width:0;width:100%;min-height:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;font-size:12px;border-radius:2px}
+ .en small{font-size:8px;letter-spacing:.12em}
+ .en:nth-child(8){grid-column:span 2}
+ .lvs{grid-template-columns:1fr;gap:6px;margin-top:10px}
+ .lvs li{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}
+ .lvs small{display:inline;font-size:10px}
+ .lvs b{display:inline;margin:0;font-size:15px}
+ .lvs span{display:inline;font-size:11px}
+ .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+ .seg button{min-width:0;width:100%;min-height:42px;padding:0;font-size:13px;text-align:center}
+ .qq legend{font-size:14px;line-height:1.6}
+ .rs{padding:14px}
+ .ck{grid-template-columns:1fr;gap:6px}
+ .ck label{min-height:38px;font-size:13px}
+ .gb{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px}
+ .gb>*{min-height:44px;padding:0 16px;font-size:13px;justify-content:center;text-align:center}
+ .gfin h2{font-size:clamp(20px,5vw,28px)}
+ .fv{margin-top:36px}
+ .fv b{font-size:18px;letter-spacing:.25em;padding-left:.25em}
+ .fv small{font-size:11px;letter-spacing:.25em}
+ .gfin .fv p{font-size:14px}
+}
+@media(max-width:560px){
+ .gq{grid-template-columns:1fr}
+ .gq>div{border-inline-start:0;border-bottom:1px solid rgba(255,255,255,.08);padding:12px 14px}
+ .gq>div:last-child{border-bottom:0}
+ .stats{grid-template-columns:1fr 1fr}
+ .stats b{font-size:28px}
+ .sc{padding:18px 16px}
+ .svp{padding-top:calc(env(safe-area-inset-top,0px) + 74px);padding-bottom:36px}
+ .wc{height:min(66svh,520px);min-height:380px}
+ .gb{grid-template-columns:1fr}
+}
+</style>
+<main id="gde"></main><main id="svcv"></main>
 <script>
 (()=>{
 document.head.append(Object.assign(document.createElement('link'),{rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap'}));
@@ -283,7 +395,7 @@ const ptsM=(c,s,o)=>new TH.PointsMaterial({size:s,map:spr(),color:c,transparent:
 const circ=n=>{const p=[];for(let i=0;i<=n;i++){const a=i/n*6.2832;p.push(new TH.Vector3(Math.cos(a),0,Math.sin(a)))}return new TH.BufferGeometry().setFromPoints(p)};
 const bufG=a=>new TH.BufferGeometry().setAttribute('position',new TH.BufferAttribute(a,3));
 const strut=(a,b,r,m)=>{const d=b.clone().sub(a),l=d.length(),s=new TH.Mesh(new TH.CylinderGeometry(r,r,l,6),m);s.position.copy(a).addScaledVector(d,.5);s.quaternion.setFromUnitVectors(new TH.Vector3(0,1,0),d.normalize());return s};
-function base(fov,z,c){const scene=new TH.Scene();scene.fog=new TH.Fog(0x0C0C0E,z,z+7);const cam=new THREE.PerspectiveCamera(fov,1,.1,60);cam.position.set(0,.5,z);scene.add(new TH.AmbientLight(0x9fb4cc,.6));const d=new TH.DirectionalLight(0xffe4c8,1.7);d.position.set(3,4,5);scene.add(d);const p=new TH.PointLight(c,1.5,16);p.position.set(-3,1.5,3.5);scene.add(p);const g=new TH.Group();scene.add(g);
+function base(fov,z,c){const scene=new TH.Scene();scene.fog=new TH.Fog(0x0C0C0E,z,z+7);const cam=new TH.PerspectiveCamera(fov,1,.1,60);cam.position.set(0,.5,z);scene.add(new TH.AmbientLight(0x9fb4cc,.6));const d=new TH.DirectionalLight(0xffe4c8,1.7);d.position.set(3,4,5);scene.add(d);const p=new TH.PointLight(c,1.5,16);p.position.set(-3,1.5,3.5);scene.add(p);const g=new TH.Group();scene.add(g);
  const gr=new TH.GridHelper(9,18,0x1d4f73,0x16283a);gr.position.y=-1.9;gr.material.transparent=true;gr.material.opacity=.5;g.add(gr);return{scene,cam,g,z}}
 /* WORLD 01 — communications */
 function bComm(){const w=base(36,8.2,0x32D6FF),g=w.g,Cu=0xC98A4A,ant=new TH.Group();g.add(ant);
@@ -388,26 +500,15 @@ let W=null,cur=-1,sel=-1,pgId=-1,last=performance.now(),fe=0,fc=0,go=0;
 function setHov(i){if(i===cur)return;cur=i;cards.forEach((c,j)=>c.classList.toggle('on',j===i));wrap.classList.toggle('hv',i>=0)}
 function ensure(){if(W)return;if(!T){bd.classList.add('nogl');return}try{W=SP.map(s=>{const w=s.scene();w.k=w.px=w.py=w.zm=0;w.tp=[0,0];return w})}catch(e){W=null;bd.classList.add('nogl')}}
 function dispose(){if(!W)return;W.forEach(w=>w.scene.traverse(o=>{o.geometry&&o.geometry.dispose();const m=o.material;m&&(Array.isArray(m)?m:[m]).forEach(x=>x.dispose())}));W=null}
-function reset(){sel=-1;cur=-1;cards.forEach(c=>{c.classList.remove('xp','on');c.style.cssText=''});document.querySelectorAll('.spc').forEach(e=>e.remove());spE.classList.remove('go');wrap.classList.remove('go','hv');W&&W.forEach(w=>{w.zm=0;w.k=0})}
+function reset(){sel=-1;cur=-1;cards.forEach(c=>{c.classList.remove('xp','on');c.style.cssText=''});document.querySelectorAll('.spc').forEach(e=>e.remove());spE.classList.remove('go');wrap.classList.remove('go','hv');W&&W.forEach(w=>{w.zm=0;w.k=0});const sv=$('#rad');if(sv)sv.innerHTML=''}
 function open(i){if(sel>=0)return;sel=i;const c=cards[i],r=c.getBoundingClientRect(),s=c.style,x=document.createElement('div');x.className='spc';x.style.cssText=`flex:none;width:${r.width}px;height:${r.height}px`;c.before(x);
  s.cssText=`top:${r.top}px;left:${r.left}px;width:${r.width}px;height:${r.height}px`;c.classList.add('xp');c.offsetWidth;s.top=s.left='0px';s.width='100vw';s.height='100vh';spE.classList.add('go');wrap.classList.add('go');
  at(RM?150:1050,()=>{location.hash=SP[i].route})}
-let tStartX=0,tStartY=0,isDrag=false;
 cards.forEach((c,i)=>{
- c.addEventListener('pointerdown',e=>{tStartX=e.clientX;tStartY=e.clientY;isDrag=false});
  c.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&sel<0)setHov(i)});
  c.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&sel<0){setHov(-1);if(W)W[i].tp=[0,0];c.querySelector('.tt').style.transform=''}});
- c.addEventListener('pointermove',e=>{
-  if(Math.hypot(e.clientX-tStartX,e.clientY-tStartY)>12)isDrag=true;
-  const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*2-1,y=(e.clientY-r.top)/r.height*2-1;
-  if(W)W[i].tp=[x,y];
-  if(e.pointerType==='mouse')c.querySelector('.tt').style.transform=`translate(${x*5}px,${y*3}px)`
- });
- c.addEventListener('click',e=>{
-  if(isDrag){isDrag=false;return}
-  e.preventDefault();
-  open(i);
- })});
+ c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*2-1,y=(e.clientY-r.top)/r.height*2-1;if(W)W[i].tp=[x,y];if(e.pointerType==='mouse')c.querySelector('.tt').style.transform=`translate(${x*5}px,${y*3}px)`});
+ c.addEventListener('click',e=>{e.preventDefault();open(i)})});
 addEventListener('pointermove',e=>{lt.style.transform=`translate(${e.clientX}px,${e.clientY}px)`});
 function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;
  if(!T||!W||!(bd.classList.contains('sp')||bd.classList.contains('pg')))return;const pg=bd.classList.contains('pg');
@@ -450,51 +551,262 @@ function home(i){const s=SP[i],d=CFG.spec[s.id],n=d.semester,st=[['SEMESTER',pad
 function svcPage(i,k){const s=SP[i],d=CFG.spec[s.id];svv.scrollTop=0;
  svv.innerHTML=`<div class="sec svp"><div class="br r"><b>${s.englishTitle}</b></div><svg class="ic big r" viewBox="0 0 48 48" aria-hidden="true">${k.ic}</svg><h1 class="r">${k.en}</h1><h2 class="ar al r" lang="ar" dir="rtl">${k.ar}</h2>${k.key==='channels'?`<div class="cg" style="margin-top:20px">${chans(d)}</div>`:'<div class="empty r"><b>Content is being prepared</b><p>This section will connect to real academic content in a later stage.</p></div>'}<a class="bl r" href="#/specializations/${s.id}">&larr; BACK TO ${s.englishTitle}</a></div>`;
  at(40,()=>svv.querySelectorAll('.r').forEach(e=>e.classList.add('in')))}
-function r2(){
- const rad=$('#rad');
- if(rad) rad.innerHTML='';
- const m=location.hash.match(/^#\/specializations(?:\/([\w-]+))?(?:\/([\w-]+))?/),ix=m?SP.findIndex(s=>s.id===m[1]):-1,sk=ix>=0?SVC.find(s=>s.key===m[2]):null;
- bd.classList.toggle('sp',!!m&&ix<0);bd.classList.toggle('pg',ix>=0&&!sk);bd.classList.toggle('sv',!!sk);bd.classList.toggle('hn',ix>=0);hm.classList.remove('in');nv.classList.remove('open');mn.setAttribute('aria-expanded','false');
+/* ===== Communications Engineering guide (stage 4). Content lives in communicationsEngineeringData. ===== */
+const communicationsEngineeringData={lastUpdated:'2026-10-03',checked:'أكتوبر 2026',
+hero:{label:'ELEX 28 / SPECIALIZATION INTELLIGENCE',title:'هندسة الاتصالات',en:'COMMUNICATIONS ENGINEERING',line:'من الإشارة إلى الشبكة… ومن الموجة إلى العالم.',sub:'تخصص يهتم بكيف تنتقل المعلومات، وكيف تُبنى الشبكات والأنظمة التي تجعل الاتصال ممكنًا.',labels:[['TX','الإرسال','هوائي يحوّل الإشارة لموجة كهرومغناطيسية'],['NETWORK','الشبكة','عقد تنقل الإشارة وتوجهها'],['RX','الاستقبال','مستقبل يعيد الإشارة لمعلومة']]},
+overview:{t:'شنو يعني هندسة الاتصالات؟',p:'هندسة الاتصالات تهتم بالأنظمة اللي بتنقل المعلومة من نقطة لنقطة. الصوت والبيانات بيتحولوا لإشارة، والإشارة بتسافر عبر الهواء أو الألياف الضوئية أو الأقمار الصناعية، وبعدها بتتجمّع الشبكات اللي بتخلي كل ده يشتغل. بتشمل الإشارات (تناظرية ورقمية)، الـ RF والهوائيات، الانتشار Propagation، التضمين Modulation، الألياف، وصلات الميكروويف، شبكات الموبايل، البروتوكولات ومعالجة الإشارات.',flow:[['المصدر','Source'],['الإشارة','Signal'],['الإرسال','Transmission'],['القناة','Channel'],['المستقبل','Receiver'],['المعلومة','Information']],facts:[['FIELD','Communications Engineering'],['FOCUS','Signals • Wireless • RF • Networks • Fiber • Telecom Systems'],['WORK STYLE','Technical + Analytical + Practical + Field/Office'],['CAREER DOMAINS','Telecom • Networking • RF • Fiber • Infrastructure • IoT • Satellite']]},
+studyAreas:{t:'حتدرس شنو فعليًا؟',note:'المواد تختلف حسب الخطة الدراسية والجامعة، لكن المجالات الآتية تمثل الصورة العامة للتخصص.',groups:[
+ {t:'أساسيات الاتصالات',en:'Communication Fundamentals',i:['Signals & Systems','Analog Communications','Digital Communications','Probability & Random Processes','Information Theory']},
+ {t:'RF واللاسلكي',en:'RF & Wireless',i:['Electromagnetic Fields','RF Engineering','Antennas','Microwave Engineering','Propagation','Cellular Communications']},
+ {t:'الشبكات والإرسال',en:'Networks & Transmission',i:['Communication Networks','Optical Fiber','Microwave Links','Transmission Systems','Mobile Networks','Network Architecture']},
+ {t:'معالجة الإشارات',en:'Signal Processing',i:['Digital Signal Processing','Filtering','Sampling','Fourier Analysis','Noise Reduction','Modulation / Demodulation']},
+ {t:'الجانب العملي',en:'Practical / Engineering',i:['Measurements','RF Testing','Network Monitoring','Troubleshooting','System Design','Installation','Maintenance']}]},
+studyLife:{t:'الحياة الدراسية في التخصص',label:'تصور تقريبي لطبيعة الدراسة — يختلف حسب المقرر والجامعة.',a:'نظري',b:'عملي وتطبيقي',range:[40,60],items:['رياضيات وفيزياء','حل مسائل تحليلية','مخططات وإشارات ومعادلات','محاكاة Simulation','معمل وقياسات','تقارير فنية','Troubleshooting','مشاريع'],easy:{t:'هل الدراسة سهلة؟',d:'ما بنقول سهلة ولا صعبة. النجاح هنا بيجي من الانتظام، قوة الأساس الرياضي، فهم المفاهيم بدل الحفظ، وربطها بالتطبيق العملي.'}},
+skills:{t:'شنو حتطلع بيه من التخصص؟',note:'أدوات وتقنيات قد تدخل في المسار حسب الوظيفة والتخصص الفرعي — ما مطلوب منك تتقن كلها.',tabs:[
+ {k:'TECHNICAL',t:'مهارات تقنية',i:['RF Fundamentals','Antenna Concepts','Signal Processing','Digital Communications','Fiber Optics','Mobile Networks','Microwave Links','Network Fundamentals','Transmission Systems','Troubleshooting']},
+ {k:'TOOLS',t:'أدوات',i:['MATLAB','Simulink','Python','CST / HFSS','Packet Tracer','Wireshark','RF planning tools','Network monitoring tools','Spectrum Analyzer (مفهوم)','OTDR (مفهوم)']},
+ {k:'SOFT',t:'مهارات عامة',i:['التواصل التقني','حل المشاكل','التوثيق','العمل الجماعي','التنسيق الميداني','Technical English','إدارة المشاريع','التفكير التحليلي']}]},
+jobs:{t:'الحياة العملية… حتشتغل شنو؟',steps:[['DESIGN','تصميم','تخطيط الشبكات وحساب التغطية والسعة.'],['DEPLOY','تنفيذ','تركيب المواقع والأنظمة والإشراف على التنفيذ.'],['TEST','اختبار','قياسات، فحص ألياف ووصلات، وقبول الأنظمة.'],['MONITOR','مراقبة','متابعة أداء الشبكة والأعطال.'],['TROUBLESHOOT','معالجة','تحديد سبب العطل وإصلاحه خطوة بخطوة.'],['OPTIMIZE','تحسين','رفع الجودة والتغطية، تقارير فنية، والتنسيق مع الموردين.']],note:'بعض الوظائف مكتبية وبعضها فيه عمل ميداني كبير — حسب الدور والشركة.'},
+careerLevels:{t:'المسارات الوظيفية',note:'أمثلة وليست تدرجًا مضمونًا. مسارك يعتمد على المهارات والخبرة وجهة العمل والشهادات.',l:[
+ {k:'LEVEL 1',t:'مبتدئ',i:['Telecom Engineer','RF Engineer','Transmission Engineer','Network Engineer','Field Engineer','NOC Engineer','Fiber Optic Engineer','Radio Planning Engineer']},
+ {k:'LEVEL 2',t:'متخصص',i:['RF Optimization Engineer','RF Planning Engineer','Core Network Engineer','IP Network Engineer','Microwave Engineer','Transmission Specialist','Telecom Systems Engineer']},
+ {k:'LEVEL 3',t:'متقدم',i:['Senior Telecom Engineer','Network Architect','RF Specialist','Telecom Project Manager','Infrastructure Manager','Solutions Architect','Telecom Technical Lead']}]},
+sectors:{t:'وين ممكن تشتغل؟',l:[['مشغلو الاتصالات','Telecom Operators','موبايل، شركات اتصالات، ISP'],['الشبكات والبنية التحتية','Network & Infrastructure','نقل بيانات، ألياف، IP'],['التقنية وتكامل الأنظمة','Systems Integration','موردو الاتصالات، شركات التقنية'],['الأقمار واللاسلكي','Satellite & Wireless','اتصالات فضائية، ميكروويف'],['إنترنت الأشياء','IoT & Smart Systems','أجهزة متصلة، اتصالات صناعية'],['جهات حكومية وتنظيمية','Government / Regulatory','حيثما توفرت'],['مقاولو الهندسة','Engineering Contractors','تنفيذ، تركيب، صيانة، تشغيل']]},
+misconceptions:{t:'مفاهيم لازم تكون واضحة',l:[['مو إصلاح موبايلات','التخصص هندسة أنظمة اتصالات وشبكات، مو صيانة أجهزة المستخدمين.'],['مو بس شركات الاتصالات','يمتد لـ RF، الشبكات، الإرسال، الألياف، الأقمار، المعالجة والـ IoT.'],['مو ميداني طول الوقت','العمل في الاتصالات ما يعني بالضرورة وظيفة ميدانية دايمًا.']]},
+dayInLife:{t:'يوم في حياة مهندس اتصالات',label:'مثال تخيلي توضيحي — يختلف حسب الوظيفة.',l:[['08:00','مراقبة الشبكة','Network monitoring'],['10:00','اجتماع تقني','Technical meeting'],['12:00','نشاط ميداني','Field / site'],['14:00','اختبار ومعالجة','Testing / troubleshooting'],['16:00','تقارير','Reporting']]},
+sudanMarket:{t:'سوق العمل في السودان',sub:'الصورة الحالية من الوظائف والإعلانات المتاحة',evidence:[
+ {t:'Zain Sudan — Radio Planning Engineer (ZAIN1613)',d:'قسم Technology. المطلوب BSc هندسة كهربائية/اتصالات، خبرة 3 سنوات، معرفة GSM وWCDMA وLTE، أدوات RF Planning وDrive Test، وفهم الانتشار ونظرية الهوائيات.',date:'إغلاق 23 أبريل 2025',u:'https://careers.zain.com/vacancy/172271'},
+ {t:'Zain Sudan — Internship (ZAIN2288)',d:'برنامج تدريب يستهدف خريجي الهندسة الكهربائية والإلكترونيات والرياضيات وتقنية المعلومات.',date:'إغلاق 15 مايو 2026',u:'https://careers.zain.com/vacancy/175119'},
+ {t:'Zain Sudan — إعلانات أقدم منقولة (IP Infrastructure / Carrier Technology Operations)',d:'إعلانات قديمة على موقع تجميع، تُذكر كأمثلة تاريخية فقط وليست فرصًا حالية.',date:'إغلاق يناير 2018',u:'http://jobs4sdn.blogspot.com/search/label/Zain%20-%20Sudan'}],
+ seen:['Radio / RF Planning','Infrastructure Operations','IP Infrastructure (إعلان قديم)','تدريب الخريجين'],unseen:['Transmission','Fiber','NOC','Field Deployment'],unseenNote:'لم نرصد إعلانات موثقة عنها في هذه المراجعة — وهذا لا يعني أنها غير موجودة.',
+ req:[['BSc Electrical / Telecom Engineering','من إعلان موثق'],['3+ سنوات خبرة (لوظيفة متخصصة)','من إعلان موثق'],['GSM / WCDMA / LTE','من إعلان موثق'],['RF Planning & Drive Test tools','من إعلان موثق'],['Technical English','متطلب عام في الصناعة'],['Troubleshooting','متطلب عام في الصناعة']],
+ notes:['مؤشر السوق هنا مبني على الوظائف والإعلانات التي أمكن رصدها، وليس نسبة رسمية من إجمالي وظائف السودان.','السوق يتغير مع الشركات، المشاريع، البنية التحتية والظروف الاقتصادية.','لا تتوفر بيانات عامة موثوقة كافية لإعطاء نسبة دقيقة.']},
+gulfMarket:{t:'السودان مقابل الخليج',cols:['السودان','الخليج'],rows:[['جهات العمل','مشغلو اتصالات، مقاولو بنية تحتية (حسب ما رُصد)','مشغلون، موردون ومتكاملو أنظمة ومقاولون'],['بيئة العمل','تتأثر بالشركة والمشاريع والظروف','تتأثر بالشركة والمدينة'],['العمل الميداني','موجود في أدوار الانتشار والتشغيل','موجود في أدوار الانتشار والتشغيل'],['عملة الراتب','لا توجد بيانات عامة موثوقة هنا','غالبًا عملة الدولة'],['توفر بيانات الرواتب','محدود جدًا','متاح عبر مواقع مسوح الرواتب مع تفاوت كبير'],['الشهادات والخبرة','تُذكر الخبرة والأدوات في بعض الإعلانات','تختلف حسب الجهة']]},
+salary:{t:'الرواتب… بصورة تقريبية',sub:'الأرقام التالية مؤشرات تقريبية وليست راتبًا مضمونًا.',note:'الراتب يتأثر بالخبرة، الشركة، المدينة، التخصص الدقيق، الشهادات، وطبيعة العقد والبدلات.',cards:[
+ {c:'UAE',role:'Telecommunications Engineer (Etisalat)',loc:'AED 4,250 – 11,250',usd:'≈ $1,150 – $3,050',exp:'راتب أساسي سنوي AED 51k–135k (الربيع 25%–75%) مقسوم على 12',s:'PayScale',u:'https://www.payscale.com/research/AE/Job=Telecommunications_Engineer/Salary/09f713c3/Etisalat',cv:'الدرهم مربوط بالدولار (3.6725)'},
+ {c:'Saudi Arabia',role:'قطاع الاتصالات (كل الوظائف)',loc:'SAR 6,393 – 20,028',usd:'≈ $1,700 – $5,350',exp:'80% من المشاركين، إجمالي شهري شامل المكافآت',s:'Paylab',u:'https://saudiarabia.paylab.com/en/salaryinfo/telecommunications',cv:'الريال مربوط (3.75)'},
+ {c:'Qatar',role:'قطاع الاتصالات (كل الوظائف)',loc:'QAR 8,845 – 24,064',usd:'≈ $2,430 – $6,610',exp:'80% من المشاركين، إجمالي شهري شامل المكافآت',s:'Paylab',u:'https://www.paylab.com/qa/zarplaty/telekomun-kac',cv:'الريال مربوط (3.64)'},
+ {c:'Kuwait',role:'قطاع الاتصالات (كل الوظائف)',loc:'KWD 488 – 1,600',usd:'≈ $1,590 – $5,200 (تقريبي)',exp:'80% من المشاركين، إجمالي شهري شامل المكافآت',s:'Paylab',u:'https://www.paylab.com/kw/salarios/telecomunicaciones',cv:'الدينار غير مربوط بالدولار مباشرة؛ التحويل بسعر تقريبي ≈3.25 لم يُراجع لحظيًا'},
+ {c:'Oman',role:'قطاع الاتصالات (كل الوظائف)',loc:'OMR 797 – 2,999',usd:'≈ $2,070 – $7,800',exp:'80% من المشاركين، إجمالي شهري شامل المكافآت',s:'Paylab',u:'https://www.paylab.com/om/gehalter/telekommunikation',cv:'الريال مربوط (2.6008)'},
+ {c:'Bahrain',role:'قطاع الاتصالات (كل الوظائف)',loc:'BHD 452 – 1,553',usd:'≈ $1,200 – $4,130',exp:'80% من المشاركين، إجمالي شهري شامل المكافآت',s:'Paylab',u:'https://www.paylab.com/bh/salaryinfo/telecommunications',cv:'الدينار مربوط (2.6596)'}],
+ cardNote:'نطاقات Paylab تشمل كل وظائف قطاع الاتصالات (من فني إلى متخصص) وليست لخريج جديد تحديدًا.',
+ levels:[['0–2 سنة','Junior / Graduate'],['2–5 سنوات','Engineer / Specialist'],['5–10 سنوات','Senior / Specialist'],['10+ سنة','Lead / Architect / Manager']],levelNote:'تفاوت كبير — لا تتوفر بيانات عامة موثوقة كافية لأرقام دقيقة لكل مستوى. مثال واحد: PayScale يعرض لمهندسي الاتصالات في الإمارات (Mid-Career) راتبًا أساسيًا سنويًا بين AED 85k و155k (الربيع 25%–75%).'},
+roadmap:{t:'لو داير تكون جاهز لسوق العمل…',stages:[['NOW','الآن',['Networking fundamentals','Linux basics','Python basics','Technical English','Electronics fundamentals','Signals & Systems']],['NEXT','بعدها',['MATLAB / Simulink','Packet Tracer','Wireshark','RF fundamentals','Fiber optics','Network troubleshooting']],['LATER','لاحقًا',['اختر اتجاهًا: RF • Networking • Fiber • Transmission • Mobile • Satellite • IoT','شهادات','مشاريع','تدريب (Internship)','Portfolio','CV تقني']]],certs:['CCNA','Network+','تدريب الموردين (Vendor)','Cloud fundamentals','Linux','Python','Cybersecurity fundamentals'],certNote:'الشهادات اختيارية وليست شرطًا.',paths:[['RF',['Student','RF Fundamentals','RF Planning','RF Optimization','Senior RF Engineer']],['NETWORKS',['Student','Networking','NOC / Network Engineer','Network Specialist','Network Architect']],['TRANSMISSION',['Student','Fiber / Microwave','Transmission Engineer','Specialist','Senior / Lead']],['TELECOM SYSTEMS',['Student','Telecom Fundamentals','Systems / Operations','Telecom Specialist','Technical Lead']]],pathNote:'أمثلة لمسارات وليست ضمانات.'},
+selfAssessment:{t:'هل هندسة الاتصالات مناسبة لي؟',q:[['هل تستمتع بفهم كيف تنتقل الإشارة من مكان لمكان؟','concept'],['هل عندك اهتمام بالشبكات والاتصالات اللاسلكية؟','concept'],['هل الرياضيات والفيزياء بالنسبة لي شيء أستطيع التعامل معه؟','analytic'],['هل أحب حل المشاكل التقنية خطوة بخطوة؟','analytic'],['هل أستمتع بفهم الأجهزة والأنظمة وليس فقط استخدامها؟','hands'],['هل أستطيع العمل في الميدان عند الحاجة؟','hands'],['هل أحب تحليل البيانات والإشارات؟','analytic'],['هل أستمتع بالتجارب والقياسات؟','hands'],['هل عندي استعداد أتعلم أدوات تقنية باستمرار؟','growth'],['هل أستطيع التعامل مع العمل الجماعي والمشاريع؟','growth']],opts:['نعم','أحيانًا','لا'],themes:{concept:'فهم الإشارات والاتصال',analytic:'التفكير التحليلي والرياضي',hands:'الجانب العملي والأجهزة',growth:'التعلم والعمل الجماعي'},bands:[[16,'إجاباتك تشير إلى اهتمام واضح بالجوانب العملية والتحليلية في الاتصالات.'],[9,'إجاباتك متنوعة: في جوانب تناسب التخصص وجوانب تحتاج تجربة وقراءة أكثر قبل القرار.'],[0,'إجاباتك تشير إلى أن الاتصالات قد لا تكون الأقرب لميولك حاليًا — اقرأ عن التخصصين الآخرين وقارن.']],foot:'نتيجتك ليست حكمًا نهائيًا، لكنها تساعدك تفهم ميولك.',check:['هل أحب الاتصالات والإشارات؟','هل أستطيع التعامل مع الرياضيات؟','هل أحب الأنظمة التقنية؟','هل أحب حل المشاكل؟','هل عندي استعداد للتعلم المستمر؟','هل أقبل العمل الميداني عند الحاجة؟','هل أستمتع بالشبكات والبنية التحتية؟','هل أريد بناء خبرة تقنية عميقة؟'],end:'ما في تخصص واحد مناسب للجميع. الفكرة أن تعرف طبيعة الطريق قبل أن تبدأه.'},
+compare:{t:'مقارنة وصفية مع تخصصات ELEX 28',note:'وصف عام للفهم وليس ترتيبًا. التفاصيل تختلف حسب الجامعة والخطة.',cols:['COMMUNICATIONS','COMPUTER & NETWORKS','INDUSTRIAL'],rows:[['التركيز الأساسي','نقل الإشارات والمعلومات','الحوسبة والشبكات والنظم','الأنظمة الصناعية والأتمتة'],['أنظمة نموذجية','RF، ألياف، شبكات الموبايل','معالجات، شبكات، نظم مدمجة','خطوط إنتاج، تحكم، روبوتات'],['أدوات شائعة','MATLAB, Wireshark, أدوات RF','Programming, Linux, Packet Tracer','PLC / SCADA، أدوات المحاكاة'],['عائلات وظائف','Telecom, RF, Transmission','Software, Networks, Embedded','Automation, Process, Maintenance'],['العمل الميداني','موجود في أدوار الانتشار','أقل في الغالب','موجود في المصانع والمواقع'],['البرمجة والعتاد','متوسطة / عتاد وقياسات','برمجة أكثر وعتاد مدمج','تحكم وعتاد صناعي']]},
+sources:[{n:'Zain Careers — Radio Planning Engineer (ZAIN1613)',u:'https://careers.zain.com/vacancy/172271',m:'إعلان وظيفة رسمي'},{n:'Zain Careers — Internship (ZAIN2288)',u:'https://careers.zain.com/vacancy/175119',m:'إعلان رسمي'},{n:'PayScale — Telecommunications Engineer, Etisalat (UAE)',u:'https://www.payscale.com/research/AE/Job=Telecommunications_Engineer/Salary/09f713c3/Etisalat',m:'رواتب مبلّغ عنها'},{n:'Paylab — Telecommunications (Saudi Arabia)',u:'https://saudiarabia.paylab.com/en/salaryinfo/telecommunications',m:'مسح رواتب'},{n:'Paylab — Telecommunications (Qatar)',u:'https://www.paylab.com/qa/zarplaty/telekomun-kac',m:'مسح رواتب'},{n:'Paylab — Telecommunications (Kuwait)',u:'https://www.paylab.com/kw/salarios/telecomunicaciones',m:'مسح رواتب'},{n:'Paylab — Telecommunications (Oman)',u:'https://www.paylab.com/om/gehalter/telekommunikation',m:'مسح رواتب'},{n:'Paylab — Telecommunications (Bahrain)',u:'https://www.paylab.com/bh/salaryinfo/telecommunications',m:'مسح رواتب'}],
+sourcesNote:'تاريخ المراجعة: أكتوبر 2026. لم تُراجع في هذه النسخة إعلانات Sudani / Sudatel أو MTN، ولا مصادر Naukrigulf وIndeed للرواتب.'};
+/* ---- renderer ---- */
+const GD_NAV=[['ov','OVERVIEW'],['st','STUDY'],['sk','SKILLS'],['cr','CAREERS'],['mk','MARKET'],['sl','SALARY'],['sc','SELF CHECK']];
+const gde=$('#gde'),ES=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),chips=a=>a.map(x=>`<span class="cp">${x}</span>`).join('');
+const sh=(n,id,t,s)=>`<div class="gsh r"><b>${n}</b><div><h2>${t}</h2>${s?`<p>${s}</p>`:''}</div></div>`;
+function guideHTML(D){const H=D.hero,O=D.overview,S=D.studyAreas,L=D.studyLife,K=D.skills,J=D.jobs,C=D.careerLevels,M=D.sudanMarket,G=D.gulfMarket,P=D.salary,R=D.roadmap,A=D.selfAssessment,X=D.compare;
+return `<header class="gh"><div id="gv"><svg class="gfb" viewBox="0 0 400 220" aria-hidden="true"><g fill="none" stroke="currentColor"><path d="M60 190V60M45 190h30M60 60l-18-18M60 60l18-18"/><path class="gdl" d="M70 55Q150 20 200 80T330 150"/><circle cx="200" cy="80" r="7"/><circle cx="270" cy="110" r="7"/><circle cx="330" cy="150" r="9"/></g></svg>${H.labels.map((l,i)=>`<button class="gl" type="button" data-i="${i}" aria-label="${l[1]}: ${l[2]}"><i></i><span>${l[0]}<small>${l[1]}</small><em>${l[2]}</em></span></button>`).join('')}</div><div class="gs"></div>
+<div class="gc"><div class="gk r">${H.label}</div><h1 class="r" style="--d:.1s">${H.title}</h1><div class="ge r" style="--d:.15s">${H.en}</div><p class="gp r" style="--d:.25s">${H.line}</p><p class="r" style="--d:.35s">${H.sub}</p>${H.term?`<div class="term r" dir="ltr" style="--d:.45s">${H.term}<i></i></div>`:''}</div></header>
+<div class="gsec"><div class="gq r">${O.facts.map(f=>`<div><small>${f[0]}</small><b>${f[1]}</b></div>`).join('')}</div></div>
+<section class="gsec" id="ov">${sh('01','ov',O.t,'01 — UNDERSTAND THE FIELD')}<p class="gt r">${O.p}</p><div class="fl r" role="list">${O.flow.map(f=>`<div class="fn" role="listitem"><b>${f[0]}</b><small>${f[1]}</small></div>`).join('')}</div>${D.stack?stackHTML(D.stack):''}</section>
+<section class="gsec" id="st">${sh('02','st',S.t,S.note)}<div class="g3">${S.groups.map(g=>`<details class="gcd r" ${innerWidth>820?'open':''}><summary><b>${g.t}</b><small>${g.en}</small></summary><div>${chips(g.i)}</div></details>`).join('')}</div>
+<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${L.t}</h2><p>${L.label}</p></div></div>${L.range?`<div class="bal r"><div class="bt"><span>${L.a}</span><span>${L.b}</span></div><div class="bk"><i style="inset-inline-start:${L.range[0]}%;width:${L.range[1]-L.range[0]}%"></i></div><small>${L.range[0]}–${L.range[1]}%</small></div>`:tpHTML(L)}${L.week?weekHTML(L.week):''}<div class="r">${chips(L.items)}</div><div class="gcd2 r"><b>${L.easy.t}</b><p>${L.easy.d}</p></div></section>
+<section class="gsec" id="sk">${sh('03','sk',K.t,K.note)}<div class="tabs r" role="tablist">${K.tabs.map((t,i)=>`<button type="button" role="tab" aria-selected="${i==0}" data-tab="${i}">${t.t}<small>${t.k}</small></button>`).join('')}</div>${K.tabs.map((t,i)=>`<div class="tp" role="tabpanel" data-p="${i}" ${i?'hidden':''}>${chips(t.i)}</div>`).join('')}${extraSK(D)}</section>
+<section class="gsec" id="cr">${sh('04','cr',J.t,'04 — SEE THE CAREER')}<div class="wf r" role="tablist">${J.steps.map((s,i)=>`<button type="button" role="tab" aria-selected="${i==0}" data-st="${i}"><small>${s[0]}</small><b>${s[1]}</b></button>`).join('')}</div><p class="wd r" id="wd" aria-live="polite">${J.steps[0][2]}</p><p class="nt r">${J.note}</p>
+<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${C.t}</h2><p>${C.note}</p></div></div><div class="g3">${C.l.map(l=>`<div class="gcd2 r"><small>${l.k}</small><b>${l.t}</b><div>${chips(l.i)}</div></div>`).join('')}</div>
+${D.eco?ecoHTML(D.eco):''}<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.sectors.t}</h2></div></div><div class="g3">${D.sectors.l.map((s,i)=>`<div class="gcd2 r"><small>SECTOR 0${i+1}</small><b>${s[0]}</b><em>${s[1]}</em><p>${s[2]}</p></div>`).join('')}</div>
+<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.dayInLife.t}</h2><p>${D.dayInLife.label}</p></div></div><div class="dl r">${D.dayInLife.l.map(d=>`<div><small dir="ltr">${d[0]}</small><b>${d[1]}</b><em>${d[2]}</em></div>`).join('')}</div>
+${D.remote?remoteHTML(D.remote):''}<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.misconceptions.t}</h2></div></div><div class="g3">${D.misconceptions.l.map(m=>`<div class="gcd2 r"><b>${m[0]}</b><p>${m[1]}</p></div>`).join('')}</div></section>
+<section class="gsec" id="mk">${sh('05','mk',M.t,M.sub)}<div class="g3">${M.evidence.map(e=>`<div class="gcd2 r"><small dir="ltr">${e.date}</small><b dir="ltr" style="text-align:start">${e.t}</b><p>${e.d}</p><a href="${e.u}" target="_blank" rel="noopener noreferrer">المصدر ↗</a></div>`).join('')}</div>
+<div class="g2"><div class="gcd2 r"><small>OBSERVED AREAS</small><div>${chips(M.seen)}</div><small style="margin-top:12px">NOT OBSERVED IN THIS REVIEW</small><div>${M.unseen.map(x=>`<span class="cp mt">${x}</span>`).join('')}</div><p>${M.unseenNote}</p></div><div class="gcd2 r"><small>COMMON REQUIREMENTS</small>${M.req.map(q=>`<div class="rq"><span dir="ltr">${q[0]}</span><em>${q[1]}</em></div>`).join('')}</div></div>
+${M.notes.map(n=>`<p class="nt r">${n}</p>`).join('')}${D.sudanSalary?sudanSalHTML(D.sudanSalary):''}
+<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${G.t}</h2></div></div><div class="tw r"><table><thead><tr><th></th>${G.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${G.rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div></section>
+${P.mode?salaryCN(D):`<section class="gsec" id="sl">${sh('06','sl',P.t,P.sub)}<p class="nt r">${P.note}</p><div class="g3">${P.cards.map(c=>`<article class="sal r"><small dir="ltr">${c.c}</small><em dir="ltr">${c.role}</em><b dir="ltr">${c.usd}<i> / شهر</i></b><span dir="ltr">${c.loc} / month</span><p>${c.exp}</p><p>${c.cv}</p><div><a href="${c.u}" target="_blank" rel="noopener noreferrer">${c.s} ↗</a><small>${D.checked}</small></div></article>`).join('')}</div><p class="nt r">${P.cardNote}</p>
+<div class="gsh r" style="margin-top:44px"><b></b><div><h2>الراتب حسب الخبرة</h2></div></div><div class="lv r">${P.levels.map((l,i)=>`<div><small dir="ltr">${l[1]}</small><b>${l[0]}</b><em>تفاوت كبير</em></div>`).join('')}</div><p class="nt r">${P.levelNote}</p></section>`}
+<section class="gsec" id="sc">${sh('07','sc',A.t,'07 — CHECK YOUR FIT')}<div id="qz" class="r">${A.q.map((q,i)=>`<fieldset class="qq"><legend><span dir="ltr">${i+1}</span>${q[0]}</legend><div class="seg">${A.opts.map((o,j)=>`<button type="button" aria-pressed="false" data-q="${i}" data-v="${2-j}">${o}</button>`).join('')}</div></fieldset>`).join('')}</div><div class="rs" id="rs" aria-live="polite"><div class="pg"><i id="pgb"></i></div><p id="rt">أجب عن الأسئلة لتظهر الصورة.</p></div>
+<div class="gsh r" style="margin-top:44px"><b>08</b><div><h2>قبل ما تختار… اسأل نفسك</h2><p>08 — MAKE YOUR OWN DECISION</p></div></div><ul class="ck r">${A.check.map(c=>`<li><label><input type="checkbox"> ${c}</label></li>`).join('')}</ul><p class="gp r">${A.end}</p></section>
+<section class="gsec" id="cmp">${sh('+','cmp',X.t,X.note)}<div class="tw r"><table><thead><tr><th></th>${X.cols.map(c=>`<th dir="ltr">${c}</th>`).join('')}</tr></thead><tbody>${X.rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table></div></section>
+<section class="gsec" id="rd">${sh('+','rd',R.t,R.pathNote)}<div class="g3">${R.stages.map(s=>`<div class="gcd2 r"><small>${s[0]}</small><b>${s[1]}</b><div>${chips(s[2])}</div></div>`).join('')}</div><div class="g2" style="margin-top:12px"><div class="gcd2 r"><small>CAREER PATH EXAMPLES</small>${R.paths.map(p=>`<div class="pth"><b dir="ltr">${p[0]}</b><span dir="ltr">${p[1].join(' → ')}</span></div>`).join('')}</div><div class="gcd2 r"><small>CERTIFICATIONS</small><div>${chips(R.certs)}</div><p>${R.certNote}</p></div></div>${D.projects?projHTML(D.projects):''}</section>
+<section class="gsec" id="src">${sh('+','src','مصادر البيانات','لكل رقم مصدر وتاريخ مراجعة')}<ul class="so r">${D.sources.map(s=>`<li><a href="${s.u}" target="_blank" rel="noopener noreferrer" dir="ltr">${s.n} ↗</a><em>${s.m} — ${D.checked}</em></li>`).join('')}</ul><p class="nt r">${D.sourcesNote}</p><p class="nt r">آخر تحديث للمحتوى: ${D.lastUpdated}</p></section>
+${finalHTML(D)}
+<div class="ft2 sec" style="padding-top:20px;width:100%">ELEX 28 — ELECTRONICS ENGINEERING</div>`}
+function guide(gi){gdisp();gid=gi||0;const D=[communicationsEngineeringData,computerNetworksData][gid];gde.setAttribute('dir','rtl');gde.setAttribute('lang','ar');
+ gde.innerHTML=`<nav class="gn" aria-label="أقسام الصفحة">${GD_NAV.map(n=>`<button type="button" data-t="${n[0]}">${n[1]}</button>`).join('')}</nav>`+guideHTML(D);gde.scrollTop=0;
+ const go=id=>{const e=document.getElementById(id);e&&e.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})};
+ gde.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.t)));
+ reveal(gde);bindX(gde);
+ const nb=[...gde.querySelectorAll('.gn button')],spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)nb.forEach(b=>b.toggleAttribute('aria-current',b.dataset.t===e.target.id))}),{root:gde,rootMargin:'-30% 0px -60% 0px'});GD_NAV.forEach(n=>spy.observe(document.getElementById(n[0])));
+ gde.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{gde.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));gde.querySelectorAll('.tp').forEach(p=>p.hidden=p.dataset.p!==b.dataset.tab)}));
+ gde.querySelectorAll('.wf button').forEach(b=>b.addEventListener('click',()=>{gde.querySelectorAll('.wf button').forEach(x=>x.setAttribute('aria-selected',x===b));$('#wd').textContent=D.jobs.steps[b.dataset.st][2]}));
+ const A=D.selfAssessment,ans=Array(A.q.length).fill(null);
+ gde.querySelector('#qz').addEventListener('click',e=>{const b=e.target.closest('button[data-q]');if(!b)return;const i=+b.dataset.q;ans[i]=+b.dataset.v;b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const n=ans.filter(v=>v!==null).length;$('#pgb').style.width=n/A.q.length*100+'%';if(n<A.q.length){$('#rt').textContent=`أجبت على ${n} من ${A.q.length}`;return}
+  const tot=ans.reduce((a,v)=>a+v,0),th={};A.q.forEach((q,k)=>{th[q[1]]=(th[q[1]]||[0,0]);th[q[1]][0]+=ans[k];th[q[1]][1]+=2});
+  const top=Object.entries(th).sort((a,b)=>b[1][0]/b[1][1]-a[1][0]/a[1][1])[0][0],low=Object.entries(th).sort((a,b)=>a[1][0]/a[1][1]-b[1][0]/b[1][1])[0][0];
+  $('#rt').innerHTML=`${A.bands.find(x=>tot>=x[0])[1]}<br><small>الأقرب لميولك: ${A.themes[top]}. الأقل وضوحًا حاليًا: ${A.themes[low]}.</small><br><small>${A.foot}</small>`});
+}
+/* ---- hero 3D: signal -> transmission -> network -> receiver ---- */
+function bGuide(){const w=base(40,10,0x32D6FF),g=w.g,cu=mat(0xC98A4A,.85,.3),bl=mat(0x1b3d6e,.7,.35),T0=new TH.Vector3(-3.4,1.5,0),R0=new TH.Vector3(3.5,-1,0),NP=[new TH.Vector3(-1.5,1,.1),new TH.Vector3(-.2,.2,.3),new TH.Vector3(1.1,.8,-.2)];
+ g.children[0].position.y=-1.7;
+ const mast=new TH.Mesh(new TH.CylinderGeometry(.04,.1,3.4,8),cu);mast.position.set(-3.4,-.2,0);g.add(mast);
+ for(let i=0;i<3;i++){const p=new TH.Mesh(new TH.BoxGeometry(.14,.5,.07),bl);p.position.set(-3.4+(i-1)*.24,1.3,.05);g.add(p)}
+ const arm=new TH.Mesh(new TH.BoxGeometry(.8,.04,.04),cu);arm.position.set(-3.4,1.05,0);g.add(arm);
+ const nodes=NP.map(p=>{const m=new TH.Mesh(new TH.OctahedronGeometry(.13),new TH.MeshBasicMaterial({color:0x2a5fb0}));m.position.copy(p);g.add(m);return m});
+ const pts=[T0,...NP],cb=col(0x2a5fb0),cc=col(0xCFF6FF);
+ g.add(new TH.Line(new TH.BufferGeometry().setFromPoints(pts),lm(0x32D6FF,.22)));
+ const fp=[NP[2],new TH.Vector3(1.7,.2,0),new TH.Vector3(2.3,-.9,.3),new TH.Vector3(2.9,-1.25,0),R0],fib=new TH.CatmullRomCurve3(fp);
+ g.add(new TH.Mesh(new TH.TubeGeometry(fib,48,.025,6),new TH.MeshBasicMaterial({color:0x32D6FF,transparent:true,opacity:.45})));
+ const rec=new TH.Group();rec.position.copy(R0);const rd=new TH.Mesh(new TH.CylinderGeometry(.34,.04,.14,16),cu);rd.rotation.z=1.2;rec.add(rd);const led=new TH.Mesh(new TH.SphereGeometry(.05,8,8),new TH.MeshBasicMaterial({color:0x9FF0FF}));led.position.set(.25,.2,0);rec.add(led);g.add(rec);
+ const curve=new TH.CatmullRomCurve3([T0,...NP,fp[1],fp[2],fp[3],R0]),TP=7,tp=new Float32Array(TP*3),tg=bufG(tp);g.add(new TH.Points(tg,ptsM(0xCFF6FF,.2,1)));
+ const rg=circ(64),rings=[0,1,2,3,4].map(()=>{const l=new TH.Line(rg,lm(0x32D6FF,0));l.rotation.x=1.5708;l.position.copy(T0);g.add(l);return l});
+ const orb=new TH.Line(rg,lm(0x5AA9D6,.25));orb.scale.setScalar(2.7);orb.position.set(.3,2.5,-1.5);orb.rotation.set(.35,0,.25);g.add(orb);
+ const sat=new TH.Group();sat.add(new TH.Mesh(new TH.BoxGeometry(.2,.14,.14),cu));[-.24,.24].forEach(x=>{const s=new TH.Mesh(new TH.BoxGeometry(.28,.01,.16),bl);s.position.x=x;sat.add(s)});g.add(sat);
+ const NB=24,bars=new TH.InstancedMesh(new TH.BoxGeometry(.07,1,.07),new TH.MeshBasicMaterial({color:0x32D6FF,transparent:true,opacity:.55}),NB),dm=new TH.Object3D();bars.position.set(0,-1.7,1.4);g.add(bars);
+ const labels=[...document.querySelectorAll('.gl')].map((el,i)=>({el,v:[T0.clone().add(new TH.Vector3(.15,.9,0)),NP[1].clone().add(new TH.Vector3(0,.35,0)),R0.clone().add(new TH.Vector3(0,.5,0))][i]}));
+ let ph=0;
+ return Object.assign(w,{labels,upd(t,dt,px,py,sp){ph+=dt*SF0;
+  g.rotation.y=px*.18+(-.12+sp*.5);g.rotation.x=.05+py*.08;
+  const u=(ph*.1)%1,head=curve.getPoint(u);
+  for(let i=0;i<TP;i++){const q=curve.getPoint(Math.max(0,u-i*.012));tp[i*3]=q.x;tp[i*3+1]=q.y;tp[i*3+2]=q.z}tg.attributes.position.needsUpdate=true;
+  nodes.forEach(n=>{const b=Math.max(0,1-n.position.distanceTo(head)/1.1);n.scale.setScalar(1+b*.9);n.material.color.copy(cb).lerp(cc,b)});
+  led.scale.setScalar(1+.6*Math.max(0,1-head.distanceTo(R0)/1.2));
+  rings.forEach((l,i)=>{const s=(ph*.25+i/5)%1;l.scale.setScalar(.2+s*3);l.material.opacity=Math.pow(1-s,1.6)*.5});
+  const a=ph*.25;sat.position.set(.3+Math.cos(a)*2.7,2.5+Math.sin(a)*2.7*.3,-1.5+Math.sin(a)*.6);
+  for(let i=0;i<NB;i++){const h=.1+.55*Math.abs(Math.sin(ph*1.6+i*.55))*(.5+.5*Math.sin(i*.3+ph*.4));dm.position.set(-1.7+i*.148,h/2,0);dm.scale.set(1,h,1);dm.updateMatrix();bars.setMatrixAt(i,dm.matrix)}bars.instanceMatrix.needsUpdate=true}})}
+let GW=null,glast=performance.now();
+function gframe(now){requestAnimationFrame(gframe);const dt=Math.min(.05,(now-glast)/1000);glast=now;
+ if(!T||!bd.classList.contains('gd'))return;if(!GW){try{GW=gid?bGuideCN():bGuide()}catch(e){bd.classList.add('nogl');return}}
+ const el=document.getElementById('gv');if(!el)return;const r=el.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight||r.width<2)return;
+ const R=T.R;GW.upd(now/1000,dt,RM?0:mx,RM?0:my,cl(-r.top/innerHeight,0,1));const a=r.width/r.height;GW.cam.aspect=a;GW.cam.position.z=GW.z*Math.max(1,1.05/a)*(1-.15*cl(-r.top/innerHeight,0,1));GW.cam.lookAt(0,0,0);
+ if(innerWidth>820)GW.cam.setViewOffset(r.width,r.height,r.width*.14,0,r.width,r.height);else GW.cam.clearViewOffset();GW.cam.updateProjectionMatrix();
+ R.autoClear=false;R.setScissorTest(true);const y=innerHeight-r.bottom;R.setViewport(r.left,y,r.width,r.height);R.setScissor(r.left,y,r.width,r.height);R.clearDepth();R.render(GW.scene,GW.cam);R.setScissorTest(false);R.setViewport(0,0,innerWidth,innerHeight);R.autoClear=true;
+ GW.g.updateMatrixWorld();GW.labels.forEach(l=>{const p=l.v.clone().applyMatrix4(GW.g.matrixWorld).project(GW.cam);l.el.style.transform=`translate(${(p.x*.5+.5)*r.width}px,${(-p.y*.5+.5)*r.height}px)`})}
+requestAnimationFrame(gframe);
+function gdisp(){if(!GW)return;GW.scene.traverse(o=>{o.geometry&&o.geometry.dispose();const m=o.material;m&&(Array.isArray(m)?m:[m]).forEach(x=>x.dispose())});GW=null}
+const GD=(ix,sk)=>ix<2&&sk&&sk.key==='info';
+/* ===== Computer & Networks guide (stage 5). Content lives in computerNetworksData; shares the guide renderer. ===== */
+const computerNetworksData={lastUpdated:'2026-10-03',checked:'أكتوبر 2026',slug:'computer-networks',
+hero:{label:'ELEX 28 / SPECIALIZATION INTELLIGENCE',title:'حاسوب وشبكات',en:'COMPUTER & NETWORKS',line:'من سطر برمجي… إلى نظام يعمل، وشبكة تربط العالم.',sub:'مسار يجمع بين البرمجيات، أنظمة الحاسوب، الشبكات، والبنية التقنية التي تقوم عليها الأنظمة الرقمية الحديثة.',term:'$ ping server --via router',labels:[['CPU','Processing','المعالج ينفّذ التعليمات ويشغّل البرامج'],['NETWORK','Connectivity','الأجهزة تتواصل عبر الراوترات والسويتشات'],['SERVER','Services','خوادم تقدّم الخدمات للمستخدمين'],['DATABASE','Data','تخزين البيانات وإدارتها'],['SECURITY','Protection','حماية الأنظمة والشبكات'],['IoT','Connected Systems','أجهزة وحساسات متصلة']]},
+overview:{t:'شنو يعني تخصص حاسوب وشبكات؟',p:'التخصص ده بيتعامل مع كيف بتتبني الكمبيوترات وتشتغل، وكيف البرامج بتتعامل مع العتاد، وكيف الأجهزة بتتواصل عبر الشبكات، وكيف البيانات بتتخزن وتنتقل، وكيف الأنظمة الرقمية بتتصمم وتتدار وتتأمّن وتتصان. ممكن يلمس البرمجة، معمارية الحاسوب، أنظمة التشغيل، قواعد البيانات، الشبكات، الأمن السيبراني، الأنظمة الموزعة، الحوسبة السحابية، الأنظمة المدمجة وإنترنت الأشياء — لكن التوازن بينها يعتمد على الخطة الدراسية والمسار اللي بتختاره.',flow:[['كود','CODE'],['حوسبة','COMPUTE'],['اتصال','CONNECT'],['أمان','SECURE'],['بناء','BUILD'],['نشر','DEPLOY'],['حل','SOLVE']],facts:[['FIELD','Computer & Networks'],['FOCUS','Programming • Systems • Networks • Security • Infrastructure'],['WORK STYLE','Analytical • Technical • Problem Solving • Project-Based'],['CAREER DOMAINS','Software • Networking • Infrastructure • Cybersecurity • Cloud • IoT']]},
+stack:{t:'طبقات الحوسبة',sub:'اضغط على أي طبقة',l:[['USER','المستخدم','من يستخدم النظام ويطلب الخدمة.'],['APPLICATIONS','التطبيقات','Web / Mobile / Enterprise'],['PROGRAMMING','البرمجة','Python / C / JavaScript وغيرها'],['OPERATING SYSTEM','نظام التشغيل','Linux / Windows / Processes / Memory'],['NETWORK','الشبكة','TCP/IP / Routing / Switching / Wireless'],['COMPUTER SYSTEM','النظام الحاسوبي','CPU / Memory / Storage / Architecture'],['HARDWARE','العتاد','Embedded / Devices / Interfaces']]},
+studyAreas:{t:'حتدرس شنو فعليًا؟',note:'المواد تختلف حسب الخطة الدراسية، لكن هذه أهم المجالات التي قد تدخل ضمن المسار.',groups:[
+ {t:'البرمجة',en:'Programming',i:['Programming Fundamentals','Object-Oriented Programming','Data Structures','Algorithms','Software Development']},
+ {t:'أنظمة الحاسوب',en:'Computer Systems',i:['Computer Architecture','Operating Systems','Computer Organization','Memory','Processes','Storage','System Administration']},
+ {t:'الشبكات',en:'Networking',i:['Network Fundamentals','TCP/IP','Routing','Switching','Network Architecture','Wireless Networks','Network Services']},
+ {t:'قواعد البيانات',en:'Databases & Data',i:['Database Fundamentals','SQL','Data Management','Distributed Data Concepts']},
+ {t:'الأمن',en:'Security',i:['Network Security','Authentication','Access Control','Secure Systems','Cybersecurity Fundamentals']},
+ {t:'المدمجة وإنترنت الأشياء',en:'Embedded / IoT',i:['Microcontrollers','Embedded Systems','Device Communication','Sensors','IoT Architecture']}]},
+studyLife:{t:'الحياة الدراسية في التخصص',label:'طبيعة الدراسة تجمع بين الفهم النظري والتطبيق العملي، وتختلف النسبة حسب المادة والخطة الدراسية.',theory:['Concepts','Algorithms','Architecture','Protocols','Mathematics'],practice:['Coding','Configuration','Testing','Debugging','Networking Labs','Projects'],items:['برمجة','Debugging','رياضيات','خوارزميات','معامل شبكات','إعداد أنظمة وLinux','تقارير فنية','مشاريع','عمل جماعي'],easy:{t:'هل الدراسة سهلة؟',d:'ما بنحكم سهلة ولا صعبة. بتحتاج صبرًا مع الأخطاء، تجربة بنفسك، وانتظامًا في التعلّم.'},week:{label:'مثال توضيحي فقط — الجدول الفعلي يختلف حسب الجامعة والمقرر.',l:[['السبت','Programming'],['الأحد','Networks'],['الاثنين','Systems'],['الثلاثاء','Lab'],['الأربعاء','Project']]}},
+skills:{t:'شنو حتطلع بيه من التخصص؟',note:'أمثلة لتقنيات ومهارات قد تصبح مهمة — ما يعني أنك بتتخرج خبير في كلها.',tabs:[
+ {k:'PROGRAMMING',t:'البرمجة',i:['Python','C / C++','JavaScript أو لغات أخرى','Data Structures','Algorithms','Git']},
+ {k:'SYSTEMS',t:'الأنظمة',i:['Linux','Operating Systems','System Administration','Virtualization','Computer Architecture']},
+ {k:'NETWORKING',t:'الشبكات',i:['TCP/IP','Routing','Switching','Network Troubleshooting','Network Monitoring']},
+ {k:'SECURITY',t:'الأمن',i:['Network Security','Authentication','Access Control','Security Fundamentals']},
+ {k:'DATA',t:'البيانات',i:['SQL','Databases','Data Management']},
+ {k:'CLOUD',t:'سحابة وبنية',i:['Virtual Machines','Containers','Cloud Fundamentals','Infrastructure Concepts']}]},
+tools:{t:'صندوق الأدوات',l:[['VS Code + Git','محرر وإدارة نسخ','العمل على الكود بشكل منظم وتعاوني','تطوير البرمجيات والمشاريع'],['Linux','نظام تشغيل للخوادم','معظم الخوادم والأدوات التقنية تعتمد عليه','Servers / DevOps / Security'],['Cisco Packet Tracer','محاكي شبكات','تجربة الشبكات بدون أجهزة حقيقية','تعلّم Routing وSwitching'],['Wireshark','محلل حزم','رؤية ما يمر فعليًا في الشبكة','Troubleshooting وتحليل الأمن'],['Python','لغة عامة','أتمتة وتحليل وتطبيقات وسكربتات','Automation / Backend / Data'],['Docker','حاويات','تشغيل التطبيقات بنفس البيئة في كل مكان','DevOps / Cloud'],['VirtualBox / VMware','أجهزة افتراضية','مختبر آمن لتجربة الأنظمة','تعلّم Linux والشبكات'],['SQL databases','قواعد بيانات','تنظيم البيانات والاستعلام عنها','Applications / Data']]},
+matrix:{t:'مصفوفة المهارات',note:'مراحل تعليمية للتوضيح فقط — لا تعكس مستواك الفعلي.',cols:['المهارة','لماذا تهم','مبتدئ','متوسط','متقدم'],rows:[['Python','برمجة وأتمتة','سكربتات بسيطة','تطبيقات وAPI','أنظمة وأتمتة كبيرة'],['Networking','بنية وأنظمة','TCP/IP وطبقات','Routing وSwitching','تصميم شبكات'],['Linux','خوادم وأمن','أوامر أساسية','إدارة خدمات','أتمتة وتأمين'],['Git','تعاون برمجي','commit / push','branches / PRs','workflows فرق'],['SQL','بيانات وتطبيقات','استعلامات','تصميم جداول','أداء وتوسّع'],['Cloud','بنية حديثة','مفاهيم','نشر تطبيق','تصميم وأتمتة'],['Cybersecurity','حماية الأنظمة','مفاهيم','تحليل وإعدادات','عمليات وحماية متقدمة']]},
+jobs:{t:'الحياة العملية… حتشتغل شنو؟',steps:[['ANALYZE','تحليل','فهم المشكلة والمتطلبات.'],['DESIGN','تصميم','تخطيط النظام أو الشبكة أو الكود.'],['BUILD','بناء','كتابة البرمجيات وإعداد الأنظمة.'],['TEST','اختبار','التأكد من أن كل شيء يعمل كما يجب.'],['DEPLOY','نشر','تشغيله للمستخدمين.'],['MONITOR','مراقبة','متابعة الأداء والتنبيهات.'],['TROUBLESHOOT','معالجة','إيجاد سبب العطل وإصلاحه.'],['IMPROVE','تحسين','أتمتة وتحسين الأداء والأمان وتوثيق ما تم.']],note:'كل وظيفة بتستخدم مزيجًا مختلفًا جدًا من هذه المهام (برمجة، شبكات، خوادم، أمن، سحابة، دعم، توثيق).'},
+careerLevels:{t:'المسارات الوظيفية',note:'عائلات وظائف محتملة وليست نتائج مضمونة.',l:[
+ {k:'BRANCH 01',t:'البرمجيات',i:['Software Developer','Backend Developer','Full-Stack Developer','Application Developer','Software Engineer']},
+ {k:'BRANCH 02',t:'الشبكات',i:['Network Engineer','Network Administrator','NOC Engineer','Infrastructure Engineer','Network Support Engineer']},
+ {k:'BRANCH 03',t:'الأنظمة',i:['System Administrator','Linux Administrator','Systems Engineer','Infrastructure Specialist']},
+ {k:'BRANCH 04',t:'الأمن السيبراني',i:['Security Analyst','SOC Analyst','Network Security Engineer','Security Operations roles']},
+ {k:'BRANCH 05',t:'السحابة / DevOps',i:['Cloud Engineer','DevOps Engineer','Infrastructure Engineer','SRE-related roles']},
+ {k:'BRANCH 06',t:'البيانات',i:['Database Administrator','Data-related technical roles','Backend / Data Infrastructure']},
+ {k:'BRANCH 07',t:'مدمجة وIoT',i:['Embedded Systems Engineer','IoT Engineer','Firmware-related roles']}]},
+eco:{t:'خريطة المنظومة',sub:'اضغط على فرع لتعرف مجاله',l:[['CODE','البرمجة','كتابة التطبيقات والخدمات',0],['SYSTEMS','الأنظمة','تشغيل وإدارة الخوادم والأنظمة',2],['NETWORKS','الشبكات','ربط الأجهزة وتأمين نقل البيانات',1],['SECURITY','الأمن','حماية الأنظمة والبيانات',3],['CLOUD','السحابة','بنية حديثة وأتمتة النشر',4],['DATA','البيانات','تخزين وإدارة وتحليل البيانات',5],['IoT','إنترنت الأشياء','أجهزة وحساسات متصلة',6]]},
+sectors:{t:'وين ممكن تشتغل؟',l:[['شركات التقنية','Technology Companies','Developer / Engineer'],['شركات البرمجيات','Software Companies','Backend / Full-stack'],['مشغلو الاتصالات','Telecom Operators','Network / NOC'],['مزودو الإنترنت','ISPs','Network / Infrastructure'],['البنوك والتقنية المالية','Banks / FinTech','Systems / Security / Dev'],['الحكومة','Government','IT / Infrastructure'],['التقنية الصحية','Health Tech','Systems / Data'],['التقنية التعليمية','EdTech','Dev / Platforms'],['اللوجستيات','Logistics','Systems / IoT'],['التصنيع','Manufacturing','Automation / IoT'],['التعدين','Mining','Systems / Networks'],['الطاقة','Energy','Infrastructure / Control'],['الشركات الناشئة','Startups','Full-stack / DevOps'],['متكاملو الأنظمة','System Integrators','Infrastructure / Projects'],['السحابة والخدمات الرقمية','Cloud / Digital Services','Cloud / DevOps']]},
+remote:{t:'هل المجال مناسب للعمل عن بُعد؟',more:['Software Development','Backend','بعض أدوار DevOps','Cloud','بعض أدوار الأمن','Technical Support','بعض مراقبة الشبكات'],less:['الشبكات الفيزيائية','التمديدات (Cabling)','نشر المواقع','البنية الفيزيائية لمراكز البيانات','تركيب العتاد','الدعم الميداني'],note:'التوافق مع العمل عن بُعد يعتمد على جهة العمل والدور والبنية والخبرة.'},
+misconceptions:{t:'صحّح الصورة قبل ما تختار',l:[['مو بس برمجة مواقع','التخصص يمتد للأنظمة والشبكات والأمن والسحابة والمدمجة.'],['مو صيانة كمبيوتر','هندسة أنظمة وبنية تقنية، مو إصلاح أجهزة فقط.'],['مو بس شبكات','الشبكات جزء من منظومة أكبر.'],['مو مطلوب تتخصص في الكل','في النهاية بتختار اتجاهًا واحدًا أو اتجاهين.']]},
+dayInLife:{t:'يوم في حياة المهندس',label:'مثال توضيحي — تختلف الحياة اليومية حسب الوظيفة.',l:[['08:30','فحص تنبيهات النظام والشبكة','Alerts'],['10:00','تطوير / إعداد','Development / config'],['12:00','اجتماع الفريق','Team meeting'],['13:00','Debugging / معالجة','Troubleshooting'],['15:00','اختبار','Testing'],['16:00','توثيق','Documentation']]},
+sudanMarket:{t:'سوق العمل في السودان',sub:'MARKET SNAPSHOT — قراءة من إعلانات متاحة',evidence:[
+ {t:'Maxnet — Senior Network Engineer (Port Sudan / Khartoum)',d:'تصميم ونشر وتشغيل بنية الشبكة. المطلوب: Troubleshooting وRCA وضبط الأداء، وأتمتة بـ Python أو Ansible أو Netmiko.',date:'نُشر 22 سبتمبر 2026',u:'https://techjunction.co/job/id-senior-network-engineer-maxnet-port-sudan-or-khartoum/'},
+ {t:'Sudancareers — إعلانات IT (Network Architect / Cloud System Integrator)',d:'إعلانات بخبرة 5–10 سنوات، ومهارات مثل BGP وMPLS وCisco وPython وTCP/IP (رُصدت أبريل 2026).',date:'رُصدت أبريل 2026',u:'https://www.sudancareers.com/job-vacancies-search-sudan/it'},
+ {t:'LinkedIn Jobs Sudan — Data Center Technician (Port Sudan، حضوري)',d:'وظيفة بنية تحتية ميدانية حضورية ظهرت في قائمة الوظائف عند المراجعة.',date:'رُصدت أكتوبر 2026',u:'https://www.linkedin.com/jobs/jobs-in-sudan'},
+ {t:'NRC عبر Impactpool — ICT Technical Assistant (Kadugli)',d:'وظيفة دعم تقني مبتدئة للسودانيين فقط في منظمة غير حكومية.',date:'رُصدت أكتوبر 2026',u:'https://www.impactpool.org/countries/Sudan'},
+ {t:'Zain Sudan — Internship (ZAIN2288)',d:'برنامج تدريب يستهدف خريجي الهندسة الكهربائية والإلكترونيات والرياضيات وتقنية المعلومات.',date:'إغلاق 15 مايو 2026',u:'https://careers.zain.com/vacancy/175119'}],
+ seen:['Network Engineering','Network Architecture (خبرة عالية)','Data Center / Infrastructure','Cloud Integration','ICT Support (منظمات)','تدريب خريجين'],unseen:['Software Development','Cybersecurity','Database','Banking IT'],unseenNote:'لم نرصد إعلانات موثقة عنها في هذه المراجعة — وهذا لا يعني أنها غير موجودة.',
+ req:[['Networking: BGP / MPLS / TCP-IP / Cisco','من إعلان موثق'],['Python / Ansible automation','من إعلان موثق'],['Troubleshooting / RCA','من إعلان موثق'],['5–10 سنوات (وظائف متقدمة)','من إعلان موثق'],['English','متطلب عام في الصناعة'],['Technical Documentation','متطلب عام في الصناعة']],
+ notes:['هذه قراءة للمؤشرات المتاحة من الوظائف والإعلانات، وليست نسبة رسمية من إجمالي سوق العمل السوداني.','السوق يتغير مع الشركات والمشاريع والظروف الاقتصادية، وإعلانات قليلة لا تمثل السوق كله.','لا تتوفر بيانات عامة موثوقة كافية لإعطاء نسبة دقيقة.']},
+sudanSalary:{t:'الراتب في السودان',msg:'لا تتوفر بيانات عامة كافية وموثوقة تسمح بإعطاء متوسط وطني دقيق لهذا المسار.',f:['الخبرة','جهة العمل','التخصص التقني','المسؤولية','الموقع','نوع المشروع','محلي أو دولي','العمل عن بُعد']},
+gulfMarket:{t:'السودان مقابل الخليج',cols:['السودان','الخليج'],rows:[['جهات العمل','مزودو خدمات، مشغلو اتصالات، منظمات (حسب ما رُصد)','شركات تقنية، مشغلون، بنوك، حكومة'],['الوظائف الشائعة','شبكات، بنية تحتية، دعم تقني','شبكات، أنظمة، برمجيات، أمن، سحابة'],['العمل عن بُعد','يظهر في بعض الأدوار','يختلف حسب الجهة والدور'],['عملة الراتب','لا توجد بيانات عامة موثوقة هنا','غالبًا عملة الدولة'],['توفر بيانات الرواتب','محدود جدًا','متاح عبر مواقع الرواتب مع تفاوت'],['الخبرة','تُطلب في الوظائف المتقدمة','تختلف حسب الجهة']]},
+salary:{t:'الرواتب التقريبية في الخليج',sub:'عائلة Network Engineer — مؤشرات تقريبية',mode:'levels',note:'هذه أرقام تقريبية وليست عروضًا وظيفية. تتأثر بالخبرة، الشركة، الدور، الشهادات، العمق التقني، الموقع، المزايا، السكن، المواصلات ونوع العقد.',pkg:'في الخليج قد تشمل الحزمة الكاملة: الراتب الأساسي، السكن، المواصلات، التأمين، تذكرة سنوية، ومكافآت — لذلك الراتب وحده لا يمثل الصورة كاملة.',cardNote:'عُرضت عائلة Network Engineer فقط؛ مسارات مثل Software أو Cloud أو Security تختلف كثيرًا ولم تُراجع في هذه النسخة. "—" تعني لا توجد بيانات كافية. الأرقام السنوية قُسمت على 12.',cards:[
+ {c:'UAE',role:'Network Engineer',j:['≈ $1,220','AED 4,490'],m:['≈ $1,810','AED 6,640'],sr:['≈ $2,660','AED 9,760'],s:'Jobicy',u:'https://jobicy.com/salaries/ae/network-engineer.md',cv:'متوسطات سنوية محدّثة 23 يونيو 2026؛ مؤشر Indeed الإمارات: متوسط AED 5,020 / شهر. الدرهم مربوط (3.6725).'},
+ {c:'Saudi Arabia',role:'Network Engineer',j:['—'],m:['≈ $1,440','SAR 5,420'],sr:['—'],s:'PayScale',u:'https://www.payscale.com/research/SA/Job=Network_Engineer/Salary',cv:'متوسط راتب أساسي لـ Mid-Career. الريال مربوط (3.75). عينات PayScale متفاوتة جدًا.'},
+ {c:'Qatar',role:'Network Engineer',j:['≈ $1,510','QAR 5,500'],m:['≈ $1,920','QAR 7,000'],sr:['—'],s:'PayScale',u:'https://www.payscale.com/research/QA/Job=Network_Engineer/Salary',cv:'متوسط راتب أساسي (Early / Mid-Career). الريال مربوط (3.64).'},
+ {c:'Kuwait',role:'Network Engineer',j:['≈ $1,610','KWD 494'],m:['≈ $2,450','KWD 753'],sr:['≈ $3,250','KWD 1,000'],s:'PayScale',u:'https://www.payscale.com/research/KW/Job=Network_Engineer/Salary',cv:'متوسط راتب أساسي (Sr. Network Engineer للمستوى الأعلى). التحويل بسعر تقريبي ≈3.25 لم يُراجع لحظيًا.'},
+ {c:'Oman',role:'Network Engineer',j:['—'],m:['≈ $2,340','OMR 900'],sr:['≈ $3,640','OMR 1,400'],s:'PayScale',u:'https://www.payscale.com/research/OM/Job=Network_Engineer/Salary',cv:'متوسط راتب أساسي (Mid-Career وSr.). الريال مربوط (2.6008).'},
+ {c:'Bahrain',role:'Network Engineer',j:['—'],m:['—'],sr:['—'],s:'Naukrigulf',u:'https://www.naukrigulf.com/salaries/network-administrator-salary-in-bahrain',cv:'نطاق عام لا يفصل المستويات: BHD 300–1,200 / شهر (متوسط 682) ≈ $800–$3,190 (متوسط ≈ $1,810) من 17 راتبًا فقط. الدينار مربوط (2.6596).'}]},
+roadmap:{t:'شنو أتعلم بعد كده؟',pathNote:'أمثلة لمسارات وليست ضمانات.',stages:[['STAGE 01 — FOUNDATIONS','أساسيات',['Computer fundamentals','Programming','Linux','Networking']],['STAGE 02 — CORE','الأساس',['Data Structures','Operating Systems','TCP/IP','Databases','Git']],['STAGE 03 — SPECIALIZE','تخصص',['Software','Networking','Security','Cloud','DevOps','Embedded','IoT']],['STAGE 04 — PROFESSIONAL','احترافي',['Projects','Internships','Certifications','Portfolio','Technical CV','Interview preparation']]],certs:['CCNA','Network+','Linux certifications','AWS / Azure / Google Cloud','Security+','Docker','Kubernetes'],certNote:'الشهادات أدوات اختيارية ولا تغني عن المهارات العملية والمشاريع.',paths:[['SOFTWARE',['Student','Programming','Data Structures','Projects','Junior Developer','Software Engineer','Senior']],['NETWORKS',['Student','Networking Fundamentals','CCNA-level','Labs','Network Support / NOC','Network Engineer','Specialist']],['CYBERSECURITY',['Student','Linux','Networking','Security Fundamentals','Labs','SOC / Entry Role','Specialist']],['CLOUD / DEVOPS',['Student','Linux','Networking','Git','Containers','Cloud','Junior Cloud/DevOps']],['EMBEDDED / IoT',['Student','C/C++','Microcontrollers','Embedded Systems','Projects','Embedded Engineer','IoT Specialist']]]},
+projects:{t:'لو داير تعرف التخصص عمليًا… ابنِ حاجة',note:'كل مشروع: ماذا تبني، ماذا تتعلم، الأدوات، والمستوى.',l:[['Simple Python application','BEGINNER','أساسيات البرمجة','Python'],['Network topology','BEGINNER','Routing وSwitching','Packet Tracer'],['Linux server setup','BEGINNER','إدارة خادم','Linux, SSH'],['Packet capture','BEGINNER','فهم البروتوكولات','Wireshark'],['REST API','INTERMEDIATE','Backend وقواعد بيانات','Python/JS, SQL'],['Dockerized application','INTERMEDIATE','تغليف ونشر','Docker, Git'],['Network automation','INTERMEDIATE','أتمتة الإعدادات','Python, Netmiko'],['Network monitoring dashboard','INTERMEDIATE','مراقبة وتنبيهات','SNMP, Linux'],['Cloud deployment','ADVANCED','نشر وتوسع','Cloud, Docker'],['Security monitoring system','ADVANCED','رصد وتحليل','Linux, logs'],['IoT platform','ADVANCED','أجهزة وبيانات','C/C++, MQTT'],['Infrastructure-as-code','ADVANCED','بنية قابلة للتكرار','Cloud, IaC tools']]},
+selfAssessment:{t:'هل حاسوب وشبكات مناسب لي؟',q:[['هل تستمتع بالبرمجة وحل المشاكل؟','code'],['هل تحب معرفة كيف يعمل الكمبيوتر من الداخل؟','sys'],['هل تستمتع بفهم كيف تتواصل الأجهزة مع بعضها؟','net'],['هل لديك صبر مع debugging والأخطاء التقنية؟','grit'],['هل تحب التجربة بنفسك بدل الاكتفاء بالنظرية؟','grit'],['هل تستمتع بالشبكات والبنية التحتية؟','net'],['هل لديك استعداد لتعلم أدوات جديدة باستمرار؟','grit'],['هل تستطيع الجلوس لفترات طويلة أمام الكمبيوتر عند الحاجة؟','grit'],['هل تهتم بالأمن وحماية الأنظمة؟','sys'],['هل تستمتع ببناء المشاريع؟','code']],opts:['نعم','أحيانًا','لا'],themes:{code:'الجانب البرمجي',sys:'الأنظمة والأمن',net:'الشبكات والاتصال',grit:'الصبر والتجربة والتعلم'},bands:[[16,'إجاباتك تُظهر اهتمامًا واضحًا بالجوانب البرمجية والأنظمة والشبكات.'],[9,'إجاباتك متنوعة — قد تحتاج إلى استكشاف جانب الشبكات والأنظمة عمليًا قبل اتخاذ قرارك.'],[0,'إجاباتك تشير إلى أن هذا المسار قد لا يكون الأقرب لميولك حاليًا — جرّب مشروعًا صغيرًا واقرأ عن التخصصين الآخرين.']],foot:'نتيجتك ليست حكمًا نهائيًا، لكنها تساعدك تفهم ميولك.',check:['هل أستمتع ببناء وتجربة الأشياء بنفسي؟','هل أقبل التعلم المستمر للأدوات؟','هل أستمتع بحل المشاكل التقنية؟','هل أريد معرفة المجالات قبل اختيار اتجاه؟'],end:'تخصص حاسوب وشبكات يفتح أكثر من مسار، لكن ما مطلوب منك تكون كل شيء. الأهم أن تعرف المجالات الموجودة وتكتشف المجال الذي يتوافق مع ميولك وقدراتك وأهدافك.'},
+compare:{t:'مقارنة وصفية مع تخصصات ELEX 28',note:'وصف عام للفهم وليس ترتيبًا. التفاصيل تختلف حسب الجامعة والخطة.',cols:['COMMUNICATIONS','COMPUTER & NETWORKS','INDUSTRIAL'],rows:[['التركيز الأساسي','نقل الإشارات والمعلومات','الحوسبة والأنظمة والشبكات','الأنظمة الصناعية والأتمتة'],['أنظمة أساسية','RF، ألياف، شبكات الموبايل','معالجات، خوادم، شبكات','خطوط إنتاج، تحكم، روبوتات'],['مواد شائعة','إشارات، RF، اتصالات','برمجة، أنظمة تشغيل، شبكات','تحكم، عمليات، تصنيع'],['البرمجة','متوسطة','أكثر حضورًا','متوسطة (تحكم)'],['الشبكات','شبكات اتصالات وإرسال','شبكات حاسوب وبنية','شبكات صناعية'],['العتاد','RF وقياسات','حواسيب ومدمجة','آلات وحساسات'],['العمل الميداني','موجود في الانتشار','أقل في الغالب','موجود في المصانع'],['عائلات وظائف','Telecom / RF','Software / Network / Security','Automation / Process']]},
+sources:[{n:'Maxnet — Senior Network Engineer (TechJunction)',u:'https://techjunction.co/job/id-senior-network-engineer-maxnet-port-sudan-or-khartoum/',m:'إعلان وظيفة'},{n:'Sudancareers — IT jobs',u:'https://www.sudancareers.com/job-vacancies-search-sudan/it',m:'منصة وظائف'},{n:'LinkedIn Jobs — Sudan',u:'https://www.linkedin.com/jobs/jobs-in-sudan',m:'منصة وظائف'},{n:'Impactpool — Sudan',u:'https://www.impactpool.org/countries/Sudan',m:'منصة وظائف'},{n:'Zain Careers — Internship (ZAIN2288)',u:'https://careers.zain.com/vacancy/175119',m:'إعلان رسمي'},{n:'Jobicy — Network Engineer, UAE',u:'https://jobicy.com/salaries/ae/network-engineer.md',m:'متوسطات رواتب'},{n:'Indeed UAE — Network Engineer salaries',u:'https://ae.indeed.com/salaries/network-engineer-Salaries',m:'رواتب مبلّغ عنها'},{n:'PayScale — Network Engineer, Saudi Arabia',u:'https://www.payscale.com/research/SA/Job=Network_Engineer/Salary',m:'رواتب مبلّغ عنها'},{n:'PayScale — Network Engineer, Qatar',u:'https://www.payscale.com/research/QA/Job=Network_Engineer/Salary',m:'رواتب مبلّغ عنها'},{n:'PayScale — Network Engineer, Kuwait',u:'https://www.payscale.com/research/KW/Job=Network_Engineer/Salary',m:'رواتب مبلّغ عنها'},{n:'PayScale — Network Engineer, Oman',u:'https://www.payscale.com/research/OM/Job=Network_Engineer/Salary',m:'رواتب مبلّغ عنها'},{n:'Naukrigulf — Network salaries, Bahrain',u:'https://www.naukrigulf.com/salaries/network-administrator-salary-in-bahrain',m:'رواتب مبلّغ عنها'}],
+sourcesNote:'تاريخ المراجعة: أكتوبر 2026. أرقام PayScale وJobicy وNaukrigulf متوسطات من عينات متفاوتة الحجم. لم تُراجع في هذه النسخة إعلانات البنوك والشركات الكبرى في السودان، ولا رواتب السودان.',
+final:{t:'بعد ما عرفت الطريق… القرار قرارك.',p:'تخصص حاسوب وشبكات يفتح أكثر من مسار، لكن ما مطلوب منك تكون كل شيء.'},
+finalVisual:{en:'COMPUTER & NETWORKS',a:'BUILD THE SYSTEM.',b:'CONNECT THE WORLD.',ar:'ابنِ النظام… واربط الفكرة بالعالم.'}};
+/* ---- extra renderers (used when the data provides them) ---- */
+const stackHTML=S=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${S.t}</h2><p>${S.sub}</p></div></div><div class="stk r" role="tablist">${S.l.map((l,i)=>`<button type="button" role="tab" aria-selected="${i==0}" data-sk="${i}"><small dir="ltr">${l[0]}</small><b>${l[1]}</b></button>`).join('')}</div><p class="wd r" id="skd" aria-live="polite">${S.l[0][2]}</p>`;
+const ecoHTML=E=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${E.t}</h2><p>${E.sub}</p></div></div><div class="eco r"><div class="ec0"><small>COMPUTER</small><b>& NETWORKS</b></div>${E.l.map((n,i)=>{const a=i/E.l.length*6.2832-1.5708;return `<button type="button" class="en" aria-pressed="${i==0}" data-eco="${i}" style="left:${50+Math.cos(a)*40}%;top:${50+Math.sin(a)*40}%"><small dir="ltr">${n[0]}</small>${n[1]}</button>`}).join('')}</div><div class="gcd2 r" id="ecp" aria-live="polite"></div>`;
+const extraSK=D=>(D.tools?`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.tools.t}</h2></div></div><div class="g3">${D.tools.l.map(t=>`<div class="gcd2 r"><b dir="ltr" style="text-align:start">${t[0]}</b><small>${t[1]}</small><p><em>WHAT</em> ${t[1]}<br><em>WHY</em> ${t[2]}<br><em>WHERE</em> ${t[3]}</p></div>`).join('')}</div>`:'')+(D.matrix?`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.matrix.t}</h2><p>${D.matrix.note}</p></div></div><div class="tw r"><table><thead><tr>${D.matrix.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${D.matrix.rows.map(r=>`<tr><th dir="ltr">${r[0]}</th>${r.slice(1).map((c,i)=>`<td>${i?`<i class="ms" style="--n:${i}"></i>`:''}${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'');
+const remoteHTML=R=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${R.t}</h2></div></div><div class="g2"><div class="gcd2 r"><small>MORE REMOTE-COMPATIBLE</small><div>${chips(R.more)}</div></div><div class="gcd2 r"><small>MORE LOCATION-DEPENDENT</small><div>${R.less.map(x=>`<span class="cp mt">${x}</span>`).join('')}</div></div></div><p class="nt r">${R.note}</p>`;
+const projHTML=P=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${P.t}</h2><p>${P.note}</p></div></div><div class="g3">${P.l.map(p=>`<div class="gcd2 r"><small dir="ltr">${p[1]}</small><b dir="ltr" style="text-align:start">${p[0]}</b><p><em>WHAT YOU LEARN</em> ${p[2]}<br><em>TOOLS</em> ${p[3]}</p></div>`).join('')}</div>`;
+const sudanSalHTML=S=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${S.t}</h2></div></div><div class="gcd2 r"><p style="margin:0;color:var(--ink)">${S.msg}</p><div style="margin-top:10px">${chips(S.f)}</div></div>`;
+const salaryCN=D=>{const P=D.salary;return `<section class="gsec" id="sl">${sh('06','sl',P.t,P.sub)}<p class="nt r">${P.note}</p><p class="nt r">${P.pkg}</p><div class="g3">${P.cards.map(c=>`<article class="sal r"><small dir="ltr">${c.c}</small><em dir="ltr">${c.role}</em><ul class="lvs">${[['JUNIOR',c.j],['MID',c.m],['SENIOR',c.sr]].map(x=>`<li><small dir="ltr">${x[0]}</small><b dir="ltr">${x[1][0]}</b><span dir="ltr">${x[1][1]?x[1][1]+' / month':''}</span></li>`).join('')}</ul><p>${c.cv}</p><div><a href="${c.u}" target="_blank" rel="noopener noreferrer">${c.s} ↗</a><small>${D.checked}</small></div></article>`).join('')}</div><p class="nt r">${P.cardNote}</p></section>`};
+const finalHTML=D=>{const F=D.final||{t:'بعد ما عرفت الطريق… القرار قرارك.',p:'اقرأ، قارن، اسأل، ثم اختَر التخصص الذي يتوافق مع ميولك وأهدافك.'},s=D.slug||'communications',V=D.finalVisual;
+return `<section class="gsec gfin"><div class="r"><h2>${F.t}</h2><p>${F.p}</p><div class="gb"><a href="#/specializations/${s}/exams">الامتحانات السابقة</a><a href="#/specializations/${s}/materials">المواد الدراسية</a><a href="#/specializations/${s}/channels">القنوات الرسمية</a><button type="button" data-t="cmp">مقارنة التخصصات</button></div></div>${V?`<div class="fv r"><svg viewBox="0 0 420 120" aria-hidden="true"><g fill="none" stroke="currentColor"><path id="fvp" d="M30 90H120L150 60H270L300 30H390"/><rect x="170" y="38" width="80" height="44" class="fvc"/><circle cx="30" cy="90" r="5"/><circle cx="390" cy="30" r="5"/></g><circle r="4" fill="#CFF6FF"><animateMotion dur="${RM?0:5}s" repeatCount="indefinite"><mpath href="#fvp"/></animateMotion></circle></svg><b dir="ltr">ELEX 28</b><small dir="ltr">${V.en}</small><p dir="ltr">${V.a}<br>${V.b}</p><span>${V.ar}</span></div>`:''}</section>`};
+function bindX(root){root.querySelectorAll('.gl').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('o')));
+ const D=[communicationsEngineeringData,computerNetworksData][gid];
+ root.querySelectorAll('[data-sk]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('[data-sk]').forEach(x=>x.setAttribute('aria-selected',x===b));$('#skd').textContent=D.stack.l[b.dataset.sk][2]}));
+ if(D.eco){const show=i=>{root.querySelectorAll('[data-eco]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.eco==i));const n=D.eco.l[i];$('#ecp').innerHTML=`<small dir="ltr">${n[0]}</small><b>${n[1]}</b><p>${n[2]}</p><div>${chips(D.careerLevels.l[n[3]].i)}</div>`};root.querySelectorAll('[data-eco]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.eco)));show(0)}}
+/* ---- hero 3D: computational core + network + data packets ---- */
+function bGuideCN(){const w=base(40,11,0x32D6FF),g=w.g,cu=mat(0xC98A4A,.85,.3),bl=mat(0x0E4DA4,.6,.4),dk=mat(0x10243f,.7,.4),dm=new TH.Object3D(),cb=col(0x2a5fb0),cc=col(0xCFF6FF);
+ g.children[0].position.y=-1.9;
+ g.add(new TH.Mesh(new TH.BoxGeometry(1.7,.16,1.7),dk));const die=new TH.Mesh(new TH.BoxGeometry(1,.1,1),cu);die.position.y=.12;g.add(die);
+ const core=new TH.Mesh(new TH.PlaneGeometry(.5,.5),new TH.MeshBasicMaterial({color:0x32D6FF,transparent:true,opacity:.8,blending:TH.AdditiveBlending,depthWrite:false}));core.rotation.x=-1.5708;core.position.y=.18;g.add(core);
+ const mem=new TH.InstancedMesh(new TH.BoxGeometry(.34,.1,.18),bl,8);for(let i=0;i<8;i++){const a=i/8*6.2832;dm.position.set(Math.cos(a)*1.45,.02,Math.sin(a)*1.45);dm.rotation.set(0,-a,0);dm.updateMatrix();mem.setMatrixAt(i,dm.matrix)}g.add(mem);
+ const tr=[];for(let i=0;i<16;i++){const a=i/16*6.2832,c=Math.cos(a),s=Math.sin(a);tr.push(c*.9,.09,s*.9,c*1.7,.09,s*1.7)}g.add(new TH.LineSegments(bufG(new Float32Array(tr)),lm(0xC98A4A,.5)));
+ const V=(x,y,z)=>new TH.Vector3(x,y,z),CPU=V(0,.3,0),USR=V(-4,-.5,.2),RTR=V(-2.8,.5,.3),SWT=V(-1.3,.2,.4),SRV=V(2.8,.6,-.3),DB=V(2.5,-.9,.6),SEC=V(-1.2,1.7,-.4),IOT=V(-2.5,-1.1,.5);
+ const hubs=[],mk2=(p,obj)=>{obj.position.copy(p);g.add(obj);const hp=new TH.Points(bufG(new Float32Array([p.x,p.y+.35,p.z])),ptsM(0x32D6FF,.45,.3));g.add(hp);hubs.push({p,obj,hp});return obj};
+ const box=(x,y,z,m)=>new TH.Mesh(new TH.BoxGeometry(x,y,z),m),led=new TH.MeshBasicMaterial({color:0x32D6FF});
+ const rt=new TH.Group();rt.add(box(.7,.18,.45,cu));for(let i=0;i<4;i++){const l=box(.07,.05,.03,led);l.position.set(-.24+i*.16,0,.24);rt.add(l)}mk2(RTR,rt);
+ const sv=new TH.Group();for(let i=0;i<3;i++){const u=box(.6,.2,.5,dk);u.position.y=i*.24-.24;const l=box(.4,.03,.02,led);l.position.set(0,i*.24-.24,.26);sv.add(u,l)}mk2(SRV,sv);
+ const dbG=new TH.Group();for(let i=0;i<3;i++){const c=new TH.Mesh(new TH.CylinderGeometry(.32,.32,.14,20),bl);c.position.y=i*.18;dbG.add(c)}mk2(DB,dbG);
+ const sc=new TH.Group();const rg=new TH.Mesh(new TH.TorusGeometry(.28,.04,8,24),cu);sc.add(rg,box(.2,.18,.12,cu));mk2(SEC,sc);
+ const io=new TH.Group();[[0,0],[.3,.12],[-.28,.1]].forEach(q=>{const b=box(.16,.1,.16,dk);b.position.set(q[0],q[1],0);io.add(b)});mk2(IOT,io);
+ const sw=new TH.Mesh(new TH.OctahedronGeometry(.16),new TH.MeshBasicMaterial({color:0x2a5fb0}));mk2(SWT,sw);const us=new TH.Mesh(new TH.SphereGeometry(.14,12,12),new TH.MeshBasicMaterial({color:0x2a5fb0}));mk2(USR,us);
+ const E=[[USR,RTR],[RTR,SWT],[SWT,SRV],[SRV,DB],[SWT,CPU],[RTR,CPU],[CPU,SRV],[SEC,SWT],[IOT,RTR],[IOT,SWT]],ev=[];E.forEach(e=>ev.push(e[0].x,e[0].y,e[0].z,e[1].x,e[1].y,e[1].z));g.add(new TH.LineSegments(bufG(new Float32Array(ev)),lm(0x32D6FF,.3)));
+ const route=[USR,RTR,SWT,SRV,DB,SRV,SWT,RTR,USR],cp=new TH.CurvePath();for(let i=0;i<route.length-1;i++)cp.add(new TH.LineCurve3(route[i],route[i+1]));
+ const TP=6,tp=new Float32Array(TP*3),tg=bufG(tp),pm=ptsM(0xCFF6FF,.22,1);g.add(new TH.Points(tg,pm));
+ const cr=new TH.Line(circ(64),lm(0x32D6FF,0));cr.position.y=.15;g.add(cr);
+ const ord=[CPU.clone().add(V(0,.5,0)),RTR.clone().add(V(0,.5,0)),SRV.clone().add(V(0,.7,0)),DB.clone().add(V(0,.5,0)),SEC.clone().add(V(0,.5,0)),IOT.clone().add(V(0,.45,0))];
+ const labels=[...document.querySelectorAll('.gl')].map((el,i)=>({el,v:ord[i]}));let ph=0;
+ return Object.assign(w,{labels,upd(t,dt,px,py,sp){ph+=dt*SF0;g.rotation.y=px*.2+(-.1+sp*.45);g.rotation.x=.42+py*.08;
+  const u=(ph*.07)%1,head=cp.getPoint(u);pm.color.set(u<.5?0xCFF6FF:0xFFB074);
+  for(let i=0;i<TP;i++){const q=cp.getPoint(Math.max(0,u-i*.008));tp[i*3]=q.x;tp[i*3+1]=q.y;tp[i*3+2]=q.z}tg.attributes.position.needsUpdate=true;
+  hubs.forEach(h=>{const b=Math.max(0,1-h.p.distanceTo(head)/1.1);h.obj.scale.setScalar(1+b*.18);h.hp.material.opacity=.3+b*.7});
+  const s=(ph*.25)%1;cr.scale.setScalar(.5+s*3.4);cr.material.opacity=Math.pow(1-s,1.5)*.7;core.material.opacity=.5+.4*Math.sin(ph*3);rg.rotation.y=ph*.8}})}
+let gid=0;
+const tpHTML=L=>`<div class="g2 r"><div class="gcd2"><small>THEORY</small><b>النظري</b><div>${chips(L.theory)}</div></div><div class="gcd2"><small>PRACTICAL</small><b>العملي</b><div>${chips(L.practice)}</div></div></div>`;
+const weekHTML=W=>`<div class="gsh r" style="margin-top:30px"><b></b><div><h2>أسبوع نموذجي</h2><p>${W.label}</p></div></div><div class="dl r">${W.l.map(d=>`<div><b>${d[0]}</b><em>${d[1]}</em></div>`).join('')}</div>`;
+function r2(){const m=location.hash.match(/^#\/specializations(?:\/([\w-]+))?(?:\/([\w-]+))?/),ix=m?SP.findIndex(s=>s.id===m[1]):-1,sk=ix>=0?SVC.find(s=>s.key===m[2]):null;
+ bd.classList.toggle('sp',!!m&&ix<0);bd.classList.toggle('pg',ix>=0&&!sk);bd.classList.toggle('sv',!!sk&&!GD(ix,sk));bd.classList.toggle('gd',!!GD(ix,sk));bd.classList.toggle('hn',ix>=0);hm.classList.remove('in');nv.classList.remove('open');mn.setAttribute('aria-expanded','false');
+ const sv=$('#rad');if(sv)sv.innerHTML='';
  if(m){boost=.25;ensure()}
  if(m&&ix<0){reset();spE.classList.remove('shown');cards.forEach(c=>c.classList.remove('in'));at(60,()=>spE.classList.add('shown'));cards.forEach((c,i)=>at(RM?60:650+i*230,()=>c.classList.add('in')))}
  if(ix>=0){const s=SP[ix],d=CFG.spec[s.id];pgId=ix;bd.style.setProperty('--ac',d.ac);bd.style.setProperty('--ac2',d.ac2);
   nv.querySelectorAll('[data-k]').forEach(a=>{const k=a.dataset.k;a.href=`#/specializations/${s.id}${k?'/'+k:''}`;(k||'')===(m[2]||'')?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
-  if(sk)svcPage(ix,sk);else{home(ix);hm.scrollTop=0;at(40,()=>hm.classList.add('in'))}}
- if(!m){
-   dispose();
-   reset();
-   boost=0;
-   go=0;
-   c1.classList.remove('fire');
-   const st = $('.stage');
-   if(st){
-     st.getAnimations().forEach(a=>a.cancel());
-     st.style.opacity = '1';
-     st.style.filter = 'none';
-     st.style.transform = 'none';
-     st.style.display = 'flex';
-   }
-   final();
- }
-}
+  if(GD(ix,sk))guide(ix);else if(sk)svcPage(ix,sk);else{home(ix);hm.scrollTop=0;at(40,()=>hm.classList.add('in'))}}
+ if(!GD(ix,sk))gdisp();if(!m){dispose();reset();boost=0;go=0;c1.classList.remove('fire');$('.stage').getAnimations().forEach(a=>a.cancel());final()}}
 /* cinematic transition from the entry page */
 const c0=$('#cta'),c1=c0.cloneNode(true);c0.replaceWith(c1);
 c1.addEventListener('click',()=>{if(go)return;go=1;c1.classList.add('fire');boost=1;
  const lr=$('#logoWrap').getBoundingClientRect(),cx=lr.left+lr.width/2,cy=lr.top+lr.height/2,sv=$('#rad');sv.innerHTML='';
  if(!RM){const D=Math.hypot(innerWidth,innerHeight),s0=Math.min(lr.width,lr.height)*.3;
-  for(let i=0;i<30;i++){const a=i/30*6.2832+(i%2?.05:0),l=mk('line',{x1:cx+Math.cos(a)*s0*(1+i%3*.4),y1:cy+Math.sin(a)*s0*(1+i%3*.4),x2:cx+Math.cos(a)*(s0+D*(.35+(i*7%10)/20)),y2:cy+Math.sin(a)*(s0+D*(.35+(i*7%10)/20)),pathLength:1,stroke:i%4?'#E08A52':'#32D6FF','stroke-width':1},sv);l.style.strokeDasharray='.35 1';
-   l.animate([{strokeDashoffset:.35,opacity:0},{opacity:.85,offset:.25},{strokeDashoffset:-1,opacity:0}],{duration:900,delay:i*14,easing:'cubic-bezier(.3,.1,.2,1)'})}
-  for(let i=0;i<36;i++){const a=rn2(i)*6.2832,d=D*(.12+rn2(i+50)*.4),c=mk('circle',{cx,cy,r:1.6,fill:i%3?'#F7A468':'#7FE9FF'},sv);c.animate([{transform:'translate(0px,0px)',opacity:0},{opacity:.9,offset:.2},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:950,delay:i*18,easing:'ease-out'})}
+  for(let i=0;i<30;i++){const a=i/30*6.2832+(i%2?.05:0),l=mk('line',{x1:cx+Math.cos(a)*s0*(1+i%3*.4),y1:cy+Math.sin(a)*s0*(1+i%3*.4),x2:cx+Math.cos(a)*(s0+D*(.35+(i*7%10)/20)),y2:cy+Math.sin(a)*(s0+D*(.35+(i*7%10)/20)),pathLength:1,stroke:i%4?'#E08A52':'#32D6FF','stroke-width':1,opacity:0},sv);l.style.strokeDasharray='.35 1';
+   l.animate([{strokeDashoffset:.35,opacity:0},{opacity:.85,offset:.25},{strokeDashoffset:-1,opacity:0}],{duration:1000,delay:i*14,easing:'cubic-bezier(.3,.1,.2,1)'}).onfinish=()=>l.remove()}
+  for(let i=0;i<36;i++){const a=rn2(i)*6.2832,d=D*(.12+rn2(i+50)*.4),c=mk('circle',{cx,cy,r:1.6,fill:i%3?'#F7A468':'#7FE9FF',opacity:0},sv);c.animate([{transform:'translate(0px,0px)',opacity:0},{opacity:.9,offset:.2},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:1100,delay:i*18,easing:'ease-out'}).onfinish=()=>c.remove()}
   $('.stage').animate([{opacity:1,filter:'blur(0px)',transform:'scale(1)'},{opacity:0,filter:'blur(7px)',transform:'scale(1.08)'}],{duration:650,delay:350,fill:'forwards',easing:'ease-in'});
   const pe=$('#pulse');pe.style.left=cx+'px';pe.style.top=cy+'px';pe.animate([{transform:'scale(0)',opacity:.9},{transform:'scale(.55)',opacity:.8,offset:.5},{transform:'scale(1)',opacity:0}],{duration:900,easing:'cubic-bezier(.2,.6,.2,1)'})}
- at(RM?120:950,()=>{
-   if(sv) sv.innerHTML='';
-   location.hash='#/specializations';
- })});
+ at(RM?120:1000,()=>{location.hash='#/specializations';at(400,()=>{if(sv)sv.innerHTML=''})})});
 function rn2(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
-if(location.hash && location.hash !== '' && location.hash !== '#/' && location.hash !== '#'){
-  history.replaceState(null, '', location.pathname + location.search);
-}
 addEventListener('hashchange',r2);
 })();
 </script>
