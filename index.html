@@ -626,7 +626,7 @@ ${P.mode?salaryCN(D):`<section class="gsec" id="sl">${sh('06','sl',P.t,P.sub)}<p
 <section class="gsec" id="src">${sh('+','src','مصادر البيانات','لكل رقم مصدر وتاريخ مراجعة')}<ul class="so r">${D.sources.map(s=>`<li><a href="${s.u}" target="_blank" rel="noopener noreferrer" dir="ltr">${s.n} ↗</a><em>${s.m} — ${D.checked}</em></li>`).join('')}</ul><p class="nt r">${D.sourcesNote}</p><p class="nt r">آخر تحديث للمحتوى: ${D.lastUpdated}</p></section>
 ${finalHTML(D)}
 <div class="ft2 sec" style="padding-top:20px;width:100%">ELEX 28 — ELECTRONICS ENGINEERING</div>`}
-function guide(gi){gdisp();gid=gi||0;const D=[communicationsEngineeringData,computerNetworksData][gid];gde.setAttribute('dir','rtl');gde.setAttribute('lang','ar');
+function guide(gi){gdisp();gid=gi||0;const D=[communicationsEngineeringData,computerNetworksData,industrialEngineeringData][gid];gde.setAttribute('dir','rtl');gde.setAttribute('lang','ar');
  gde.innerHTML=`<nav class="gn" aria-label="أقسام الصفحة">${GD_NAV.map(n=>`<button type="button" data-t="${n[0]}">${n[1]}</button>`).join('')}</nav>`+guideHTML(D);gde.scrollTop=0;
  const go=id=>{const e=document.getElementById(id);e&&e.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})};
  gde.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.t)));
@@ -671,7 +671,7 @@ function bGuide(){const w=base(40,10,0x32D6FF),g=w.g,cu=mat(0xC98A4A,.85,.3),bl=
   for(let i=0;i<NB;i++){const h=.1+.55*Math.abs(Math.sin(ph*1.6+i*.55))*(.5+.5*Math.sin(i*.3+ph*.4));dm.position.set(-1.7+i*.148,h/2,0);dm.scale.set(1,h,1);dm.updateMatrix();bars.setMatrixAt(i,dm.matrix)}bars.instanceMatrix.needsUpdate=true}})}
 let GW=null,glast=performance.now();
 function gframe(now){requestAnimationFrame(gframe);const dt=Math.min(.05,(now-glast)/1000);glast=now;
- if(!T||!bd.classList.contains('gd'))return;if(!GW){try{GW=gid?bGuideCN():bGuide()}catch(e){bd.classList.add('nogl');return}}
+ if(!T||!bd.classList.contains('gd'))return;if(!GW){try{GW=gid===2?bGuideInd():(gid===1?bGuideCN():bGuide())}catch(e){bd.classList.add('nogl');return}}
  const el=document.getElementById('gv');if(!el)return;const r=el.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight||r.width<2)return;
  const R=T.R;GW.upd(now/1000,dt,RM?0:mx,RM?0:my,cl(-r.top/innerHeight,0,1));const a=r.width/r.height;GW.cam.aspect=a;GW.cam.position.z=GW.z*Math.max(1,1.05/a)*(1-.15*cl(-r.top/innerHeight,0,1));GW.cam.lookAt(0,0,0);
  if(innerWidth>820)GW.cam.setViewOffset(r.width,r.height,r.width*.14,0,r.width,r.height);else GW.cam.clearViewOffset();GW.cam.updateProjectionMatrix();
@@ -679,7 +679,7 @@ function gframe(now){requestAnimationFrame(gframe);const dt=Math.min(.05,(now-gl
  GW.g.updateMatrixWorld();GW.labels.forEach(l=>{const p=l.v.clone().applyMatrix4(GW.g.matrixWorld).project(GW.cam);l.el.style.transform=`translate(${(p.x*.5+.5)*r.width}px,${(-p.y*.5+.5)*r.height}px)`})}
 requestAnimationFrame(gframe);
 function gdisp(){if(!GW)return;GW.scene.traverse(o=>{o.geometry&&o.geometry.dispose();const m=o.material;m&&(Array.isArray(m)?m:[m]).forEach(x=>x.dispose())});GW=null}
-const GD=(ix,sk)=>ix<2&&sk&&sk.key==='info';
+const GD=(ix,sk)=>ix<=2&&sk&&sk.key==='info';
 /* ===== Computer & Networks guide (stage 5). Content lives in computerNetworksData; shares the guide renderer. ===== */
 const computerNetworksData={lastUpdated:'2026-10-03',checked:'أكتوبر 2026',slug:'computer-networks',
 hero:{label:'ELEX 28 / SPECIALIZATION INTELLIGENCE',title:'حاسوب وشبكات',en:'COMPUTER & NETWORKS',line:'من سطر برمجي… إلى نظام يعمل، وشبكة تربط العالم.',sub:'مسار يجمع بين البرمجيات، أنظمة الحاسوب، الشبكات، والبنية التقنية التي تقوم عليها الأنظمة الرقمية الحديثة.',term:'$ ping server --via router',labels:[['CPU','Processing','المعالج ينفّذ التعليمات ويشغّل البرامج'],['NETWORK','Connectivity','الأجهزة تتواصل عبر الراوترات والسويتشات'],['SERVER','Services','خوادم تقدّم الخدمات للمستخدمين'],['DATABASE','Data','تخزين البيانات وإدارتها'],['SECURITY','Protection','حماية الأنظمة والشبكات'],['IoT','Connected Systems','أجهزة وحساسات متصلة']]},
@@ -742,18 +742,228 @@ sources:[{n:'Maxnet — Senior Network Engineer (TechJunction)',u:'https://techj
 sourcesNote:'تاريخ المراجعة: أكتوبر 2026. أرقام PayScale وJobicy وNaukrigulf متوسطات من عينات متفاوتة الحجم. لم تُراجع في هذه النسخة إعلانات البنوك والشركات الكبرى في السودان، ولا رواتب السودان.',
 final:{t:'بعد ما عرفت الطريق… القرار قرارك.',p:'تخصص حاسوب وشبكات يفتح أكثر من مسار، لكن ما مطلوب منك تكون كل شيء.'},
 finalVisual:{en:'COMPUTER & NETWORKS',a:'BUILD THE SYSTEM.',b:'CONNECT THE WORLD.',ar:'ابنِ النظام… واربط الفكرة بالعالم.'}};
+/* ===== Industrial Engineering guide (stage 6). Content lives in industrialEngineeringData; shares the guide renderer. ===== */
+const industrialEngineeringData={lastUpdated:'2026-10-03',checked:'أكتوبر 2026',slug:'industrial',
+hero:{label:'ELEX 28 / SPECIALIZATION INTELLIGENCE',title:'الهندسة الصناعية',en:'INDUSTRIAL ENGINEERING',line:'من حركة الآلة… إلى ذكاء المصنع.',sub:'تخصص يجمع بين الإلكترونيات، التحكم، الأتمتة والأنظمة الصناعية لبناء وتشغيل أنظمة أكثر دقة وكفاءة.',term:'CONTROL. AUTOMATE. OPTIMIZE.',labels:[
+ ['ROBOT','Automation','الروبوت الصناعي: ذراع آلية متعددة المحاور لتنفيذ المهام بدقة وسرعة'],
+ ['PLC','Control','وحدة تحكم صناعية تستقبل إشارات الحساسات وتنفذ منطق التحكم لإدارة العمليات'],
+ ['SENSOR','Detection','حساسات استشعار لرصد الموضع والحرارة والضغط والتدفق بدقة'],
+ ['MOTOR','Motion','محركات ومغيرات سرعة VFD لتحريك خطوط الإنتاج والسيور بدقة'],
+ ['SCADA','Monitoring','شاشات مراقبة وتحكم لجمع البيانات وإظهار الإنذارات لحظيًا'],
+ ['VISION','Inspection','كاميرات فحص بصري صناعي للتحقق من جودة ومواصفات المنتج'],
+ ['NETWORK','Communication','شبكات صناعية مثل Modbus وPROFINET لربط الأجهزة وتبادل البيانات']]},
+overview:{t:'شنو يعني هندسة صناعية؟',p:'هنا المقصود بالمسار الصناعي داخل هندسة الإلكترونيات، وليس تخصص الهندسة الصناعية الإداري التقليدي. يركز التخصص على الأتمتة الصناعية (Industrial Automation)، نظم التحكم (Control Systems)، المتحكمات المنطقية القابلة للبرمجة (PLC)، الحساسات والمشغلات (Sensors & Actuators)، المحركات الكهربائية، القياسات وأجهزة المعايرة (Instrumentation)، الروبوتات الصناعية، والاتصالات الصناعية مثل SCADA وHMI وشبكات المصانع الذكية. الهدف الأساسي هو تحويل الآلات والمعدات المعزولة إلى منظومة إنتاجية مؤتمتة، ذكية، فائقة الدقة والأمان، تتحكم في تدفق المواد والعمليات وتراقب الأداء لحظيًا.',flow:[['استشعار','SENSOR'],['إدخال','INPUT'],['تحكّم','PLC'],['منطق','LOGIC'],['إخراج','OUTPUT'],['مُشغّل','ACTUATOR'],['ماكينة','MACHINE'],['بيانات','DATA'],['تحسين','OPTIMIZE']],facts:[['FIELD','Industrial Engineering (Automation & Control)'],['FOCUS','Automation • Control • PLC • Robotics • Industrial Systems'],['WORK STYLE','Technical • Practical • Analytical • Field + Control Room'],['CAREER DOMAINS','Automation • Control • Manufacturing • Industrial Systems • Instrumentation']]},
+stack:{t:'الهيكل الصناعي الذكي',sub:'اضغط على أي طبقة لترى كيف يتحول العالم الفيزيائي إلى قرارات مؤتمتة',l:[
+ ['PHYSICAL PROCESS','العملية الفيزيائية','الآلات والمواد الخام وخطوط الإنتاج الحقيقية: أفران، سيور، مضخات، روبوتات، وخزانات.'],
+ ['SENSORS','الاستشعار والقياس','حساسات الحرارة، الضغط، الموضع، التدفق والسرعة تحوّل المتغيرات الفيزيائية إلى إشارات كهربائية.'],
+ ['CONTROL','نظم التحكم ومعالجة الإشارة','تكييف الإشارات Signal Conditioning وحلقات التحكم المغلقة Feedback وPID للحفاظ على استقرار العمليات.'],
+ ['PLC','المتحكمات المنطقية القابلة للبرمجة','عقل المصنع الميداني: ينفّذ برامج Ladder Logic لمعالجة المدخلات وتشغيل المخرجات في أجزاء من الميلي ثانية.'],
+ ['INDUSTRIAL NETWORK','الشبكات الصناعية الميدانية','بروتوكولات مثل Modbus RTU/TCP وPROFINET وEtherCAT لربط الحساسات والمحركات بالتحكم بتوقيت حرج الحتمية Deterministic.'],
+ ['HMI / SCADA','المراقبة والإشراف البشري','شاشات اللمس وغرف المراقبة المركزية لعرض الرسوم التوضيحية وإدارة الإنذارات والتحكم الإشرافي اللحظي.'],
+ ['DATA & IIoT','البيانات وإنترنت الأشياء الصناعي','سجلات العمليات التاريخية Historian، وتجميع قياسات الطاقة وأزمنة التشغيل السحابية لتحليل الأداء الكلي OEE.'],
+ ['ANALYSIS','التشخيص والصيانة التنبؤية','تحليل الاهتزازات، مراقبة درجات الحرارة لاكتشاف تآكل المحامل والأعطال قبل حدوث التوقف المفاجئ.'],
+ ['OPTIMIZATION','التحسين المستمر والأتمتة المتقدمة','إعادة ضبط معاملات التحكم، تقليل أزمنة الدورات الإنتاجية، خفض الهدر، ورفع الكفاءة التشغيلية الشاملة.']]},
+studyAreas:{t:'حتدرس شنو فعليًا؟',note:'المواد تختلف حسب الخطة الدراسية والجامعة، لكن المجالات الآتية تمثل الصورة العامة للمسار الصناعي داخل هندسة الإلكترونيات.',groups:[
+ {t:'نظم التحكم الآلي',en:'Control Systems',i:['Control Fundamentals','Feedback & Closed-Loop Systems','PID Controllers','System Modeling & Transfer Functions','Stability Analysis (Bode, Nyquist)','Dynamic Systems & State Space']},
+ {t:'الأتمتة الصناعية وPLC',en:'Industrial Automation & PLC',i:['PLC Architecture','Ladder Logic Programming','Function Block Diagram (FBD)','Sequential Function Charts (SFC)','Safety PLCs & Interlocks','Industrial Automation Systems']},
+ {t:'القياسات والأجهزة الصناعية',en:'Instrumentation & Transducers',i:['Sensors & Transducers','Measurement Principles (Temp, Pressure, Flow, Level)','Signal Conditioning & Amplifiers','Industrial Transmitters (4–20 mA, HART)','Calibration & Error Analysis']},
+ {t:'المحركات والمشغلات الصناعية',en:'Motors & Actuators',i:['DC & Induction Motors','Servo & Stepper Motors','Variable Frequency Drives (VFD)','Relays, Contactors & Motor Starters','Pneumatic & Hydraulic Actuators','Industrial Control Valves']},
+ {t:'الشبكات والاتصالات الصناعية',en:'Industrial Networks & Protocols',i:['Industrial Communication Principles','Modbus (RTU & TCP)','PROFINET & PROFIBUS','Industrial Ethernet','Fieldbus Technologies','OPC UA & Data Acquisition']},
+ {t:'واجهات التشغيل والمراقبة SCADA',en:'HMI / SCADA Systems',i:['HMI Design & User Interfaces','SCADA Architecture & Monitoring','Real-Time Alarm Management','Data Logging & Trend Analysis','Industrial Graphics & Dashboards']},
+ {t:'الروبوتات الصناعية والتحكم الحركي',en:'Robotics & Motion Control',i:['Industrial Robot Kinematics','Pick & Place Automation Cells','Motion Controllers & Encoders','Robotic Integration & Safety','Collaborative Robots (Cobots)']},
+ {t:'الحوسبة والبرمجيات الصناعية',en:'Industrial Computing & Embedded',i:['Embedded Microcontrollers in Automation','C/C++ for Industrial Controllers','Python for Industrial Data & Automation','Industrial PCs (IPC)','Edge Devices & IIoT Gateways']}]},
+studyLife:{t:'الحياة الدراسية في التخصص',label:'توازن الفهم النظري الرياضي مع المعامل والتطبيق العملي الحقيقي',
+ theory:['Control Theory','Mathematical Modeling','Stability Analysis','Electronics & Circuits','Signals & Transforms'],
+ practice:['PLC Programming Lab','Sensors & Wiring','Motors & VFD Drives','Pneumatics & Actuators','SCADA / HMI Projects','Fault Finding & Troubleshooting'],
+ week:{label:'جدول أسبوعي نموذجي لمهندس الإلكترونيات بالمسار الصناعي',l:[
+  ['الأحد','نظم التحكم: النمذجة الرياضية لحلقات التغذية الراجعة وتحليل الاستقرار'],
+  ['الاثنين','معمل الأتمتة: برمجة PLC بـ Ladder Logic وتوصيل الحساسات والمرحلات'],
+  ['الثلاثاء','المحركات والمشغلات: دراسة محركات الحث ومغيرات السرعة VFD'],
+  ['الأربعاء','أجهزة القياس والمعايرة: اختبار حساسات الضغط والحرارة بحلقة 4-20mA'],
+  ['الخميس','مشروع فصلي: محاكاة خط إنتاج كامل عبر Factory I/O وربطه بـ TIA Portal']]},
+ items:['رياضيات وتحكم','برمجة PLC','معامل عملية','توصيل لوحات','أجهزة قياس','محاكاة افتراضية','مشاريع تخرج','أعطال واستكشاف'],
+ easy:{t:'التوازن بين الفهم الرياضي والتطبيق العملي الميداني',d:'المسار يجمع بين المعادلات والنماذج الرياضية في مقررات التحكم، والتطبيق الواقعي بالأسلاك واللوحات والحساسات في المعامل. الفهم النظري يعطيك القدرة على ضبط وتصميم النظم، والتجربة العملية تبني ثقتك في التعامل مع الماكينات الحقيقية.'}},
+skills:{t:'شنو حتطلع بيه من التخصص؟',note:'المهارات الأساسية التي يكتسبها خريج المسار الصناعي والأتمتة.',tabs:[
+ {t:'التحكم',k:'CONTROL',i:['Feedback Control','PID Tuning','System Modeling','Stability Analysis','Root Locus & Bode Plots','Loop Optimization']},
+ {t:'الأتمتة',k:'AUTOMATION',i:['PLC Programming (Siemens / Rockwell)','Ladder Logic & FBD','Sequential Control','Automation Cell Design','Safety Interlocks','Factory Automation']},
+ {t:'القياسات',k:'INSTRUMENTATION',i:['Sensor Selection','4–20 mA Current Loops','Thermocouples & RTDs','Pressure & Flow Transmitters','Calibration & Zero/Span','Signal Conditioning']},
+ {t:'الآلات',k:'MACHINES',i:['AC Induction Motors','Variable Frequency Drives (VFD)','Servo & Stepper Motion','Pneumatics & Solenoid Valves','Motor Control Centers (MCC)','Relay Logic']},
+ {t:'الشبكات',k:'NETWORKS',i:['Modbus RTU / TCP','PROFINET & Industrial Ethernet','OPC UA','Network Topology & Cabling','Industrial Gateways','Fieldbus Integration']},
+ {t:'المراقبة',k:'MONITORING',i:['HMI Screen Design','SCADA Software (WinCC / Ignition)','Alarm Management','Historical Trends & Logging','Operator Ergonomics','Telemetry & Dashboarding']},
+ {t:'الروبوتات',k:'ROBOTICS',i:['Robot Kinematics','End-Effector Control','Automated Assembly Lines','Machine Vision Integration','Safety Fencing & Light Curtains','Coordinate Frames']},
+ {t:'البرمجيات',k:'SOFTWARE',i:['TIA Portal / Studio 5000','MATLAB & Simulink','Factory I/O Simulation','C/C++ & Python for Industrial Data','AutoCAD Electrical','LabVIEW']}]},
+tools:{t:'صندوق الأدوات والبرمجيات الصناعية',l:[
+ ['TIA Portal (Siemens)','بيئة هندسية متكاملة','برمجة PLC وشاشات HMI وتكوين الشبكات الصناعية لمحركات Siemens','Industrial Automation / Plants'],
+ ['Studio 5000 / Rockwell','منصة تحكم صناعية','برمجة وتكوين أجهزة Allen-Bradley PLCs وPACs في التطبيقات الكبرى','Manufacturing / Process Control'],
+ ['Factory I/O','محاكي ثلاثي الأبعاد للمصانع','بناء واختبار خطوط الإنتاج والسيور والحساسات برمجياً بدون مخاطر عتاد حقيقي','Simulation / Training / Testing'],
+ ['MATLAB & Simulink','بيئة نمذجة ومحاكاة رياضية','تصميم خوارزميات التحكم واختبار استجابة النظام وPID قبل التطبيق','Control Design / Research'],
+ ['LabVIEW (NI)','برمجة رسومية وجمع بيانات','التحكم في أجهزة الاختبار وتجميع القياسات والمعايرة في المعامل والمصانع','Data Acquisition / Testing'],
+ ['AutoCAD Electrical','تصميم المخططات الكهربائية','رسم لوحات التحكم وتوصيلات الحساسات ومخططات الأسلاك الصناعية القياسية','Control Panel Design / Schematics'],
+ ['SCADA (WinCC / Ignition)','برمجيات المراقبة والإشراف','بناء شاشات المراقبة المركزية والتحكم في المحطات والإنذارات وتخزين البيانات','Central Monitoring / SCADA'],
+ ['STM32 / Microcontrollers','متحكمات دقيقة مدمجة','بناء وحدات استشعار مخصصة وبوابات اتصالات طرفية Edge Devices','Embedded / IIoT'],
+ ['Python','لغة أتمتة وتحليل بيانات','ربط بروتوكولات المصنع وقراءة سجلات الإنتاج وبناء أدوات مراقبة مساعدة','Data Analysis / Integration'],
+ ['Modbus Poll / Wireshark','أدوات فحص واختبار الشبكات','استكشاف أخطاء حزم البيانات والتأكد من استجابة العقد الصناعية على الخط','Network Troubleshooting']]},
+matrix:{t:'مصفوفة المهارات الصناعية',note:'مراحل تعليمية وتدريبية لتوضيح مسار التطور، ولا تمثل تقييمًا نهائيًا لمستواك.',cols:['المهارة','لماذا تهم في المصنع','مبتدئ','متوسط','متقدم'],rows:[
+ ['PLC Programming','عقل خطوط الإنتاج والآلات','Ladder بسيطة ومؤقتات','وظائف FBD والتحكم المتسلسل','بنى معيارية ومعالجة أخطاء ومكتبات'],
+ ['Control & PID','ضمان استقرار وضبط العمليات','مفاهيم التغذية الراجعة','ضبط معاملات PID عملياً','نمذجة متقدمة وتحكم متعدد المتغيرات'],
+ ['Sensors & Wiring','العيون والآذان في بيئة المصنع','معرفة أنواع الحساسات','توصيل 4-20mA وحلقات الإشارة','معايرة متقدمة وتشخيص الضوضاء'],
+ ['Motors & VFD','القوة الميكانيكية المحركة للإنتاج','توصيل محرك 3-phase ومرحلات','برمجة VFD للسرعات والتسارع','تزامن المحركات والتحكم المؤازر Servo'],
+ ['SCADA & HMI','الواجهة بين المشغّل والمصنع','تصميم واجهات أزرار ومؤشرات','ربط التاجات والإنذارات والرسوم','هياكل متكاملة وقواعد بيانات تاريخية'],
+ ['Industrial Networks','ربط آلاف الأجهزة بنبض واحد','مفاهيم Modbus والـ RS485','إعداد شبكات PROFINET وEthernet','تأمين الشبكات وتشخيص الاختناقات'],
+ ['Schematics & Safety','قراءة وتصميم وثائق اللوحات بأمان','قراءة الرموز والمخططات البسيطة','رسم مخططات لوحات بـ CAD','تصميم نظم أمان متوافقة مع معايير SIL']]},
+jobs:{t:'الحياة العملية… حتشتغل شنو؟',steps:[
+ ['ENGINEERING','دراسة هندسية','فهم متطلبات العملية الصناعية وتحديد معايير الأمان ومواصفات الآلات.'],
+ ['DESIGN','تصميم وتحليل','اختيار الحساسات والمشغلات وتصميم المخططات الكهربائية للوحات التحكم.'],
+ ['PROGRAM','برمجة وتهيئة','كتابة كود PLC ومنطق التحكم وبرمجة شاشات HMI وواجهات المشغلين.'],
+ ['INSTALL','تركيب وتوصيل','الإشراف على تثبيت اللوحات وتمديد كابلات الإشارة والقدرة في الموقع.'],
+ ['COMMISSION','تدشين وتدقيق','اختبار كل نقطة إشارة (Loop Check) والتأكد من مطابقة السلوك للمواصفات.'],
+ ['TEST','اختبار الأمان','محاكاة سيناريوهات الطوارئ والتأكد من عمل أجهزة التوقف والقواطع بأمان.'],
+ ['MONITOR','مراقبة وإشراف','متابعة سير الإنتاج وتحليل سجلات الأعطال والإنذارات عبر SCADA.'],
+ ['TROUBLESHOOT','استكشاف الأعطال','استخدام أجهزة القياس والفحص للوصول لمصدر الخلل الميكانيكي أو الكهربائي.'],
+ ['OPTIMIZE','تحسين وتطوير','تقليل زمن الدورة الإنتاجية، خفض استهلاك الطاقة، ورفع كفاءة المصنع الشاملة.']],note:'طبيعة المهام تتنوع بين التواجد في صالات الإنتاج والمواقع الصناعية، والتواجد في مكاتب التصميم وغرف التحكم.'},
+careerLevels:{t:'المسارات الوظيفية',note:'أبرز عائلات الوظائف المتاحة لخريجي المسار الصناعي، وليست نتائج مضمونة.',l:[
+ {k:'BRANCH 01',t:'الأتمتة الصناعية (Automation)',i:['Automation Engineer','PLC Programmer','Automation Systems Specialist','Controls Engineer','Controls Support Engineer']},
+ {k:'BRANCH 02',t:'التحكم والعمليات (Control Systems)',i:['Control Systems Engineer','Process Control Engineer','DCS Specialist','Loop Tuning Engineer','Instrumentation & Control (I&C) Engineer']},
+ {k:'BRANCH 03',t:'القياسات والأجهزة (Instrumentation)',i:['Instrumentation Engineer','Calibration Specialist','Field Instrumentation Engineer','Analyzer Specialist','Maintenance Instrumentation Lead']},
+ {k:'BRANCH 04',t:'الروبوتات والأتمتة الميكانيكية',i:['Robotics Engineer','Robotics Integration Engineer','Motion Control Specialist','Automated Cell Commissioning Engineer']},
+ {k:'BRANCH 05',t:'أنظمة المراقبة (SCADA / HMI)',i:['SCADA Engineer','HMI Developer','Industrial Monitoring Specialist','Telemetry Systems Engineer','SCADA Data Analyst']},
+ {k:'BRANCH 06',t:'الشبكات والاتصالات الصناعية (OT)',i:['Industrial Network Engineer','OT Systems Specialist','Industrial Communications Engineer','Plant Network Administrator']},
+ {k:'BRANCH 07',t:'التدشين والصيانة الصناعية',i:['Commissioning Engineer','Field Service Engineer','Plant Automation Maintenance Engineer','Reliability Engineer']}]},
+eco:{t:'منظومة المصنع الذكي المتكاملة',sub:'اضغط على أي جزء لتتعرف على دوره في خط الإنتاج',c0:['SMART','FACTORY'],l:[
+ ['SENSORS','الحساسات','رصد درجة الحرارة والضغط ومواضع القطع والتدفق',2],
+ ['PLC','المتحكم المنطقي','تنفيذ منطق التحكم وإصدار أوامر التشغيل الفورية',0],
+ ['MOTORS','المحركات والمشغلات','تحريك السيور والمضخات والصمامات وضبط السرعات',1],
+ ['ROBOTS','الروبوتات','التقاط المنتجات وفرزها وتجميعها بدقة متناهية',3],
+ ['NETWORKS','الشبكات الصناعية','نقل الإشارات والبيانات بين الأجهزة الحقلية وغرف التحكم',5],
+ ['SCADA','شاشات المراقبة','عرض مؤشرات الإنتاج ومراقبة الأعطال وإدارة الإنذارات',4],
+ ['MAINTENANCE','التدشين والصيانة','فحص اللوحات واستكشاف الأعطال والمعايرة المستمرة',6]]},
+sectors:{t:'وين ممكن تشتغل؟',l:[
+ ['صناعات الأغذية والمشروبات','Food & Beverage Processing','Automation / PLC / Packaging Lines'],
+ ['الطاقة والنفط والغاز','Energy, Oil & Gas & Power Plants','I&C / SCADA / Safety Systems'],
+ ['التعدين ومعالجة المعادن','Mining & Mineral Processing','Process Control / Heavy Automation'],
+ ['معالجة المياه ومحطات الضخ','Water & Utilities Plants','Telemetry / PLC / Remote Pumping'],
+ ['صناعة الأدوية والكيماويات','Pharmaceuticals & Chemicals','Batch Control / Calibration / Cleanrooms'],
+ ['شركات تكامل النظم الهندسية','System Integrators (SI)','Turnkey Automation / Commissioning'],
+ ['البنية التحتية والاتصالات','Telecom & Critical Facilities','Power Automation / Generator Controls / HVAC'],
+ ['المصانع وخطوط التعبئة','Packaging & General Manufacturing','Motion Control / Robotics / Sensors']]},
+remote:{t:'هل العمل عن بُعد ممكن؟',more:['برمجة وتجربة كود PLC بالمحاكاة','تصميم شاشات SCADA وHMI','محاكاة أنظمة التحكم بـ MATLAB','تصميم المخططات بـ CAD','تحليل بيانات الإنتاج وسجلات الأعطال','إعداد الوثائق والمواصفات الفنية'],less:['تدشين خطوط الإنتاج Commissioning','توصيل الأسلاك ولوحات التحكم الميدانية','فحص الحساسات والصمامات والمعايرة','استكشاف أعطال الماكينات الحية','صيانة المحركات ومغيرات VFD','اختبارات السلامة في صالة الإنتاج'],note:'الهندسة الصناعية مسار يرتبط بالآلات الحقيقية في الواقع الفيزيائي؛ بعض المهام البرمجية والتصميمية يمكن تنفيذها عن بُعد، لكن الاحتكاك الميداني أساسي في مراحل التدشين والصيانة.'},
+misconceptions:{t:'قبل ما تختار… صحّح الصورة',l:[
+ ['مو بس صيانة كهربائية للماكينات','الهندسة الصناعية هنا تشمل تصميم وبناء وبرمجة خطوط الإنتاج والتحكم الذكي، وليست مجرد إصلاح أعطال طارئة.'],
+ ['مو تخصص إدارة مصانع تقليدي','هذا المسار هو هندسة إلكترونيات وتحكم وأتمتة تقنية تركز على الآلة والحساس والشبكة، وليس التخصص الإداري المتعلق بسلاسل الإمداد.'],
+ ['مو مقتصر على مصانع محددة','تقنيات التحكم وPLC والقياسات موجودة في محطات الكهرباء، النفط، التعدين، معالجة المياه، المطارات وحتى الروبوتات الطبية.'],
+ ['مو بس برمجة أسطر Ladder بسيطة','المجال يمتد لخوارزميات التحكم المتقدمة، شبكات المصانع المعقدة، الروبوتات، والربط مع الحوسبة السحابية IIoT.']]},
+dayInLife:{t:'يوم في حياة مهندس الأتمتة والتحكم',label:'مثال توضيحي لروتين مهندس في مصنع إنتاجي أو شركة تكامل نظم',l:[
+ ['08:00','تفقد لوحة الإنذارات المركزية ومراجعة تقارير الإنتاج لوردية الليل','Morning Plant Briefing'],
+ ['09:00','اجتماع فريق الصيانة والإنتاج لتحديد الأولويات والتعديلات المطلوبة','Operations Standup'],
+ ['10:00','تطوير وتعديل كود PLC لشاشة HMI جديدة وتجربتها على المحاكي','PLC & HMI Programming'],
+ ['12:00','جولة تفتيش ميدانية في صالة الإنتاج وفحص درجات حرارة المحركات واهتزازاتها','Field Walkdown'],
+ ['14:00','معالجة عطل فني في حساس قراءة الضغط واستبداله ومعايرته (Troubleshooting)','Sensor Troubleshooting'],
+ ['15:30','مراجعة المخططات الكهربائية وتوثيق التغييرات التي تمت في لوحة التحكم','CAD & Documentation'],
+ ['17:00','تسليم وردية العمل وتدوين الملاحظات الفنية للمهندس المناوب','Handover & Shift Log']]},
+sudanMarket:{t:'سوق العمل في السودان',sub:'MARKET SNAPSHOT — مؤشرات مرصودة من القطاعات والوظائف المتاحة',evidence:[
+ {t:'Kenana Sugar Company — مهندسو تحكم وأتمتة (كينانة / النيل الأبيض)',d:'إعلانات ومشاريع صيانة خطوط إنتاج السكر وتوليد الطاقة الذاتية، ومحطات الضخ، تتطلب خبرة بـ PLC وInstrumentation والتحكم بالصمامات والمحركات.',date:'رُصدت 2026',u:'https://www.sudancareers.com/job-vacancies-search-sudan/it'},
+ {t:'DAL Group — Food & Industrial Plants (Sayga / Blue Nile / CooKoo)',d:'منشآت مطاحن الدقيق، مصانع الألبان، وخطوط التعبئة تتطلب بانتظام مهندسي أتمتة وصيانة إلكترونية لإدارة خطوط إنتاج آلية تعتمد على Siemens وRockwell.',date:'رُصدت 2026',u:'https://techjunction.co/jobs-sudan/'},
+ {t:'قطاع التعدين والذهب (أرياب وشركات المعالجة — البحر الأحمر ونهر النيل)',d:'مصانع استخلاص ومعالجة خامات الذهب والمعادن تعتمد كلياً على أجهزة القياس الصناعية Instrumentation والتحكم في السيور والأفران والمضخات الثقيلة.',date:'رُصدت 2026',u:'https://www.linkedin.com/jobs/jobs-in-sudan'},
+ {t:'محطات التوليد والمياه والنفط (سد مروي / قري / خطوط الأنابيب)',d:'أنظمة التحكم الإشرافي SCADA وDCS وحساسات الضغط والتدفق، مع متطلبات لمهندسي تحكم وأجهزة دقيقة ذات موثوقية عالية.',date:'رُصدت 2026',u:'https://www.impactpool.org/countries/Sudan'},
+ {t:'شركات ومقاولو تكامل النظم (System Integrators) بالخرطوم وبورتسودان',d:'مكاتب ومؤسسات متخصصة في توريد وتركيب وبرمجة لوحات PLC وVFD لصالح المصانع المحلية والمشاريع الزراعية الحديثة.',date:'رُصدت 2026',u:'https://techjunction.co/jobs-sudan/'}],
+ seen:['PLC Programming (Siemens/Rockwell)','Instrumentation & Sensors','Motor Drives & VFD','Industrial Maintenance','Control Panel Wiring','SCADA Systems'],unseen:['Advanced Robotics Programming','Semi-conductor Fabrication','Automotive Assembly Lines'],unseenNote:'لم نرصد إعلانات تصنيع متقدم أو خطوط روبوتات ثقيلة في هذه المراجعة — الطلب يتركز في الصناعات التحويلية والغذائية والتعدين والطاقة والمياه.',
+ req:[['بكالوريوس هندسة إلكترونيات / تحكم / كهرباء','شرط أساسي في معظم الإعلانات'],['فهم وتطبيق PLC وLadder Logic وVFD','من متطلبات الاختبار الفني'],['قراءة المخططات الكهربائية الصناعية Schematics','من مهام الصيانة والموقع'],['خبرة في الحساسات وأجهزة القياس 4–20mA','مطلوبة في التعدين ومحطات المعالجة'],['الإنجليزية الفنية والتقارير','متطلب عام في الصناعة'],['معايير السلامة المهنية والصناعية (HSE)','متطلب إلزامي في المصانع ومواقع التعدين']],
+ notes:['هذه قراءة تحليلية للمؤشرات المتاحة من الإعلانات وجهات العمل، وليست إحصائية شاملة لكل وظائف السودان.','طبيعة الطلب في السودان تركز بشكل كبير على التشغيل والصيانة واستكشاف الأعطال وحسن التعامل مع المعدات القائمة.','الشركات الكبرى تعتمد على مزيج من المهندسين الميدانيين ومهندسي التحكم والإشراف.']},
+sudanSalary:{t:'الراتب في السودان',msg:'لا تتوفر قاعدة بيانات عامة دورية كافية تتيح إعطاء متوسط وطني دقيق وموثوق لرواتب المهندسين بالمسار الصناعي في السودان.',f:['سنوات الخبرة','جهة العمل (محلية أو دولية)','القطاع الصناعي (تعدين، نفط، أغذية)','طبيعة التواجد (ميداني بالموقع أو مكتبي)','المسؤولية الفنية والإشرافية','بدلات الموقع والمخاطر']},
+gulfMarket:{t:'مقارنة سوق العمل: السودان مقابل الخليج',cols:['السودان','الخليج'],rows:[
+ ['جهات العمل الشائعة','شركات الأغذية، مصانع السكر، التعدين، محطات المياه، مقاولو الأتمتة','النفط والغاز (أرامكو، أدنوك)، مصانع البتروكيماويات، المدن الصناعية، البنية التحتية'],
+ ['المسارات المطلوبة','تشغيل وصيانة PLC، حساسات، محركات، لوحات تحكم، VFD','نظم DCS عملاقة، أتمتة متقدمة، SCADA، أمن سيبراني صناعي OT، روبوتات'],
+ ['العمل الميداني','ميداني بنسبة كبيرة في مواقع المصانع والتعدين','موزع بين غرف التحكم المركزية والمواقع الميدانية ومكاتب التصميم الهندسي'],
+ ['طبيعة المشاريع','صيانة وتحديث خطوط الإنتاج القائمة والتعدين','مشاريع ضخمة جديدة، مدن ذكية، خطوط تصنيع متقدمة ومؤتمتة كلياً'],
+ ['عملة الراتب','غالباً بالجنيه مع تفاوت حسب عقود الشركات','عملات دول الخليج أو الدولار بحسب نوع العقد والمزايا'],
+ ['الشهادات المهنية','تفضيل الخبرة العملية على الشهادات','طلب مرتفع لشهادات Siemens وRockwell وTÜV للسلامة الوظيفية وPMP']]},
+salary:{t:'الرواتب التقريبية في الخليج',sub:'عائلة مهندسي الأتمتة والتحكم — مؤشرات تقريبية مبنية على البيانات المتاحة',mode:'levels',note:'هذه الأرقام تقريبية وليست عروضًا وظيفية. تتأثر بالخبرة، الشركة، القطاع، الشهادات الاحترافية، طبيعة العمل (ميداني أو مكتبي)، ومزايا السكن والانتقال.',pkg:'في دول الخليج قد تشمل الحزمة الوظيفية: الراتب الأساسي، بدل السكن، بدل النقل، التأمين الصحي الشامل، تذاكر السفر السنوية ومكافآت الأداء — لذلك الراتب الأساسي لا يمثل كامل القيمة.',cardNote:'عُرضت عائلة Automation & Control Engineer. الرواتب في قطاع النفط والغاز والبتروكيماويات قد تفوق هذه المؤشرات بشكل ملحوظ. الأرقام السنوية قُسمت على 12 شهراً.',cards:[
+ {c:'UAE',role:'Automation / Control Engineer',j:['≈ $1,400','AED 5,140'],m:['≈ $2,450','AED 9,000'],sr:['≈ $4,200','AED 15,420'],s:'Indeed UAE / PayScale',u:'https://ae.indeed.com/salaries/automation-engineer-Salaries',cv:'متوسطات مستخلصة من مسوحات رواتب مهندسي الأتمتة والتحكم في الإمارات لعام 2026. الدرهم مربوط بالدولار (3.6725).'},
+ {c:'Saudi Arabia',role:'Automation / Control Engineer',j:['≈ $1,500','SAR 5,620'],m:['≈ $2,700','SAR 10,120'],sr:['≈ $4,500','SAR 16,870'],s:'PayScale / Glassdoor',u:'https://www.payscale.com/research/SA/Job=Automation_Engineer/Salary',cv:'بيانات متوسطات رواتب مهندسي الأتمتة بالمملكة. الوظائف في قطاعات الطاقة والتعدين غالباً ما تتضمن بدلات موقع إضافية. الريال مربوط (3.75).'},
+ {c:'Qatar',role:'Control & Instrumentation Engineer',j:['≈ $1,650','QAR 6,000'],m:['≈ $2,900','QAR 10,550'],sr:['≈ $4,800','QAR 17,470'],s:'PayScale Qatar',u:'https://www.payscale.com/research/QA/Job=Control_Systems_Engineer/Salary',cv:'عينات رواتب لمهندسي نظم التحكم والقياس في قطر. الريال مربوط بالدولار (3.64). تفاوت كبير حسب الشركات العالمية.'},
+ {c:'Kuwait',role:'Automation Engineer',j:['≈ $1,750','KWD 540'],m:['≈ $2,800','KWD 860'],sr:['≈ $4,300','KWD 1,320'],s:'PayScale Kuwait',u:'https://www.payscale.com/research/KW/Job=Automation_Engineer/Salary',cv:'متوسطات قطاع التحكم الصناعي في الكويت. الدينار الكويتي بسعر الصرف التقريبي 3.25.'},
+ {c:'Oman',role:'Control & Automation Engineer',j:['≈ $1,450','OMR 560'],m:['≈ $2,500','OMR 960'],sr:['≈ $4,000','OMR 1,540'],s:'PayScale Oman',u:'https://www.payscale.com/research/OM/Job=Control_Systems_Engineer/Salary',cv:'متوسط رواتب مهندسي التحكم في عمان لعام 2026. الريال العماني مربوط بالدولار (2.6008).'},
+ {c:'Bahrain',role:'Automation / Instrumentation Engineer',j:['≈ $1,350','BHD 510'],m:['≈ $2,300','BHD 865'],sr:['≈ $3,600','BHD 1,355'],s:'Naukrigulf Bahrain',u:'https://www.naukrigulf.com/salaries/instrumentation-engineer-salary-in-bahrain',cv:'مؤشرات مأخوذة من قطاع الأجهزة والتحكم الصناعي في البحرين. الدينار البحريني مربوط بالدولار (2.6596).'}]},
+roadmap:{t:'شنو أتعلم بعد كده؟',pathNote:'مسارات مقترحة للتطور الهندسي وليست قواعد إلزامية.',stages:[
+ ['STAGE 01 — FOUNDATIONS','الأساسيات',['Circuit Theory','Analog & Digital Electronics','Calculus & Differential Equations','Basic Programming (C/Python)']],
+ ['STAGE 02 — INDUSTRIAL CORE','الأساس الصناعي',['PLC Fundamentals (Ladder)','Sensors & Transducers','Electrical Machines & Drives','Industrial Wiring & Safety']],
+ ['STAGE 03 — SYSTEMS & PROTOCOLS','الأنظمة والاتصالات',['PID & Closed Loop Control','Modbus & Industrial Ethernet','HMI Screen Design','Pneumatics & Actuators']],
+ ['STAGE 04 — SPECIALIZATION','التخصص المتقدم',['Advanced PLC (SCL/Graph)','SCADA Architecture','Industrial Robotics & Motion','Safety PLCs & SIL Standards']],
+ ['STAGE 05 — PROFESSIONAL','الممارسة الاحترافية',['Factory Simulation (Factory I/O)','Panel Design (AutoCAD Elec)','Industrial Internships','Vendor Certifications & Portfolio']]],
+certs:['Siemens Certified Automation Associate (TIA Portal)','Rockwell Automation Certified Specialist','ISA Certified Automation Professional (CAP)','CCNA / Industrial Networking','TÜV Functional Safety Certification','OSHA / IOSH Industrial Safety'],
+certNote:'الشهادات أدوات مساعدة تثبت الكفاءة، لكنها لا تغني عن الفهم النظري المتين والقدرة العملية على فك وتركيب وحل أعطال اللوحات.',
+paths:[
+ ['AUTOMATION',['Student','PLC Basics','Ladder & FBD','Factory I/O','Junior Automation Engineer','Automation Specialist','Lead Automation Engineer']],
+ ['CONTROL & PROCESS',['Student','Control Theory','MATLAB / Simulink','Loop Tuning','Instrumentation & Control Engineer','Process Control Specialist']],
+ ['INSTRUMENTATION',['Student','Sensors & Transducers','4-20mA Loops & Calibration','Field Instrumentation','Instrumentation Engineer','Senior I&C Lead']],
+ ['ROBOTICS & MOTION',['Student','Motion Control','Servo Motors','Robotic Kinematics','Robotics Integration Engineer','Automation Cell Architect']],
+ ['INDUSTRIAL OT & SCADA',['Student','Networking Basics','Industrial Protocols (Modbus/PROFINET)','SCADA Design','OT Network Engineer','Industrial Systems Specialist']]]},
+projects:{t:'لو داير تعرف التخصص عمليًا… ابنِ حاجة',note:'مشاريع مقترحة من المبتدئ إلى المتقدم لتطبيق المفاهيم واكتساب مهارات ملموسة.',l:[
+ ['Traffic Light Controller (PLC)','BEGINNER','منطق التوقيت والتسلسل وأولويات المرور','Siemens LOGO! / Factory I/O'],
+ ['Conveyor Sorting Station','BEGINNER','استخدام حساسات التقارب لفصل القطع المعدنية','Proximity Sensors, PLC, Relay'],
+ ['PID Temperature Control Unit','BEGINNER','ضبط درجة الحرارة بحلقة تغذية راجعة مغلقة','Thermocouple, Arduino/PLC, Solid State Relay'],
+ ['Motor VFD Speed Controller','BEGINNER','التحكم في سرعة واتجاه محرك حث ثلاثي الأوجه','3-Phase Motor, VFD, Pushbuttons'],
+ ['SCADA Monitoring Mini-Dashboard','INTERMEDIATE','تصميم واجهة رسومية وقراءة التاجات الحية','Ignition Maker Edition / Modbus TCP'],
+ ['Pneumatic Pick & Place Mechanism','INTERMEDIATE','تحريك أذرع هوائية لالتقاط ونقل القطع بتسلسل دقيق','Pneumatic Cylinders, 5/2 Solenoid Valves, PLC'],
+ ['Automated Bottle Filling Simulation','INTERMEDIATE','محاكاة خط تعبئة وتغطية سوائل بالكامل بمؤقتات وحساسات مستوى','Factory I/O, TIA Portal'],
+ ['Machine Vision Defect Detection','INTERMEDIATE','فحص جودة المنتجات واكتشاف العيوب بصريًا وإرسال إشارة للـ PLC','Python, OpenCV, USB Camera'],
+ ['Digital Twin of a Production Cell','ADVANCED','بناء توأم رقمي متكامل لخلية صناعية واختبار كود التحكم افتراضيًا','Factory I/O, S7-PLCSIM Advanced'],
+ ['Predictive Vibration Monitoring (IIoT)','ADVANCED','قياس اهتزازات المحرك وتحليل الترددات للتنبؤ بتلف المحامل','Accelerometer, ESP32/Raspberry Pi, MQTT, Node-RED'],
+ ['Safety Interlock & Emergency System','ADVANCED','تصميم دائرة أمان متكاملة بقواطع طوارئ ومرحلات سلامة','Safety Relays, Light Curtains, Dual Contactors'],
+ ['Integrated Factory Line: PLC + HMI + SCADA','ADVANCED','مشروع متكامل يربط خط إنتاج فعلي ببرنامج PLC وشاشة تشغيل محلية ونظام مراقبة مركزي','Siemens S7-1200, KTP HMI, WinCC, Modbus']]},
+selfAssessment:{t:'هل المسار الصناعي مناسب لي؟',q:[
+ ['هل تستمتع بفهم كيف تعمل الآلات؟','hands'],
+ ['هل تحب الإلكترونيات والتحكم؟','control'],
+ ['هل تستمتع بالتجارب العملية؟','hands'],
+ ['هل تحب حل الأعطال التقنية؟','troubleshoot'],
+ ['هل تستهويك الروبوتات والأتمتة؟','auto'],
+ ['هل لديك استعداد للعمل في مواقع ومصانع عند الحاجة؟','field'],
+ ['هل تستمتع بالبرمجة لكنك تريد ربطها بالعالم الحقيقي؟','auto'],
+ ['هل تهتم بالحساسات والمحركات؟','hands'],
+ ['هل تستمتع بفهم الأنظمة خطوة بخطوة؟','control'],
+ ['هل تستطيع العمل في بيئة تتطلب دقة وسلامة؟','field']],
+opts:['نعم','أحيانًا','لا'],themes:{control:'نظم التحكم والتفكير المنطقي',auto:'الأتمتة والروبوتات والبرمجة الحقلية',hands:'التطبيق العملي والتعامل مع الآلات',troubleshoot:'استكشاف الأعطال وحل المشاكل',field:'الاستعداد للعمل الميداني وإجراءات السلامة'},bands:[
+ [16,'إجاباتك تشير إلى اهتمام قوي وواضح بالتحكم، الأتمتة، والعمل التطبيقي في بيئات المصانع والأنظمة الذكية.'],
+ [9,'إجاباتك متوازنة وتظهر ميولاً لعدة جوانب — ننصحك بتجربة مشروع PLC أو محاكاة بـ Factory I/O لاكتشاف شغفك عملياً.'],
+ [0,'إجاباتك تشير إلى أن المسار الميداني والصناعي قد لا يكون الأقرب لتطلعاتك الحالية — قارن بينه وبين هندسة الاتصالات وحاسوب والشبكات.']],
+foot:'نتيجتك ليست حكماً نهائياً، لكنها تساعدك في رسم صورة أوضح لاهتماماتك وطبيعة العمل التي تفضلها.',
+check:['هل أحب رؤية نتائج الكود تتحرك في ماكينة حقيقية أمامي؟','هل أتحمل بيئة المصانع والمعامل الميدانية؟','هل أستمتع بمفاهيم التحكم التلقائي واستقرار الأنظمة؟','هل لدي الرغبة في تعلم أجهزة PLC والشبكات الصناعية؟','هل أهتم بمعايير السلامة المهنية والدقة في العمل الهندسي؟','هل أريد تخصصاً يفتح مجالات في الأغذية والتعدين والطاقة والمياه؟'],
+end:'الهندسة الصناعية والأتمتة مسار تطبيقي نابض بالحياة، يصنع حلقة الوصل بين الذكاء البرمجي والعتاد الفيزيائي؛ التخصص الناجح هو الذي يتلاقى مع شغفك وقدرتك على التعلم المستمر.'},
+compare:{t:'مقارنة وصفية مع تخصصات ELEX 28',note:'مقارنة عامة لتوضيح الفروق الجوهرية بين المسارات الثلاثة. التفاصيل تختلف باختلاف الخطة الدراسية.',cols:['COMMUNICATIONS','COMPUTER & NETWORKS','INDUSTRIAL'],rows:[
+ ['التركيز الأساسي','نقل الإشارات والمعلومات والموجات','الحوسبة والأنظمة والشبكات والبرمجيات','الأنظمة الصناعية والتحكم والأتمتة'],
+ ['أنظمة نموذجية','الهوائيات، شبكات الموبايل، الألياف الضوئية','المعالجات، الخوادم، شبكات الحاسوب، السحابة','خطوط الإنتاج، المتحكمات PLC، الروبوتات، المحركات'],
+ ['المقررات الشائعة','الموجات، الكهرومغناطيسية، معالجة الإشارات','البرمجة، أنظمة التشغيل، قواعد البيانات، الشبكات','نظم التحكم، PLC، أجهزة القياس، محركات القوى، SCADA'],
+ ['البرمجة والتطبيق','برمجة معالجة إشارات ومحاكاة RF','برمجة برمجيات وتطبيقات وأنظمة وشبكات','برمجة PLC والتحكم الحركي وبرمجيات SCADA'],
+ ['الشبكات والاتصالات','شبكات اتصالات وإرسال وموجات دقيقة','شبكات حاسوب TCP/IP وبنية سحابية وأمن','شبكات صناعية Fieldbus وModbus وPROFINET الحتمية'],
+ ['العتاد والأجهزة','أجهزة RF، محللات الطيف، هوائيات','حواسيب، بطاقات شبكية، خوادم، أنظمة مدمجة','حساسات، محركات، صمامات، لوحات تحكم، وحدات I/O'],
+ ['البيئة الميدانية','أبراج الاتصالات، محطات الإرسال، مراكز الشبكات','بيئة مكتبية، مراكز بيانات، عمل عن بُعد','صالات الإنتاج، المصانع، محطات الطاقة والتعدين'],
+ ['عائلات الوظائف','Telecom Engineer, RF Engineer, Transmission','Software Engineer, Network Engineer, DevOps','Automation Engineer, Control Engineer, I&C Engineer']]},
+sources:[
+ {n:'Kenana Sugar Company — Technical Careers',u:'https://www.sudancareers.com/job-vacancies-search-sudan/it',m:'إعلانات ومشاريع موثقة'},
+ {n:'DAL Group — Engineering & Maintenance Careers',u:'https://techjunction.co/jobs-sudan/',m:'منصة وظائف سودانية'},
+ {n:'Sudancareers — Instrumentation & Control Jobs',u:'https://www.sudancareers.com/job-vacancies-search-sudan/it',m:'منصة توظيف'},
+ {n:'LinkedIn Jobs — Automation Sudan',u:'https://www.linkedin.com/jobs/jobs-in-sudan',m:'منصة وظائف'},
+ {n:'PayScale — Automation Engineer, Saudi Arabia',u:'https://www.payscale.com/research/SA/Job=Automation_Engineer/Salary',m:'مسح رواتب مبلّغ عنها'},
+ {n:'Indeed UAE — Automation Engineer Salaries',u:'https://ae.indeed.com/salaries/automation-engineer-Salaries',m:'مسح رواتب'},
+ {n:'PayScale — Control Systems Engineer, Qatar',u:'https://www.payscale.com/research/QA/Job=Control_Systems_Engineer/Salary',m:'مسح رواتب'},
+ {n:'PayScale — Automation Engineer, Kuwait',u:'https://www.payscale.com/research/KW/Job=Automation_Engineer/Salary',m:'مسح رواتب'},
+ {n:'PayScale — Control Systems Engineer, Oman',u:'https://www.payscale.com/research/OM/Job=Control_Systems_Engineer/Salary',m:'مسح رواتب'},
+ {n:'Naukrigulf — Instrumentation Engineer Salaries, Bahrain',u:'https://www.naukrigulf.com/salaries/instrumentation-engineer-salary-in-bahrain',m:'مسح رواتب'}],
+sourcesNote:'تاريخ المراجعة: أكتوبر 2026. أرقام PayScale وIndeed وNaukrigulf متوسطات مستخلصة من عينات متفاوتة الحجم. رواتب قطاع النفط والغاز والتعدين قد تتجاوز هذه المؤشرات. لم تُراجع في هذه النسخة إعلانات المصانع الصغيرة أو غير المعلنة عبر الإنترنت.',
+final:{t:'بعد ما عرفت الطريق… القرار قرارك.',p:'تخصص الهندسة الصناعية والأتمتة يفتح لك أبواب السيطرة على حركة الآلات وبناء مصانع المستقبل. اقرأ، قارن، استشر، واختَر التخصص الذي تراه الأقرب لشغفك وطموحك.'},
+finalVisual:{en:'INDUSTRIAL ENGINEERING',a:'CONTROL THE MOTION.',b:'AUTOMATE THE FUTURE.',ar:'تحكّم في الحركة… واصنع ذكاء المصنع.'}};
 /* ---- extra renderers (used when the data provides them) ---- */
 const stackHTML=S=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${S.t}</h2><p>${S.sub}</p></div></div><div class="stk r" role="tablist">${S.l.map((l,i)=>`<button type="button" role="tab" aria-selected="${i==0}" data-sk="${i}"><small dir="ltr">${l[0]}</small><b>${l[1]}</b></button>`).join('')}</div><p class="wd r" id="skd" aria-live="polite">${S.l[0][2]}</p>`;
-const ecoHTML=E=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${E.t}</h2><p>${E.sub}</p></div></div><div class="eco r"><div class="ec0"><small>COMPUTER</small><b>& NETWORKS</b></div>${E.l.map((n,i)=>{const a=i/E.l.length*6.2832-1.5708;return `<button type="button" class="en" aria-pressed="${i==0}" data-eco="${i}" style="left:${50+Math.cos(a)*40}%;top:${50+Math.sin(a)*40}%"><small dir="ltr">${n[0]}</small>${n[1]}</button>`}).join('')}</div><div class="gcd2 r" id="ecp" aria-live="polite"></div>`;
+const ecoHTML=E=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${E.t}</h2><p>${E.sub}</p></div></div><div class="eco r"><div class="ec0"><small>${E.c0?E.c0[0]:'COMPUTER'}</small><b>${E.c0?E.c0[1]:'& NETWORKS'}</b></div>${E.l.map((n,i)=>{const a=i/E.l.length*6.2832-1.5708;return `<button type="button" class="en" aria-pressed="${i==0}" data-eco="${i}" style="left:${50+Math.cos(a)*40}%;top:${50+Math.sin(a)*40}%"><small dir="ltr">${n[0]}</small>${n[1]}</button>`}).join('')}</div><div class="gcd2 r" id="ecp" aria-live="polite"></div>`;
 const extraSK=D=>(D.tools?`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.tools.t}</h2></div></div><div class="g3">${D.tools.l.map(t=>`<div class="gcd2 r"><b dir="ltr" style="text-align:start">${t[0]}</b><small>${t[1]}</small><p><em>WHAT</em> ${t[1]}<br><em>WHY</em> ${t[2]}<br><em>WHERE</em> ${t[3]}</p></div>`).join('')}</div>`:'')+(D.matrix?`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${D.matrix.t}</h2><p>${D.matrix.note}</p></div></div><div class="tw r"><table><thead><tr>${D.matrix.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${D.matrix.rows.map(r=>`<tr><th dir="ltr">${r[0]}</th>${r.slice(1).map((c,i)=>`<td>${i?`<i class="ms" style="--n:${i}"></i>`:''}${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'');
 const remoteHTML=R=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${R.t}</h2></div></div><div class="g2"><div class="gcd2 r"><small>MORE REMOTE-COMPATIBLE</small><div>${chips(R.more)}</div></div><div class="gcd2 r"><small>MORE LOCATION-DEPENDENT</small><div>${R.less.map(x=>`<span class="cp mt">${x}</span>`).join('')}</div></div></div><p class="nt r">${R.note}</p>`;
 const projHTML=P=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${P.t}</h2><p>${P.note}</p></div></div><div class="g3">${P.l.map(p=>`<div class="gcd2 r"><small dir="ltr">${p[1]}</small><b dir="ltr" style="text-align:start">${p[0]}</b><p><em>WHAT YOU LEARN</em> ${p[2]}<br><em>TOOLS</em> ${p[3]}</p></div>`).join('')}</div>`;
 const sudanSalHTML=S=>`<div class="gsh r" style="margin-top:44px"><b></b><div><h2>${S.t}</h2></div></div><div class="gcd2 r"><p style="margin:0;color:var(--ink)">${S.msg}</p><div style="margin-top:10px">${chips(S.f)}</div></div>`;
 const salaryCN=D=>{const P=D.salary;return `<section class="gsec" id="sl">${sh('06','sl',P.t,P.sub)}<p class="nt r">${P.note}</p><p class="nt r">${P.pkg}</p><div class="g3">${P.cards.map(c=>`<article class="sal r"><small dir="ltr">${c.c}</small><em dir="ltr">${c.role}</em><ul class="lvs">${[['JUNIOR',c.j],['MID',c.m],['SENIOR',c.sr]].map(x=>`<li><small dir="ltr">${x[0]}</small><b dir="ltr">${x[1][0]}</b><span dir="ltr">${x[1][1]?x[1][1]+' / month':''}</span></li>`).join('')}</ul><p>${c.cv}</p><div><a href="${c.u}" target="_blank" rel="noopener noreferrer">${c.s} ↗</a><small>${D.checked}</small></div></article>`).join('')}</div><p class="nt r">${P.cardNote}</p></section>`};
 const finalHTML=D=>{const F=D.final||{t:'بعد ما عرفت الطريق… القرار قرارك.',p:'اقرأ، قارن، اسأل، ثم اختَر التخصص الذي يتوافق مع ميولك وأهدافك.'},s=D.slug||'communications',V=D.finalVisual;
-return `<section class="gsec gfin"><div class="r"><h2>${F.t}</h2><p>${F.p}</p><div class="gb"><a href="#/specializations/${s}/exams">الامتحانات السابقة</a><a href="#/specializations/${s}/materials">المواد الدراسية</a><a href="#/specializations/${s}/channels">القنوات الرسمية</a><button type="button" data-t="cmp">مقارنة التخصصات</button></div></div>${V?`<div class="fv r"><svg viewBox="0 0 420 120" aria-hidden="true"><g fill="none" stroke="currentColor"><path id="fvp" d="M30 90H120L150 60H270L300 30H390"/><rect x="170" y="38" width="80" height="44" class="fvc"/><circle cx="30" cy="90" r="5"/><circle cx="390" cy="30" r="5"/></g><circle r="4" fill="#CFF6FF"><animateMotion dur="${RM?0:5}s" repeatCount="indefinite"><mpath href="#fvp"/></animateMotion></circle></svg><b dir="ltr">ELEX 28</b><small dir="ltr">${V.en}</small><p dir="ltr">${V.a}<br>${V.b}</p><span>${V.ar}</span></div>`:''}</section>`};
+return `<section class="gsec gfin"><div class="r"><h2>${F.t}</h2><p>${F.p}</p><div class="gb"><a href="#/specializations/${s}/exams">الامتحانات السابقة</a><a href="#/specializations/${s}/materials">المواد الدراسية</a><a href="#/specializations/${s}/channels">القنوات الرسمية</a><button type="button" data-t="cmp">مقارنة التخصصات</button></div></div>${V?`<div class="fv r"><svg viewBox="0 0 420 120" aria-hidden="true"><g fill="none" stroke="currentColor"><path id="fvp" d="M30 90H120L150 60H270L300 30H390"/><rect x="170" y="38" width="80" height="44" class="fvc"/><circle cx="30" cy="90" r="5"/><circle cx="390" cy="30" r="5"/></g><circle r="4" fill="var(--ac)"><animateMotion dur="${RM?0:5}s" repeatCount="indefinite"><mpath href="#fvp"/></animateMotion></circle></svg><b dir="ltr">ELEX 28</b><small dir="ltr">${V.en}</small><p dir="ltr">${V.a}<br>${V.b}</p><span>${V.ar}</span></div>`:''}</section>`};
 function bindX(root){root.querySelectorAll('.gl').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('o')));
- const D=[communicationsEngineeringData,computerNetworksData][gid];
+ const D=[communicationsEngineeringData,computerNetworksData,industrialEngineeringData][gid];
  root.querySelectorAll('[data-sk]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('[data-sk]').forEach(x=>x.setAttribute('aria-selected',x===b));$('#skd').textContent=D.stack.l[b.dataset.sk][2]}));
  if(D.eco){const show=i=>{root.querySelectorAll('[data-eco]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.eco==i));const n=D.eco.l[i];$('#ecp').innerHTML=`<small dir="ltr">${n[0]}</small><b>${n[1]}</b><p>${n[2]}</p><div>${chips(D.careerLevels.l[n[3]].i)}</div>`};root.querySelectorAll('[data-eco]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.eco)));show(0)}}
 /* ---- hero 3D: computational core + network + data packets ---- */
@@ -783,6 +993,165 @@ function bGuideCN(){const w=base(40,11,0x32D6FF),g=w.g,cu=mat(0xC98A4A,.85,.3),b
   for(let i=0;i<TP;i++){const q=cp.getPoint(Math.max(0,u-i*.008));tp[i*3]=q.x;tp[i*3+1]=q.y;tp[i*3+2]=q.z}tg.attributes.position.needsUpdate=true;
   hubs.forEach(h=>{const b=Math.max(0,1-h.p.distanceTo(head)/1.1);h.obj.scale.setScalar(1+b*.18);h.hp.material.opacity=.3+b*.7});
   const s=(ph*.25)%1;cr.scale.setScalar(.5+s*3.4);cr.material.opacity=Math.pow(1-s,1.5)*.7;core.material.opacity=.5+.4*Math.sin(ph*3);rg.rotation.y=ph*.8}})}
+/* ---- hero 3D: smart factory (conveyor, robot, PLC, sensor, vision, motor, SCADA) ---- */
+function bGuideInd(){
+ const w=base(40,11,0xFF8A00),g=w.g,cu=mat(0xC98A4A,.85,.3),or=mat(0xFF8A00,.8,.35,.06),dk=mat(0x181c22,.75,.4),st=mat(0x656b75,.8,.3),dm=new TH.Object3D(),cb=col(0x32D6FF),cc=col(0xFF8A00);
+ g.children[0].position.y=-1.9;
+ const box=(x,y,z,m)=>new TH.Mesh(new TH.BoxGeometry(x,y,z),m);
+ const V=(x,y,z)=>new TH.Vector3(x,y,z);
+ const cyLed=new TH.MeshBasicMaterial({color:0x32D6FF}),orLed=new TH.MeshBasicMaterial({color:0xFF8A00});
+ // 1. Conveyor Belt
+ const convG=new TH.Group();convG.position.set(0,-.5,.2);g.add(convG);
+ convG.add(box(8.4,.14,.9,dk));
+ const r1=box(8.4,.06,.04,cu);r1.position.set(0,.1,.43);convG.add(r1);
+ const r2=box(8.4,.06,.04,cu);r2.position.set(0,.1,-.43);convG.add(r2);
+ for(let i=0;i<4;i++){const leg=box(.08,1.4,.08,st);leg.position.set(-3.5+i*2.3,-.7,0);convG.add(leg)}
+ // 2. Workpieces on conveyor
+ const BOX_N=4,boxes=[];
+ for(let i=0;i<BOX_N;i++){
+  const bg=new TH.Group();
+  bg.add(box(.5,.32,.44,cu));
+  const tag=box(.24,.02,.24,or);tag.position.y=.17;bg.add(tag);
+  convG.add(bg);boxes.push(bg);
+ }
+ // 3. Electric Motor Drive
+ const motG=new TH.Group();motG.position.set(-4.3,-.5,.2);g.add(motG);
+ const mc=new TH.Mesh(new TH.CylinderGeometry(.32,.32,.75,16),dk);mc.rotation.z=1.5708;motG.add(mc);
+ for(let i=0;i<5;i++){const fin=new TH.Mesh(new TH.CylinderGeometry(.36,.36,.03,16),st);fin.rotation.z=1.5708;fin.position.x=-.25+i*.12;motG.add(fin)}
+ const termB=box(.22,.18,.22,or);termB.position.set(0,.36,0);motG.add(termB);
+ const shaft=new TH.Mesh(new TH.CylinderGeometry(.08,.08,.3,12),cu);shaft.rotation.z=1.5708;shaft.position.x=.45;motG.add(shaft);
+ // 4. Optical Sensor
+ const sensG=new TH.Group();sensG.position.set(-1.8,-.38,.65);g.add(sensG);
+ sensG.add(box(.05,.55,.05,st));
+ const sBar=new TH.Mesh(new TH.CylinderGeometry(.05,.05,.22,12),cu);sBar.rotation.x=1.5708;sBar.position.set(0,.22,-.1);sensG.add(sBar);
+ const sLed=new TH.Mesh(new TH.SphereGeometry(.03,8,8),cyLed);sLed.position.set(0,.22,.03);sensG.add(sLed);
+ const beamGeo=bufG(new Float32Array([-1.8,-.16,.58,-1.8,-.16,-.18]));
+ const beam=new TH.Line(beamGeo,lm(0x32D6FF,.8));g.add(beam);
+ const sensRing=new TH.Line(circ(32),lm(0x32D6FF,0));sensRing.position.set(-1.8,-.16,.2);g.add(sensRing);
+ // 5. Machine Vision Camera & Gantry
+ const visG=new TH.Group();visG.position.set(.4,1.4,.2);g.add(visG);
+ const gtr=box(1.2,.06,.8,st);gtr.position.y=.25;visG.add(gtr);
+ for(let s=0;s<2;s++){const col=box(.06,1.9,.06,st);col.position.set(-.55+s*1.1,-.7,0);visG.add(col)}
+ const camB=box(.28,.28,.35,dk);camB.position.y=.05;visG.add(camB);
+ const lens=new TH.Mesh(new TH.CylinderGeometry(.09,.12,.18,12),cu);lens.position.y=-.18;visG.add(lens);
+ const vLed=new TH.Mesh(new TH.SphereGeometry(.025,8,8),cyLed);vLed.position.set(.12,.1,.16);visG.add(vLed);
+ const pyrGeo=new TH.BufferGeometry();
+ const pyrV=new Float32Array([0,0,0,-.45,-1.6,-.45, 0,0,0,.45,-1.6,-.45, 0,0,0,.45,-1.6,.45, 0,0,0,-.45,-1.6,.45, -.45,-1.6,-.45,.45,-1.6,-.45, .45,-1.6,-.45,.45,-1.6,.45, .45,-1.6,.45,-.45,-1.6,.45, -.45,-1.6,.45,-.45,-1.6,-.45]);
+ pyrGeo.setAttribute('position',new TH.BufferAttribute(pyrV,3));
+ const vCone=new TH.LineSegments(pyrGeo,lm(0x32D6FF,.35));vCone.position.set(.4,1.2,.2);g.add(vCone);
+ // 6. Industrial Robotic Arm (6-Axis)
+ const robG=new TH.Group();robG.position.set(1.8,-.5,-.9);g.add(robG);
+ const rPed=new TH.Mesh(new TH.CylinderGeometry(.42,.48,.35,16),dk);robG.add(rPed);
+ const rRing=new TH.Mesh(new TH.TorusGeometry(.44,.025,8,24),or);rRing.rotation.x=1.5708;rRing.position.y=.14;robG.add(rRing);
+ const rTurret=new TH.Group();rTurret.position.y=.22;robG.add(rTurret);
+ rTurret.add(box(.36,.32,.36,or));
+ const rShoulder=new TH.Group();rShoulder.position.set(0,.2,0);rTurret.add(rShoulder);
+ const arm1=box(.18,1.3,.18,cu);arm1.position.y=.65;rShoulder.add(arm1);
+ const rElbow=new TH.Group();rElbow.position.set(0,1.3,0);rShoulder.add(rElbow);
+ const arm2=box(.14,1.1,.14,dk);arm2.position.set(0,.55,0);rElbow.add(arm2);
+ const rWrist=new TH.Group();rWrist.position.set(0,1.1,0);rElbow.add(rWrist);
+ const gripBase=box(.2,.08,.16,or);rWrist.add(gripBase);
+ const gF1=box(.04,.2,.06,st);gF1.position.set(-.07,-.12,0);rWrist.add(gF1);
+ const gF2=box(.04,.2,.06,st);gF2.position.set(.07,-.12,0);rWrist.add(gF2);
+ // 7. Modular PLC Cabinet
+ const plcG=new TH.Group();plcG.position.set(-2.6,.7,-1.4);g.add(plcG);
+ const cab=box(1.5,1.9,.38,dk);plcG.add(cab);
+ const cabDoor=box(1.4,1.8,.04,mat(0x222832,.6,.4));cabDoor.position.z=.19;plcG.add(cabDoor);
+ const trim=new TH.LineSegments(new TH.EdgesGeometry(new TH.BoxGeometry(1.5,1.9,.38)),lm(0xC98A4A,.6));plcG.add(trim);
+ for(let r=0;r<2;r++){const rail=box(1.2,.04,.06,st);rail.position.set(0,.3-r*.6,.14);plcG.add(rail)}
+ const plcCPU=box(.28,.45,.14,or);plcCPU.position.set(-.35,.3,.16);plcG.add(plcCPU);
+ for(let m=0;m<4;m++){const ioM=box(.16,.38,.12,cu);ioM.position.set(-.1+m*.18,.3,.16);plcG.add(ioM)}
+ const plcLeds=[];
+ for(let l=0;l<6;l++){const pld=new TH.Mesh(new TH.SphereGeometry(.02,6,6),l%2?cyLed:orLed);pld.position.set(-.42+l*.15,.7,.21);plcG.add(pld);plcLeds.push(pld)}
+ // 8. SCADA / HMI Station
+ const hmiG=new TH.Group();hmiG.position.set(-.4,.8,-1.2);g.add(hmiG);
+ const hmiStand=box(.08,1.6,.08,st);hmiStand.position.y=-.6;hmiG.add(hmiStand);
+ const hmiBase=box(.48,.04,.48,dk);hmiBase.position.y=-1.4;hmiG.add(hmiBase);
+ const hmiPanel=box(1.1,.75,.08,dk);hmiPanel.rotation.x=-.25;hmiG.add(hmiPanel);
+ const hmiScreen=new TH.Mesh(new TH.PlaneGeometry(.95,.62),new TH.MeshBasicMaterial({color:0x0b1a2e}));hmiScreen.position.set(0,0,.045);hmiPanel.add(hmiScreen);
+ const hmiEdge=new TH.LineSegments(new TH.EdgesGeometry(new TH.PlaneGeometry(.95,.62)),lm(0xFF8A00,.7));hmiEdge.position.set(0,0,.046);hmiPanel.add(hmiEdge);
+ const HB_N=8;const hmiBars=[];
+ for(let b=0;b<HB_N;b++){
+  const bar=box(.07,.1,.01,b%2?cyLed:orLed);
+  bar.position.set(-.35+b*.1,-.1,.05);
+  hmiPanel.add(bar);hmiBars.push(bar);
+ }
+ // 9. Industrial Network Conduits & Data Pulses
+ const netLines=[
+  [-2.6,-.2,-1.4, -2.6,-.5,-1.4, -4.3,-.5,-1.4, -4.3,-.5,.2],
+  [-2.6,-.2,-1.4, -1.8,-.2,-1.4, -1.8,-.2,.65],
+  [-2.6,-.2,-1.4, .4,-.2,-1.4, .4,1.4,.2],
+  [-2.6,-.2,-1.4, 1.8,-.2,-1.4, 1.8,-.2,-.9],
+  [-2.6,-.2,-1.4, -.4,-.2,-1.4, -.4,.4,-1.2]
+ ];
+ const netV=[];
+ netLines.forEach(l=>{for(let i=0;i<l.length-3;i+=3)netV.push(l[i],l[i+1],l[i+2],l[i+3],l[i+4],l[i+5])});
+ g.add(new TH.LineSegments(bufG(new Float32Array(netV)),lm(0xC98A4A,.45)));
+ const NP_N=10,netPts=new Float32Array(NP_N*3),netG=bufG(netPts),netMat=ptsM(0xFF8A00,.2,1);g.add(new TH.Points(netG,netMat));
+ const netCurves=netLines.map(line=>{
+  const cp=new TH.CurvePath();
+  for(let i=0;i<line.length-3;i+=3)cp.add(new TH.LineCurve3(V(line[i],line[i+1],line[i+2]),V(line[i+3],line[i+4],line[i+5])));
+  return cp;
+ });
+ // 10. Labels
+ const ord=[
+  V(1.8,1.3,-.9),
+  V(-2.6,1.6,-1.4),
+  V(-1.8,.2,.65),
+  V(-4.3,.1,.2),
+  V(-.4,1.3,-1.2),
+  V(.4,1.7,.2),
+  V(-1.5,.3,-.7)
+ ];
+ const labels=[...document.querySelectorAll('.gl')].map((el,i)=>({el,v:ord[i]||V(0,0,0)}));
+ let ph=0;
+ return Object.assign(w,{labels,upd(t,dt,px,py,sp){
+  ph+=dt*SF0;
+  g.rotation.y=px*.25+(-.08+sp*.45);
+  g.rotation.x=.40+py*.08;
+  shaft.rotation.x=ph*8;
+  boxes.forEach((b,i)=>{
+   const u=(ph*.25+i/BOX_N)%1;
+   b.position.x=-3.8+u*7.6;
+   b.position.y=.22;
+   b.position.z=0;
+  });
+  let sensActive=false;
+  boxes.forEach(b=>{if(Math.abs(b.position.x-(-1.8))<.4)sensActive=true});
+  beam.material.opacity=sensActive?.95:.25;
+  beam.material.color.set(sensActive?0xFF8A00:0x32D6FF);
+  sLed.material.color.set(sensActive?0xFF8A00:0x32D6FF);
+  if(sensActive){
+   const s=(ph*3)%1;sensRing.scale.setScalar(.2+s*1.8);sensRing.material.opacity=Math.pow(1-s,1.5)*.8;
+  }else{sensRing.material.opacity=0}
+  let visActive=false;
+  boxes.forEach(b=>{if(Math.abs(b.position.x-(.4))<.5)visActive=true});
+  vCone.material.opacity=visActive?.85:.22;
+  vCone.material.color.set(visActive?0xFFB074:0x32D6FF);
+  vLed.material.color.set(visActive?0xFF8A00:0x32D6FF);
+  const rT=Math.sin(ph*1.3);
+  rTurret.rotation.y=rT*.45;
+  rShoulder.rotation.z=-.35+Math.sin(ph*1.3)*.2;
+  rElbow.rotation.z=.7+Math.sin(ph*1.3+.8)*.25;
+  rWrist.rotation.z=-.35-Math.sin(ph*1.3)*.2;
+  const gripSpan=Math.abs(Math.sin(ph*2.6))*.05;
+  gF1.position.x=-.07-gripSpan;
+  gF2.position.x=.07+gripSpan;
+  plcLeds.forEach((l,i)=>{l.material.opacity=.3+.7*Math.abs(Math.sin(ph*5+i*1.2))});
+  hmiBars.forEach((bar,i)=>{
+   const h=.08+.35*Math.abs(Math.sin(ph*2+i*.8));
+   bar.scale.y=h/.1;
+   bar.position.y=-.2+h*.5;
+  });
+  for(let i=0;i<NP_N;i++){
+   const crv=netCurves[i%netCurves.length];
+   const u=(ph*.4+i*.17)%1;
+   const p=crv.getPoint(u);
+   netPts[i*3]=p.x;netPts[i*3+1]=p.y;netPts[i*3+2]=p.z;
+  }
+  netG.attributes.position.needsUpdate=true;
+ }});
+}
 let gid=0;
 const tpHTML=L=>`<div class="g2 r"><div class="gcd2"><small>THEORY</small><b>النظري</b><div>${chips(L.theory)}</div></div><div class="gcd2"><small>PRACTICAL</small><b>العملي</b><div>${chips(L.practice)}</div></div></div>`;
 const weekHTML=W=>`<div class="gsh r" style="margin-top:30px"><b></b><div><h2>أسبوع نموذجي</h2><p>${W.label}</p></div></div><div class="dl r">${W.l.map(d=>`<div><b>${d[0]}</b><em>${d[1]}</em></div>`).join('')}</div>`;
