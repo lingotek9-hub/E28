@@ -17,7 +17,7 @@ export const SPECIALIZATIONS: Record<SpecializationId, SpecializationData> = {
     },
     semesterCurrent: 7,
     stats: {
-      courses: 6,
+      courses: 8,
       hours: 18,
       exams: 18,
       materials: 24,
@@ -416,7 +416,7 @@ export const SPECIALIZATIONS: Record<SpecializationId, SpecializationData> = {
     },
     semesterCurrent: 7,
     stats: {
-      courses: 6,
+      courses: 8,
       hours: 18,
       exams: 20,
       materials: 26,
@@ -749,8 +749,8 @@ export const SPECIALIZATIONS: Record<SpecializationId, SpecializationData> = {
     },
     semesterCurrent: 7,
     stats: {
-      courses: 6,
-      hours: 18,
+      courses: 8,
+      hours: 17,
       exams: 19,
       materials: 25,
       labs: 4,
