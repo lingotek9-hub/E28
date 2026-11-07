@@ -185,7 +185,7 @@ body.it .stage{opacity:1;transform:scale(1);pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.wc,.sph,.ft,#pg>*{transition-duration:.01s!important}}
 </style>
 <svg id="rad" aria-hidden="true"></svg><div id="lt"></div>
-<section id="sp"><header class="sph"><div class="mk">ELEX 28</div><h2>SPECIALIZATION</h2><p class="ar" lang="ar" dir="rtl">اختر مسارك… وابدأ فصلًا جديدًا.</p></header><div class="wrap" id="wrap"></div><div class="ft">ONE IDENTITY. THREE ENGINEERING WORLDS. ONE JOURNEY.</div></section>
+<section id="sp"><header class="sph"><div class="mk">ELEX 28</div><h2>SPECIALIZATION</h2><p class="ar" lang="ar" dir="rtl">اختر مسارك… وابدأ فصلًا جديدًا.</p></header><div class="wrap" id="wrap"></div><div class="ft"><div>ONE IDENTITY. THREE ENGINEERING WORLDS. ONE JOURNEY.</div><div class="ft-credit" style="margin-top:6px;font-size:11px">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></div></div></section>
 <style>
 #nv{position:fixed;top:0;left:0;right:0;z-index:40;display:none;align-items:center;gap:clamp(12px,2vw,28px);padding:calc(env(safe-area-inset-top,0px) + 12px) clamp(16px,3vw,36px) 12px;background:rgba(12,12,14,.74);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07)}
 .hn #nv{display:flex}.sv .stage{display:none}
@@ -232,11 +232,38 @@ body.it .stage{opacity:1;transform:scale(1);pointer-events:auto}
 .sc h3{margin:18px 0 4px;font-size:clamp(17px,1.6vw,20px);font-weight:600;letter-spacing:.07em}
 .sc .ar{display:block;font-size:16px;color:#c9ccd2;margin-bottom:12px}.sc p{margin:0 0 22px;font-size:14px;line-height:1.7;color:#a3a7af;font-weight:300}
 .sc b{margin-top:auto;font-size:11px;letter-spacing:.32em;font-weight:400;color:var(--ac)}.sc b::after{content:" \2192";display:inline-block;transition:transform .4s}.sc:hover b::after{transform:translateX(6px)}
-.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;margin-top:16px}
+.ch-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;background:rgba(18,22,30,.72);background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(255,255,255,.018) 23px 24px);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:22px;transition:border-color .35s ease,transform .35s ease,box-shadow .35s ease;box-sizing:border-box}
+.ch-card:hover{border-color:var(--ac,#32D6FF);transform:translateY(-3px);box-shadow:0 14px 34px -16px var(--ac,rgba(50,214,255,.35))}
+.ch-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
+.ch-ic{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--ac,#32D6FF);color:var(--ac,#32D6FF);flex-shrink:0}
+.ch-meta{display:flex;flex-direction:column;gap:3px;flex-grow:1;min-width:0}
+.ch-badge{display:inline-block;align-self:flex-start;font:600 9.5px/1.2 'Sora','IBM Plex Sans Arabic',sans-serif;letter-spacing:.08em;color:var(--ac,#32D6FF);padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:2px}
+.ch-name{margin:6px 0 2px;font-size:16px;font-weight:700;line-height:1.4;color:#f3f4f6;word-break:break-word}
+.ch-en{display:block;font:500 10px/1.3 'Sora',sans-serif;letter-spacing:.08em;color:var(--mute);text-align:start}
+.ch-desc{margin:0 0 14px;font-size:12.5px;line-height:1.7;color:#a3a7af;font-weight:300;flex-grow:1}
+.ch-url-box{display:flex;align-items:center;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);padding:7px 12px;border-radius:3px;margin-bottom:16px;overflow:hidden}
+.ch-url-txt{font:500 11px ui-monospace,Menlo,Consolas,monospace;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;unicode-bidi:plaintext}
+.ch-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ch-act-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:0 12px;font-size:12px;font-weight:600;border-radius:3px;text-decoration:none;cursor:pointer;transition:all .25s ease;border:1px solid transparent;-webkit-tap-highlight-color:transparent;font-family:'IBM Plex Sans Arabic','Sora',sans-serif}
+.ch-visit{background:rgba(50,214,255,.12);border-color:var(--ac,#32D6FF);color:var(--ac,#32D6FF)}
+.ch-visit:hover{background:var(--ac,#32D6FF);color:#070a10;box-shadow:0 0 18px var(--ac,rgba(50,214,255,.5))}
+.ch-copy{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:#e2e8f0}
+.ch-copy:hover{background:rgba(255,255,255,.1);border-color:#fff;color:#fff}
+.ch-copy.copied{background:rgba(34,197,94,.18)!important;border-color:#22c55e!important;color:#4ade80!important}
 .ch{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border:1px solid rgba(255,255,255,.09);color:var(--ink);text-decoration:none;font-size:14px;letter-spacing:.12em;transition:border-color .3s,transform .3s}
-.ch em{font-style:normal;font-size:10px;letter-spacing:.26em;color:var(--ac)}.ch[aria-disabled]{color:#80848c}.ch[aria-disabled] em{color:#6a6e76}
-a.ch[href]:hover{border-color:var(--ac);transform:translateY(-2px)}a.ch:focus-visible{outline:1px solid var(--cy);outline-offset:3px}
-.ft2{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));padding-top:56px;font-size:10px;letter-spacing:.3em;color:#666a72;text-align:center}
+.ch-mini-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:16px}
+.ch-mini-item{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;background:rgba(18,22,30,.72);background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(255,255,255,.018) 23px 24px);border:1px solid rgba(255,255,255,.1);border-radius:30px;color:#f3f4f6;text-decoration:none;font-family:'IBM Plex Sans Arabic','Sora',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;transition:all .28s ease;-webkit-tap-highlight-color:transparent}
+.ch-mini-item:hover{border-color:var(--ac,#32D6FF);background:rgba(50,214,255,.1);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px -6px var(--ac,rgba(50,214,255,.45))}
+.ch-mini-item:active{transform:translateY(0)}
+.ch-mini-ic{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--ac,#32D6FF);color:var(--ac,#32D6FF);flex-shrink:0}
+.ch-mini-name{white-space:nowrap}
+.ch-mini-ext{color:var(--ac,#32D6FF);font-size:12px;opacity:.8;transition:transform .2s ease;margin-inline-start:2px}
+.ch-mini-item:hover .ch-mini-ext{transform:translate(-2px,-2px);opacity:1}
+.ft2{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));padding-top:56px;font-size:10px;letter-spacing:.3em;color:#666a72;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ft-credit{font-family:'Sora','IBM Plex Sans Arabic',sans-serif;font-size:11.5px;letter-spacing:.12em;color:#94a3b8;font-weight:500;text-transform:uppercase;direction:ltr}
+.ft-credit a{color:var(--ac,#32D6FF);text-decoration:none;border-bottom:1px solid rgba(50,214,255,.35);padding-bottom:1px;transition:all .2s ease}
+.ft-credit a:hover{color:#fff;border-bottom-color:#fff;text-shadow:0 0 10px rgba(50,214,255,.6)}
 .svp{padding-top:calc(env(safe-area-inset-top,0px) + 120px);padding-bottom:60px}.svp h1{margin:6px 0 4px;font-size:clamp(26px,4vw,46px);font-weight:700;letter-spacing:.06em}.svp h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,26px);font-weight:400;color:#d7d9de}
 .ic.big{position:static;display:block;width:48px;height:48px;margin:22px 0 4px}
 .empty{border:1px dashed rgba(255,255,255,.2);padding:26px;margin:20px 0;max-width:540px}.empty b{font-weight:600;letter-spacing:.06em}.empty p{margin:8px 0 0;color:var(--mute);font-size:14px;font-weight:300;line-height:1.7}
@@ -372,6 +399,12 @@ main#mat:nth-of-type(4) > div:nth-of-type(1) > p:nth-of-type(1) > b:nth-of-type(
 .cdv{margin:18px 0 6px;perspective:700px;color:var(--cc);display:flex;justify-content:center;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.04);border-radius:4px;padding:12px}.cdv .mv{max-height:210px}.cdc{color:var(--mute);font-size:13px;margin:8px 0 20px;line-height:1.6}
 .cdm{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.cdm>div{border:1px solid rgba(255,255,255,.1);padding:12px 14px;background:rgba(255,255,255,.02);border-radius:3px}.cdm small{font:10px Sora,sans-serif;letter-spacing:.2em;color:var(--mute);display:block;margin-bottom:4px}.cdm em{font-style:normal;color:var(--mute)}
 .cdd{line-height:1.9;color:#c9ccd2;font-size:14.5px}.cta2{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border:1px solid var(--cc);color:var(--ink);text-decoration:none;font-weight:600;margin:6px 0 22px;border-radius:2px}.cta2.off{border-style:dashed;color:var(--mute)}.cta2:hover:not(.off){background:rgba(50,214,255,.1)}.cta2:focus-visible{outline:1px solid var(--cy);outline-offset:3px}
+.tg-tag{display:inline-flex;align-items:center;gap:5px;font:600 10px/1.2 'Sora','IBM Plex Sans Arabic',sans-serif;color:#38bdf8;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);padding:3px 8px;border-radius:3px;letter-spacing:.02em}
+.tg-tag svg{flex-shrink:0}
+.tg-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 26px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(14,165,233,.14));border:1px solid #38bdf8;color:#fff;border-radius:4px;font-size:14px;font-weight:600;box-shadow:0 0 16px -4px rgba(56,189,248,.45);text-decoration:none;transition:all .25s ease;margin:8px 0 22px}
+.tg-cta svg{flex-shrink:0}
+.tg-cta:hover{background:linear-gradient(135deg,#38bdf8,#0284c7);color:#070a10;border-color:#38bdf8;box-shadow:0 0 26px rgba(56,189,248,.7);transform:translateY(-2px)}
+.tg-cta:active{transform:translateY(0)}
 .rs2{border-top:1px solid rgba(255,255,255,.1);padding:12px 0}.rs2 small{font:10px Sora,sans-serif;letter-spacing:.2em;color:var(--cc);display:block;margin-bottom:6px}.rs2 a,.rs2 span{display:block;padding:6px 0;color:var(--ink)}
 @media(max-width:820px){.bc .bx{display:none}.cdm{grid-template-columns:1fr}}
 @media(max-width:560px){
@@ -801,10 +834,47 @@ function frame(now){
 requestAnimationFrame(frame);
 /* routing */
 /* stage 3: specialization home. EDIT CFG to change content; values marked placeholder are not final. */
-const CFG={placeholder:true,tagline:'بوابتك الأكاديمية للوصول إلى المواد والمصادر والخدمات.',spec:{
- 'communications':{semester:7,stats:{courses:8,hours:18,exams:24},ac:'#32D6FF',ac2:'#0E4DA4',channels:{telegram:'',whatsapp:'',website:''}},
- 'computer-networks':{semester:7,stats:{courses:8,hours:18,exams:24},ac:'#3C86E8',ac2:'#32D6FF',channels:{telegram:'',whatsapp:'',website:''}},
- 'industrial':{semester:7,stats:{courses:8,hours:17,exams:24},ac:'#FF8A00',ac2:'#C98A4A',channels:{telegram:'',whatsapp:'',website:''}}}};
+const OFFICIAL_CHANNELS = [
+  {
+    key: 'telegram',
+    nameAr: 'قناة التلغرام الرسمية',
+    shortName: 'قناة التلغرام',
+    nameEn: 'OFFICIAL TELEGRAM CHANNEL',
+    url: 'https://t.me/+nDxI82Rqjlo3MTU0',
+    desc: 'القناة الرسمية المعتمدة لدفعة ELEX 28 لمتابعة الإعلانات الأكاديمية والملفات والمستجدات.',
+    badge: 'قناة تيليجرام',
+    displayUrl: 'https://t.me/+nDxI82Rqjlo3MTU0',
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>'
+  },
+  {
+    key: 'elearning',
+    nameAr: 'منصة الجامعة الرسمية (SUST)',
+    shortName: 'منصة الجامعة',
+    nameEn: 'UNIVERSITY E-LEARNING (SUST)',
+    url: 'https://el.sustech.edu/',
+    desc: 'منصة التعليم الإلكتروني الرسمية لجامعة السودان للعلوم والتكنولوجيا للمحاضرات وبوابات الدخول.',
+    badge: 'منصة الجامعة',
+    displayUrl: 'https://el.sustech.edu/',
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>'
+  },
+  {
+    key: 'website',
+    nameAr: 'الموقع الرسمي للدفعة (Website)',
+    shortName: 'موقع الدفعة',
+    nameEn: 'ELEX 28 ACADEMIC PORTAL',
+    url: 'https://elex28.vercel.app/',
+    desc: 'البوابة الرقمية المعتمدة لدفعة هندسة الإلكترونيات ELEX 28 للوصول إلى كافة المصادر والخدمات.',
+    badge: 'بوابة الدفعة',
+    displayUrl: 'https://elex28.vercel.app/',
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
+  }
+];
+const chansMini=()=>`<div class="ch-mini-row r">${OFFICIAL_CHANNELS.map(ch=>`<a class="ch-mini-item" href="${ch.url}" target="_blank" rel="noopener noreferrer" aria-label="${ch.nameAr}" title="${ch.nameAr}"><span class="ch-mini-ic">${ch.icon}</span><span class="ch-mini-name">${ch.shortName}</span><span class="ch-mini-ext">↗</span></a>`).join('')}</div>`;
+const CFG_CHANNELS={telegram:'https://t.me/+nDxI82Rqjlo3MTU0',elearning:'https://el.sustech.edu/',website:'https://elex28.vercel.app/'};
+const CFG={placeholder:false,tagline:'بوابتك الأكاديمية للوصول إلى المواد والمصادر والخدمات.',spec:{
+ 'communications':{semester:7,stats:{courses:8,hours:18,exams:24},ac:'#32D6FF',ac2:'#0E4DA4',channels:CFG_CHANNELS},
+ 'computer-networks':{semester:7,stats:{courses:8,hours:18,exams:24},ac:'#3C86E8',ac2:'#32D6FF',channels:CFG_CHANNELS},
+ 'industrial':{semester:7,stats:{courses:8,hours:17,exams:24},ac:'#FF8A00',ac2:'#C98A4A',channels:CFG_CHANNELS}}};
 const ORD=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر'],pad=n=>n==null||n===''||isNaN(n)?'\u2014':String(n).padStart(2,'0');
 const SVC=[
  {key:'materials',n:'01',en:'COURSE MATERIALS',ar:'المواد الدراسية',d:'Access lectures, summaries and course resources.',b:'OPEN',ic:'<rect x="10" y="6" width="24" height="34"/><path d="M16 14h12M16 20h12M16 26h7M34 12h4v32H16"/>'},
@@ -814,7 +884,54 @@ const SVC=[
 const hm=$('#home'),svv=$('#svcv'),nv=$('#nv'),mn=nv.querySelector('.mn');
 mn.addEventListener('click',()=>{mn.setAttribute('aria-expanded',nv.classList.toggle('open'))});
 nv.addEventListener('click',e=>{if(e.target.closest('.nl a'))nv.classList.remove('open')});
-const chans=d=>[['telegram','Telegram'],['whatsapp','WhatsApp'],['website','Website']].map(([k,n],j)=>{const u=d.channels[k],ok=/^https?:\/\//.test(u||'');return `<div class="r" style="--d:${j*.08}s"><a class="ch" ${ok?`href="${u}" target="_blank" rel="noopener noreferrer"`:'aria-disabled="true"'}><span>${n}</span><em>${ok?'OPEN':'LINK PENDING'}</em></a></div>`}).join('');
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-copy]');
+ if(!b)return;
+ e.preventDefault();
+ e.stopPropagation();
+ const u=b.getAttribute('data-copy');
+ if(!u)return;
+ const ok=()=>{
+  b.classList.add('copied');
+  const t=b.querySelector('.cp-txt');
+  const old=t?t.textContent:'';
+  if(t)t.textContent='تم النسخ ✓';
+  setTimeout(()=>{b.classList.remove('copied');if(t)t.textContent=old||'نسخ الرابط'},2000);
+ };
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(u).then(ok).catch(()=>fallbackCp(u,ok));
+ }else{
+  fallbackCp(u,ok);
+ }
+});
+function fallbackCp(s,cb){
+ const t=document.createElement('textarea');
+ t.value=s;t.style.position='fixed';t.style.opacity='0';
+ document.body.appendChild(t);t.select();
+ try{document.execCommand('copy');cb&&cb()}catch(_){}
+ document.body.removeChild(t);
+}
+const chans=d=>OFFICIAL_CHANNELS.map((ch,j)=>`<div class="ch-card r" style="--d:${j*.08}s">
+  <div class="ch-top">
+    <div class="ch-ic">${ch.icon}</div>
+    <div class="ch-meta">
+      <span class="ch-badge">${ch.badge}</span>
+      <h3 class="ch-name ar">${ch.nameAr}</h3>
+      <small class="ch-en" dir="ltr">${ch.nameEn}</small>
+    </div>
+  </div>
+  <p class="ch-desc ar">${ch.desc}</p>
+  <div class="ch-url-box" dir="ltr"><span class="ch-url-txt">${ch.displayUrl}</span></div>
+  <div class="ch-actions">
+    <a class="ch-act-btn ch-visit" href="${ch.url}" target="_blank" rel="noopener noreferrer">
+      <span>دخول ↗</span>
+    </a>
+    <button class="ch-act-btn ch-copy" type="button" data-copy="${ch.url}" aria-label="نسخ رابط ${ch.nameAr}">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="cp-txt">نسخ الرابط</span>
+    </button>
+  </div>
+</div>`).join('');
 function reveal(root){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{root,rootMargin:'0px 0px -6% 0px'});root.querySelectorAll('.r').forEach(e=>io.observe(e))}
 function home(i){const s=SP[i],d=CFG.spec[s.id],n=d.semester,st=[['SEMESTER',pad(n),`<span class="ar" lang="ar" dir="rtl">المستوى ${ORD[n-1]||''}</span>`],['COURSES',pad(d.stats.courses)],['HOURS',pad(d.stats.hours)],['PAST EXAMS',pad(d.stats.exams)]];
  hm.innerHTML=`<header class="hero"><div id="hv"></div><div class="hs"></div><div class="hc">
@@ -823,10 +940,10 @@ function home(i){const s=SP[i],d=CFG.spec[s.id],n=d.semester,st=[['SEMESTER',pad
 <div class="chip r" style="--d:.3s"><i></i>SEMESTER ${pad(n)}</div><p class="ar al r" lang="ar" dir="rtl" style="--d:.4s">${d.tagline||CFG.tagline}</p></div></header>
 <section class="sec"><div class="stats r">${st.map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b>${x[2]||''}</div>`).join('')}</div>${CFG.placeholder?'<p class="note">FIGURES ARE PLACEHOLDERS UNTIL CONFIRMED</p>':''}</section>
 <section class="sec"><div class="shd r"><h2>SERVICES</h2><p>Everything you need for your academic journey.</p></div><div class="sg">${SVC.map((k,j)=>`<div class="r" style="--d:${j*.08}s"><a class="sc" href="#/specializations/${s.id}/${k.key}"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true">${k.ic}</svg><span class="n">${k.n}</span><h3>${k.en}</h3><span class="ar al" lang="ar" dir="rtl">${k.ar}</span><p>${k.d}</p><b>${k.b}</b></a></div>`).join('')}</div></section>
-<section class="sec"><div class="shd r"><h2>OFFICIAL CHANNELS</h2></div><div class="cg">${chans(d)}</div></section>
-<footer class="sec ft2">ELEX 28 \u2014 ELECTRONICS ENGINEERING</footer>`;reveal(hm)}
+<section class="sec"><div class="shd r"><h2>OFFICIAL CHANNELS</h2></div>${chansMini()}</section>
+<footer class="sec ft2"><span>ELEX 28 — ELECTRONICS ENGINEERING</span><span class="ft-credit">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></span></footer>`;reveal(hm)}
 function svcPage(i,k){const s=SP[i],d=CFG.spec[s.id];svv.scrollTop=0;
- svv.innerHTML=`<div class="sec svp"><div class="br r"><b>${s.englishTitle}</b></div><svg class="ic big r" viewBox="0 0 48 48" aria-hidden="true">${k.ic}</svg><h1 class="r">${k.en}</h1><h2 class="ar al r" lang="ar" dir="rtl">${k.ar}</h2>${k.key==='channels'?`<div class="cg" style="margin-top:20px">${chans(d)}</div>`:'<div class="empty r"><b>Content is being prepared</b><p>This section will connect to real academic content in a later stage.</p></div>'}<a class="bl r" href="#/specializations/${s.id}">&larr; BACK TO ${s.englishTitle}</a></div>`;
+ svv.innerHTML=`<div class="sec svp"><div class="br r"><b>${s.englishTitle}</b></div><svg class="ic big r" viewBox="0 0 48 48" aria-hidden="true">${k.ic}</svg><h1 class="r">${k.en}</h1><h2 class="ar al r" lang="ar" dir="rtl">${k.ar}</h2>${k.key==='channels'?`<div class="cg" style="margin-top:20px">${chans(d)}</div>`:'<div class="empty r"><b>Content is being prepared</b><p>This section will connect to real academic content in a later stage.</p></div>'}<a class="bl r" href="#/specializations/${s.id}">&larr; BACK TO ${s.englishTitle}</a><footer class="sec ft2" style="padding-top:48px"><span>ELEX 28 — ELECTRONICS ENGINEERING</span><span class="ft-credit">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></span></footer></div>`;
  at(40,()=>svv.querySelectorAll('.r').forEach(e=>e.classList.add('in')))}
 /* ===== Communications Engineering guide (stage 4). Content lives in communicationsEngineeringData. ===== */
 const communicationsEngineeringData={lastUpdated:'2026-10-03',checked:'أكتوبر 2026',
@@ -904,7 +1021,7 @@ ${P.mode?salaryCN(D):`<section class="gsec" id="sl">${sh('06','sl',P.t,P.sub)}<p
 <section class="gsec" id="rd">${sh('+','rd',R.t,R.pathNote)}<div class="g3">${R.stages.map(s=>`<div class="gcd2 r"><small>${s[0]}</small><b>${s[1]}</b><div>${chips(s[2])}</div></div>`).join('')}</div><div class="g2" style="margin-top:12px"><div class="gcd2 r"><small>CAREER PATH EXAMPLES</small>${R.paths.map(p=>`<div class="pth"><b dir="ltr">${p[0]}</b><span dir="ltr">${p[1].join(' → ')}</span></div>`).join('')}</div><div class="gcd2 r"><small>CERTIFICATIONS</small><div>${chips(R.certs)}</div><p>${R.certNote}</p></div></div>${D.projects?projHTML(D.projects):''}</section>
 <section class="gsec" id="src">${sh('+','src','مصادر البيانات','لكل رقم مصدر وتاريخ مراجعة')}<ul class="so r">${D.sources.map(s=>`<li><a href="${s.u}" target="_blank" rel="noopener noreferrer" dir="ltr">${s.n} ↗</a><em>${s.m} — ${D.checked}</em></li>`).join('')}</ul><p class="nt r">${D.sourcesNote}</p><p class="nt r">آخر تحديث للمحتوى: ${D.lastUpdated}</p></section>
 ${finalHTML(D)}
-<div class="ft2 sec" style="padding-top:20px;width:100%">ELEX 28 — ELECTRONICS ENGINEERING</div>`}
+<div class="ft2 sec" style="padding-top:28px;width:100%"><span>ELEX 28 — ELECTRONICS ENGINEERING</span><span class="ft-credit">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></span></div>`}
 function guide(gi){gdisp();gid=gi||0;const D=[communicationsEngineeringData,computerNetworksData,industrialEngineeringData][gid];gde.setAttribute('dir','rtl');gde.setAttribute('lang','ar');
  gde.innerHTML=`<nav class="gn" aria-label="أقسام الصفحة">${GD_NAV.map(n=>`<button type="button" data-t="${n[0]}">${n[1]}</button>`).join('')}</nav>`+guideHTML(D);gde.scrollTop=0;
  const go=id=>{const e=document.getElementById(id);e&&e.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})};
@@ -1232,12 +1349,30 @@ function bindX(root){root.querySelectorAll('.gl').forEach(b=>b.addEventListener(
 /* 3D models for info guide are instantiated via getGuideScene() using original SP scenes */
 /* ===== Course Materials (stage 7). Data lives in semesterData; UI renders from it. ===== */
 const CUR_SEM=7,RES=()=>({lectures:[],summaries:[],assignments:[],pastExams:[],labs:[],links:[],announcements:[]});
-const CRS=(order,titleAr,titleEn,instructor,creditHours,visualType,category,specialization,visualCaption)=>({id:category+'-'+order,order,titleAr,titleEn,instructor,creditHours,category,specialization,visualType,description:null,visualCaption,telegramUrl:null,available:false,resources:RES()});
+const CRS=(order,titleAr,titleEn,instructor,creditHours,visualType,category,specialization,visualCaption,telegramUrl=null,description=null)=>({id:category+'-'+order,order,titleAr,titleEn,instructor,creditHours,category,specialization,visualType,description:description||null,visualCaption,telegramUrl:telegramUrl||null,available:!!telegramUrl,resources:RES()});
 const semesterData={7:{ar:'المستوى السابع',
-common:[CRS(1,'الاقتصاد الهندسي','Engineering Economics','هشام أحمد',2,'economics','common',null,'مشروع وتكلفة وقيمة على خط زمني'),CRS(2,'معالجة الإشارة الرقمية','Digital Signal Processing','جاكلين جون جورج',3,'dsp','common',null,'موجة تناظرية ثم عينات ثم طيف ترددي'),CRS(3,'أخلاقيات مهنة الهندسة','Engineering Ethics','راشد عبدالحليم',1,'ethics','common',null,'ميزان قرار ومسؤولية مهنية'),CRS(4,'بنية وتنظيم الحاسوب','Computer Organization & Architecture','ريم عبد المنعم',2,'architecture','common',null,'معالج وذاكرة وناقلات وتخزين وإدخال/إخراج'),CRS(5,'اتصالات البيانات والتشبيك','Data Communications & Networking','صلاح الفكي',2,'network','common',null,'عقد وراوتر وحزم بيانات'),CRS(6,'الاتصالات الرقمية','Digital Communications','ميادة عبدالقادر',3,'digitalcomm','common',null,'مصدر وتشفير وتضمين وقناة ومستقبل')],
-spec:{communications:[CRS(1,'نظرية الحركة و الاصطفاف','Traffic & Queueing Theory','إبراهيم خضر',2,'queueing','spec','communications','وصول ودور انتظار ونقطة خدمة'),CRS(2,'إنتشار الموجات الكهرومغناطيسية','Electromagnetic Wave Propagation','فتح الرحمن إسماعيل',3,'em','spec','communications','هوائي وجبهات موجة ومستقبل')],
-'computer-networks':[CRS(1,'نظم التشغيل','Operating Systems','عصام عبدالنبي',2,'os','spec','computer-networks','نواة وعمليات وذاكرة وتخزين وأجهزة'),CRS(2,'هندسة البرمجيات','Software Engineering',null,3,'software','spec','computer-networks','دورة حياة البرمجيات')],
-industrial:[CRS(1,'نظم التشغيل','Operating Systems','عصام عبدالنبي',2,'os','spec','industrial','نواة وعمليات وذاكرة وتخزين وأجهزة'),CRS(2,'الماكينات الكهربائية','Electrical Machines','علاء الدين عوضة',2,'machine','spec','industrial','ساكن ودوّار ومجال مغناطيسي وتحويل طاقة')]}}};
+common:[
+  CRS(1,'الاقتصاد الهندسي','Engineering Economics','هشام أحمد',2,'economics','common',null,'مشروع وتكلفة وقيمة على خط زمني','https://t.me/c/3700741234/7/196','دراسة الجدوى الاقتصادية للمشاريع الهندسية، القيمة الزمنية للنقود، التدفقات النقدية، تكلفة دورة الحياة، وتحليل البدائل الهندسية وحساب العائد على الاستثمار.'),
+  CRS(2,'معالجة الإشارة الرقمية','Digital Signal Processing','جاكلين جون جورج',3,'dsp','common',null,'موجة تناظرية ثم عينات ثم طيف ترددي','https://t.me/c/3700741234/7/234','التحويل التناظري الرقمي، أخذ العينات والتكميم، تحويلات فورييه المتقطعة والسريعة (DFT & FFT)، تحويل Z، وتصميم المرشحات الرقمية ومعالجة الإشارات في المجال الترددي.'),
+  CRS(3,'أخلاقيات مهنة الهندسة','Engineering Ethics','راشد عبدالحليم',1,'ethics','common',null,'ميزان قرار ومسؤولية مهنية','https://t.me/c/3700741234/7/269','المسؤولية المهنية والقانونية والأخلاقية للمهندس، ميثاق الشرف الهندسي، معايير السلامة والجودة والبيئة، والتعامل مع المعضلات الأخلاقية في البيئات الهندسية وحل النزاعات المهنية.'),
+  CRS(4,'بنية وتنظيم الحاسوب','Computer Organization & Architecture','ريم عبد المنعم',2,'architecture','common',null,'معالج وذاكرة وناقلات وتخزين وإدخال/إخراج','https://t.me/c/3700741234/7/294?single','المعمارية الداخلية للمعالجات الدقيقة، بنية الذاكرة والتسلسل الهرمي (Cache & Virtual Memory)، مسارات البيانات ووحدات التحكم، وخطوط المعالجة المتوازية (Pipelining).'),
+  CRS(5,'اتصالات البيانات والتشبيك','Data Communications & Networking','صلاح الفكي',2,'network','common',null,'عقد وراوتر وحزم بيانات','https://t.me/c/3700741234/7/336','بروتوكولات ونماذج الاتصال (OSI & TCP/IP)، تقنيات تراسل البيانات، التوجيه والتبديل (Routing & Switching)، كشف وتصحيح الأخطاء، والتحكم في تدفق الحزم عبر الشبكات.'),
+  CRS(6,'الاتصالات الرقمية','Digital Communications','ميادة عبدالقادر',3,'digitalcomm','common',null,'مصدر وتشفير وتضمين وقناة ومستقبل','https://t.me/c/4415903092/57','تقنيات التضمين الرقمي (ASK, FSK, PSK, QAM)، ترميز المصدر والقناة، نظرية شانون لسعة القناة، واسترجاع الإشارة ومكافحة الضوضاء (AWGN).')
+],
+spec:{
+  communications:[
+    CRS(1,'نظرية الحركة و الاصطفاف','Traffic & Queueing Theory','إبراهيم خضر',2,'queueing','spec','communications','وصول ودور انتظار ونقطة خدمة','https://t.me/c/3700741234/3/131','نماذج حركة الاتصالات (Teletraffic Engineering)، سلاسل ماركوف وعمليات بواسون، أنظمة وطوابير الانتظار (M/M/1, M/M/c)، صيغ إيرلانغ (Erlang B & C)، وتحليل سعة وكفاءة شبكات الاتصال.'),
+    CRS(2,'إنتشار الموجات الكهرومغناطيسية','Electromagnetic Wave Propagation','فتح الرحمن إسماعيل',3,'em','spec','communications','هوائي وجبهات موجة ومستقبل','https://t.me/c/3700741234/3/103','معادلات ماكسويل والظواهر الكهرومغناطيسية، انتشار الموجات في الأوساط المختلفة وخطوط النقل، آليات انتشار الموجات الأرضية والسماوية والفضائية وتصميم الهوائيات.')
+  ],
+  'computer-networks':[
+    CRS(1,'نظم التشغيل','Operating Systems','عصام عبدالنبي',2,'os','spec','computer-networks','نواة وعمليات وذاكرة وتخزين وأجهزة','https://t.me/c/3700741234/2/52','مفاهيم نواة نظام التشغيل، إدارة العمليات والجدولة وتعدد المهام (Multithreading)، آليات التزامن والاتصال بين العمليات (IPC)، إدارة الذاكرة، وأنظمة الملفات مع التركيز على بيئات الشبكات والخوادم.'),
+    CRS(2,'هندسة البرمجيات','Software Engineering',null,3,'software','spec','computer-networks','دورة حياة البرمجيات',null,'منهجيات ونماذج تطوير البرمجيات، هندسة المتطلبات، التحليل والتصميم الكائني (UML)، أنماط التصميم (Design Patterns)، ومبادئ الاختبار وضمان الجودة البرمجية.')
+  ],
+  industrial:[
+    CRS(1,'نظم التشغيل','Operating Systems','عصام عبدالنبي',2,'os','spec','industrial','نواة وعمليات وذاكرة وتخزين وأجهزة','https://t.me/c/3700741234/4/146','مفاهيم إدارة العمليات والجدولة، إدارة وتوزيع الذاكرة والذاكرة الافتراضية، التزامن وتفادي الاختناق (Deadlocks)، ونظم الملفات ووحدات الإدخال والإخراج في التطبيقات والأنظمة الصناعية.'),
+    CRS(2,'الماكينات الكهربائية','Electrical Machines','علاء الدين عوضة',2,'machine','spec','industrial','ساكن ودوّار ومجال مغناطيسي وتحويل طاقة','https://t.me/+bzZyINVgV-ViZDdk','مبادئ تحويل الطاقة الكهروميكانيكية، المحولات الكهربائية أحادية وثلاثية الأطوار، محركات ومولدات التيار المستمر والمتردد (DC & AC Machines)، والمحركات الحثية والتزامنية وتشغيلها والتحكم بها.')
+  ]
+}}};
 const MT=(ix,sk)=>ix>=0&&sk&&sk.key==='materials',matE=$('#mat'),hrs=n=>n==1?'ساعة معتمدة':n==2?'ساعتان معتمدتان':n+' ساعات معتمدة',sumH=a=>a.reduce((n,c)=>n+c.creditHours,0),p2=n=>String(n).padStart(2,'0');
 const DT=(p,d,b)=>RM?'':`<circle class="dt" r="2.8"><animateMotion dur="${d}s" begin="${b||0}s" repeatCount="indefinite" path="${p}"/></circle>`,PU=d=>`style="animation-delay:${d}s"`;
 const VZ={
@@ -1256,9 +1391,9 @@ foundation:()=>`<g class="ln"><circle cx="100" cy="60" r="12"/><circle cx="100" 
 const viz=(t,l)=>`<svg viewBox="0 0 200 120" role="img" aria-label="${l}" class="mv">${(VZ[t]||VZ.foundation)()}</svg>`;
 const cEsc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const insL=c=>c.instructor?c.instructor:'اسم الدكتور سيُضاف لاحقًا';
-function courseCard(c,base,v,j){return `<a class="cc" style="--d:${j*.07}s" href="${base}/${v}/${c.id}"><div class="cch"><span class="ck" dir="ltr">${c.category==='common'?'COMMON':'SPECIALIZATION'}</span><span class="cnb" dir="ltr">[${p2(c.order)}]</span></div><div class="cv">${viz(c.visualType,'رسم توضيحي: '+c.visualCaption)}</div><div class="cc-body"><h3 class="ar">${c.titleAr}</h3><small class="cc-en" dir="ltr">${c.titleEn.toUpperCase()}</small><div class="cci-group"><div class="ci"><span class="ci-lbl">المحاضر</span><span class="ci-val">${c.instructor?c.instructor:`<em>${insL(c)}</em>`}</span></div><div class="ci"><span class="ci-lbl">الساعات</span><span class="ci-val">${hrs(c.creditHours)}</span></div></div></div><div class="cc-act"><b>دخول إلى المادة</b></div></a>`}
+function courseCard(c,base,v,j){const tg=/^https?:\/\//.test(c.telegramUrl||'');return `<a class="cc" style="--d:${j*.07}s" href="${base}/${v}/${c.id}"><div class="cch"><span class="ck" dir="ltr">${c.category==='common'?'COMMON':'SPECIALIZATION'}</span>${tg?`<span class="tg-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>تيليجرام متاح</span>`:''}<span class="cnb" dir="ltr">[${p2(c.order)}]</span></div><div class="cv">${viz(c.visualType,'رسم توضيحي: '+c.visualCaption)}</div><div class="cc-body"><h3 class="ar">${c.titleAr}</h3><small class="cc-en" dir="ltr">${c.titleEn.toUpperCase()}</small><div class="cci-group"><div class="ci"><span class="ci-lbl">المحاضر</span><span class="ci-val">${c.instructor?c.instructor:`<em>${insL(c)}</em>`}</span></div><div class="ci"><span class="ci-lbl">الساعات</span><span class="ci-val">${hrs(c.creditHours)}</span></div></div></div><div class="cc-act"><b>تفاصيل المادة ورابط القناة</b></div></a>`}
 function courseDetail(c,list){const tg=/^https?:\/\//.test(c.telegramUrl||''),R=Object.entries(c.resources).filter(e=>e[1].length),RL={lectures:'المحاضرات',summaries:'الملخصات',assignments:'التكليفات',pastExams:'الامتحانات السابقة',labs:'المعامل',links:'روابط',announcements:'إعلانات'};
-return `<div class="cd" style="--cc:${c.category==='common'?'#32D6FF':'var(--ac)'}" role="dialog" aria-modal="true" aria-labelledby="cdt"><div class="cdi"><a class="cdx" href="${list}">إغلاق</a><div class="cdh"><span class="ck" dir="ltr">${c.category==='common'?'COMMON':'SPECIALIZATION'}</span><span class="cnb" dir="ltr">[${p2(c.order)}]</span></div><h2 id="cdt" class="ar">${c.titleAr}</h2><small class="cc-en" dir="ltr">${c.titleEn.toUpperCase()}</small><div class="cdv">${viz(c.visualType,'رسم توضيحي: '+c.visualCaption)}</div><p class="cdc">تصور مبسّط للمادة: ${c.visualCaption}</p><div class="cdm"><div><small>المحاضر</small><b>${c.instructor?c.instructor:`<em>${insL(c)}</em>`}</b></div><div><small>الساعات المعتمدة</small><b>${hrs(c.creditHours)}</b></div></div><p class="cdd">${c.description?cEsc(c.description):'وصف المادة سيُضاف لاحقًا.'}</p>${tg?`<a class="cta2" href="${cEsc(c.telegramUrl)}" target="_blank" rel="noopener noreferrer">دخول إلى المادة</a>`:`<span class="cta2 off" aria-disabled="true">رابط المادة لم يُضاف بعد</span>`}${R.length?R.map(e=>`<div class="rs2"><small>${RL[e[0]]}</small>${e[1].map(x=>x.url&&/^https?:\/\//.test(x.url)?`<a href="${cEsc(x.url)}" target="_blank" rel="noopener noreferrer">${cEsc(x.title)}</a>`:`<span>${cEsc(x.title)}</span>`).join('')}</div>`).join(''):`<div class="empty"><b>المحتوى الأكاديمي قيد الإضافة</b><p>سيتم توفير محتوى المادة قريبًا.</p></div>`}</div></div>`}
+return `<div class="cd" style="--cc:${c.category==='common'?'#32D6FF':'var(--ac)'}" role="dialog" aria-modal="true" aria-labelledby="cdt"><div class="cdi"><a class="cdx" href="${list}">إغلاق</a><div class="cdh"><span class="ck" dir="ltr">${c.category==='common'?'COMMON':'SPECIALIZATION'}</span><span class="cnb" dir="ltr">[${p2(c.order)}]</span></div><h2 id="cdt" class="ar">${c.titleAr}</h2><small class="cc-en" dir="ltr">${c.titleEn.toUpperCase()}</small><div class="cdv">${viz(c.visualType,'رسم توضيحي: '+c.visualCaption)}</div><p class="cdc">تصور مبسّط للمادة: ${c.visualCaption}</p><div class="cdm"><div><small>المحاضر</small><b>${c.instructor?c.instructor:`<em>${insL(c)}</em>`}</b></div><div><small>الساعات المعتمدة</small><b>${hrs(c.creditHours)}</b></div></div><p class="cdd">${c.description?cEsc(c.description):'وصف المادة سيُضاف لاحقًا.'}</p>${tg?`<a class="cta2 tg-cta" href="${cEsc(c.telegramUrl)}" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg><span>دخول إلى قناة المادة في تيليجرام ↗</span></a>`:`<span class="cta2 off" aria-disabled="true">رابط القناة لم يُضاف بعد</span>`}${R.length?R.map(e=>`<div class="rs2"><small>${RL[e[0]]}</small>${e[1].map(x=>x.url&&/^https?:\/\//.test(x.url)?`<a href="${cEsc(x.url)}" target="_blank" rel="noopener noreferrer">${cEsc(x.title)}</a>`:`<span>${cEsc(x.title)}</span>`).join('')}</div>`).join(''):`<div class="empty"><b>المحتوى الأكاديمي قيد الإضافة</b><p>سيتم توفير محتوى المادة والملازم قريبًا عبر القناة الرسمية للمقرر.</p></div>`}</div></div>`}
 function matPage(ix){const s=SP[ix],S=semesterData[CUR_SEM],seg=location.hash.split('/'),view=seg[4],cid=seg[5],base=`#/specializations/${s.id}/materials`,com=S.common,spc=S.spec[s.id],hC=sumH(com),hS=sumH(spc),L=[['common',com,'المواد المشتركة','COMMON COURSES','--cc:#32D6FF'],['specialization',spc,'مواد التخصص','SPECIALIZATION COURSES','--cc:var(--ac)']];
  const bc=(a)=>`<nav class="bc" aria-label="مسار التنقل"><a class="bx" href="#/specializations">ELEX 28</a><i class="bx">/</i><a class="bx" href="#/specializations/${s.id}">${s.englishTitle}</a><i class="bx">/</i><a href="${base}">COURSE MATERIALS</a>${a?`<i>/</i><span>${a}</span>`:''}</nav>`;
  const cur=L.find(x=>x[0]===view);let h;
@@ -1269,8 +1404,8 @@ function matPage(ix){const s=SP[ix],S=semesterData[CUR_SEM],seg=location.hash.sp
   ['SPECIALIZATION', 'ساعات التخصص', p2(hS) + ' س'],
   ['TOTAL HOURS', 'إجمالي الساعات', p2(hC+hS) + ' س']
 ].map(x=>`<div><small dir="ltr">${x[0]}</small><b>${x[2]}</b><span class="st-sub">${x[1]}</span></div>`).join('')}</div>
-<div class="mcs">${L.map((x,i)=>`<a class="mc" style="${x[4]};--d:${i*.1}s" href="${base}/${x[0]}"><div class="cch"><span class="ck" dir="ltr">0${i+1} &bull; ${i?'SPECIALIZATION':'COMMON'}</span><span class="cnb" dir="ltr">${p2(x[1].length)} COURSES</span></div><div class="cv big">${viz(i?spc[0].visualType:'foundation',i?'تمثيل لمواد التخصص':'تمثيل للمواد المشتركة')}</div><div class="cc-body"><h3 class="ar">${x[2]}</h3><small class="cc-en" dir="ltr">${x[3]}</small><div class="mc-stats"><div class="mc-stat-item"><span class="mc-stat-num">${p2(x[1].length)}</span><span class="mc-stat-lbl">${x[1].length===1?'مقرر دراسي':x[1].length===2?'مقرران دراسيان':'مقررات دراسية'}</span></div><div class="mc-stat-item"><span class="mc-stat-num">${p2(sumH(x[1]))}</span><span class="mc-stat-lbl">${sumH(x[1])===1?'ساعة معتمدة':sumH(x[1])===2?'ساعتان معتمدتان':'ساعات معتمدة'}</span></div></div><p class="md">${i?`المقررات التخصصية الدقيقة المعتمدة لمسار ${s.title}.`:'المقررات الهندسية الأساسية المشتركة بين طلاب كافة تخصصات ELEX 28.'}</p></div><div class="cc-act"><b class="go">${i?'استعراض مواد التخصص':'استعراض المواد المشتركة'}</b></div></a>`).join('')}</div></div>`}
- else{h=`<div class="sec mp" style="${cur[4]}">${bc(cur[3])}<div class="br r"><b>SEMESTER ${p2(CUR_SEM)}</b><span class="ar" lang="ar">${s.title}</span></div><h1 class="ar r" lang="ar" style="--d:.1s">${cur[2]}</h1><div class="eng r" dir="ltr">${cur[3]}</div><p class="mn r" style="--d:.18s"><b><i class="m-dot" aria-hidden="true"></i><span class="m-num">${p2(cur[1].length)}</span><span class="m-txt">COURSES</span><span class="m-sep">&bull;</span><span class="m-ar">${cur[1].length===1?'مقرر دراسي':cur[1].length===2?'مقرران دراسيان':'مقررات دراسية'}</span></b><b><i class="m-dot" aria-hidden="true"></i><span class="m-num">${p2(sumH(cur[1]))}</span><span class="m-txt">CREDIT HOURS</span><span class="m-sep">&bull;</span><span class="m-ar">${sumH(cur[1])===1?'ساعة معتمدة':sumH(cur[1])===2?'ساعتان معتمدتان':'ساعات معتمدة'}</span></b></p><div class="mg">${cur[1].map((c,j)=>courseCard(c,base,cur[0],j)).join('')}</div><a class="bl r" href="${base}">&larr; COURSE MATERIALS</a></div>`;
+<div class="mcs">${L.map((x,i)=>`<a class="mc" style="${x[4]};--d:${i*.1}s" href="${base}/${x[0]}"><div class="cch"><span class="ck" dir="ltr">0${i+1} &bull; ${i?'SPECIALIZATION':'COMMON'}</span><span class="cnb" dir="ltr">${p2(x[1].length)} COURSES</span></div><div class="cv big">${viz(i?spc[0].visualType:'foundation',i?'تمثيل لمواد التخصص':'تمثيل للمواد المشتركة')}</div><div class="cc-body"><h3 class="ar">${x[2]}</h3><small class="cc-en" dir="ltr">${x[3]}</small><div class="mc-stats"><div class="mc-stat-item"><span class="mc-stat-num">${p2(x[1].length)}</span><span class="mc-stat-lbl">${x[1].length===1?'مقرر دراسي':x[1].length===2?'مقرران دراسيان':'مقررات دراسية'}</span></div><div class="mc-stat-item"><span class="mc-stat-num">${p2(sumH(x[1]))}</span><span class="mc-stat-lbl">${sumH(x[1])===1?'ساعة معتمدة':sumH(x[1])===2?'ساعتان معتمدتان':'ساعات معتمدة'}</span></div></div><p class="md">${i?`المقررات التخصصية الدقيقة المعتمدة لمسار ${s.title}.`:'المقررات الهندسية الأساسية المشتركة بين طلاب كافة تخصصات ELEX 28.'}</p></div><div class="cc-act"><b class="go">${i?'استعراض مواد التخصص':'استعراض المواد المشتركة'}</b></div></a>`).join('')}</div><footer class="sec ft2" style="padding-top:48px"><span>ELEX 28 — ELECTRONICS ENGINEERING</span><span class="ft-credit">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></span></footer></div>`}
+ else{h=`<div class="sec mp" style="${cur[4]}">${bc(cur[3])}<div class="br r"><b>SEMESTER ${p2(CUR_SEM)}</b><span class="ar" lang="ar">${s.title}</span></div><h1 class="ar r" lang="ar" style="--d:.1s">${cur[2]}</h1><div class="eng r" dir="ltr">${cur[3]}</div><p class="mn r" style="--d:.18s"><b><i class="m-dot" aria-hidden="true"></i><span class="m-num">${p2(cur[1].length)}</span><span class="m-txt">COURSES</span><span class="m-sep">&bull;</span><span class="m-ar">${cur[1].length===1?'مقرر دراسي':cur[1].length===2?'مقرران دراسيان':'مقررات دراسية'}</span></b><b><i class="m-dot" aria-hidden="true"></i><span class="m-num">${p2(sumH(cur[1]))}</span><span class="m-txt">CREDIT HOURS</span><span class="m-sep">&bull;</span><span class="m-ar">${sumH(cur[1])===1?'ساعة معتمدة':sumH(cur[1])===2?'ساعتان معتمدتان':'ساعات معتمدة'}</span></b></p><div class="mg">${cur[1].map((c,j)=>courseCard(c,base,cur[0],j)).join('')}</div><a class="bl r" href="${base}">&larr; COURSE MATERIALS</a><footer class="sec ft2" style="padding-top:48px"><span>ELEX 28 — ELECTRONICS ENGINEERING</span><span class="ft-credit">Designed by : <a href="https://wa.me/249118222378" target="_blank" rel="noopener noreferrer">OMAR FATHI</a></span></footer></div>`;
   const c=cur[1].find(c=>c.id===cid);if(c)h+=courseDetail(c,`${base}/${cur[0]}`)}
  matE.innerHTML=h;matE.scrollTop=0;reveal(matE);
  matE.querySelectorAll('.cc').forEach(a=>{a.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=a.getBoundingClientRect(),v=a.querySelector('.mv');v.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*14+'deg');v.style.setProperty('--rx',-((e.clientY-r.top)/r.height-.5)*10+'deg')});a.addEventListener('pointerleave',()=>{const v=a.querySelector('.mv');v.style.setProperty('--ry','0deg');v.style.setProperty('--rx','0deg')})});

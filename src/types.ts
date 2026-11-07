@@ -49,7 +49,7 @@ export interface ChannelLink {
   id: string;
   titleAr: string;
   titleEn: string;
-  type: 'telegram' | 'whatsapp' | 'drive' | 'site' | 'coordinator';
+  type: 'telegram' | 'whatsapp' | 'drive' | 'site' | 'coordinator' | 'elearning';
   url: string;
   descriptionAr: string;
   badgeAr?: string;

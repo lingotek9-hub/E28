@@ -197,8 +197,19 @@ export const SpecializationSelector: React.FC<SpecializationSelectorProps> = ({
       </div>
 
       {/* Footer slogan */}
-      <footer className="text-center text-[10px] tracking-[0.35em] text-[#9A9EA6]/60 uppercase pt-4 border-t border-white/[0.06]">
-        ONE IDENTITY · THREE ENGINEERING WORLDS · ONE JOURNEY · ELEX 28
+      <footer className="text-center text-[10px] tracking-[0.35em] text-[#9A9EA6]/60 uppercase pt-4 border-t border-white/[0.06] flex flex-col items-center gap-1.5">
+        <div>ELEX 28 — ELECTRONICS ENGINEERING</div>
+        <div className="text-[11px] tracking-[0.2em] font-mono text-slate-400 font-medium uppercase">
+          Designed by :{' '}
+          <a
+            href="https://wa.me/249118222378"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:text-white underline decoration-cyan-400/40 hover:decoration-white transition-colors"
+          >
+            OMAR FATHI
+          </a>
+        </div>
       </footer>
     </div>
   );

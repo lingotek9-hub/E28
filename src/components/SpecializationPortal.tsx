@@ -1052,8 +1052,19 @@ export const SpecializationPortal: React.FC<SpecializationPortalProps> = ({
       )}
 
       {/* Footer */}
-      <footer className="mt-auto py-8 border-t border-white/[0.08] text-center text-[10px] tracking-[0.25em] text-[#9A9EA6]/60 uppercase font-mono">
-        ELEX 28 · {spec.titleEn} · ACADEMIC PORTAL
+      <footer className="mt-auto py-8 border-t border-white/[0.08] text-center text-[10px] tracking-[0.25em] text-[#9A9EA6]/60 uppercase font-mono flex flex-col items-center gap-1.5">
+        <div>ELEX 28 — ELECTRONICS ENGINEERING</div>
+        <div className="text-[11px] tracking-[0.2em] font-mono text-slate-400 font-medium uppercase">
+          Designed by :{' '}
+          <a
+            href="https://wa.me/249118222378"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:text-white underline decoration-cyan-400/40 hover:decoration-white transition-colors"
+          >
+            OMAR FATHI
+          </a>
+        </div>
       </footer>
     </div>
   );
